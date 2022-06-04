@@ -1,0 +1,66 @@
+﻿@model Geoprofs.Models.Coworker
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Coworker</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CoworkerName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CoworkerName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.coworkerLastname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.coworkerLastname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.bsn)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.bsn)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.position)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.position)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.supervisor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.supervisor)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.startDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.absence)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.absence)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vacationdays)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vacationdays)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

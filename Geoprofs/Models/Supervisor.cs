@@ -2,7 +2,7 @@
 {
     public class Supervisor
     {
-        public int id { get; set; }
-        public Coworker Coworker { get; set; }
+        public int supervisorId { get; set; }
+        public int Coworker { get; set; }
     }
 }

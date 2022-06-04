@@ -2,7 +2,7 @@
 {
     public class AbsenceType
     {
-        public int id { get; set; }
+        public int absenceTypeId { get; set; }
         public string absenceName { get; set; }
     }
 }

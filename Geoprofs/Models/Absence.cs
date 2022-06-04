@@ -2,7 +2,7 @@
 {
     public class Absence
     {
-        public int Id { get; set; }
+        public int absenceId { get; set; }
         public int totalVacation { get; set; }
     }
 }

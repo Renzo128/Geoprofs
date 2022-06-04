@@ -1,0 +1,68 @@
+﻿@model Geoprofs.Models.Coworker
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Coworker</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CoworkerName" class="control-label"></label>
+                <input asp-for="CoworkerName" class="form-control" />
+                <span asp-validation-for="CoworkerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="coworkerLastname" class="control-label"></label>
+                <input asp-for="coworkerLastname" class="form-control" />
+                <span asp-validation-for="coworkerLastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="bsn" class="control-label"></label>
+                <input asp-for="bsn" class="form-control" />
+                <span asp-validation-for="bsn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="position" class="control-label"></label>
+                <input asp-for="position" class="form-control" />
+                <span asp-validation-for="position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="supervisor" class="control-label"></label>
+                <input asp-for="supervisor" class="form-control" />
+                <span asp-validation-for="supervisor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="startDate" class="control-label"></label>
+                <input asp-for="startDate" class="form-control" />
+                <span asp-validation-for="startDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="absence" class="control-label"></label>
+                <input asp-for="absence" class="form-control" />
+                <span asp-validation-for="absence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vacationdays" class="control-label"></label>
+                <input asp-for="vacationdays" class="form-control" />
+                <span asp-validation-for="vacationdays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

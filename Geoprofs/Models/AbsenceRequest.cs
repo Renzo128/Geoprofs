@@ -1,12 +1,18 @@
-﻿namespace Geoprofs.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace Geoprofs.Models
 {
     public class AbsenceRequest
     {
-        public int Id { get; set; }
-        public Coworker Coworker { get; set; }
-        public string AbsenceStart { get; set; }
-        public string AbsenceEnd { get; set; }
+        [Key]
+        public int absenceId { get; set; }
+        public int Coworker { get; set; }
+        public DateTime AbsenceStart { get; set; }
+        public DateTime AbsenceEnd { get; set; }
         public string Note { get; set; }
-        public AbsenceType absenceType { get; set; }
+        public int absenceType { get; set; }
+
+        public string absenceStatus { get; set; }
     }
 }
