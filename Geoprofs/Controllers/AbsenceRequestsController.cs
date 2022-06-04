@@ -10,68 +10,62 @@ using Geoprofs.Models.Data;
 
 namespace Geoprofs.Controllers
 {
-    public class CoworkersController : Controller
+    public class AbsenceRequestsController : Controller
     {
         private readonly DB _context;
 
-        public CoworkersController(DB context)
+        public AbsenceRequestsController(DB context)
         {
             _context = context;
         }
 
-        // GET: Coworkers
+        // GET: AbsenceRequests
         public async Task<IActionResult> Index()
         {
-            var test = _context.coworkers
-            .Include(s => s.Position);
-
-            return View(await test.ToListAsync());
+            return View(await _context.absenceRequests.ToListAsync());
         }
 
-        // GET: Coworkers/Details/5
+        // GET: AbsenceRequests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var updatedview = await _context.coworkers
-            .Include(s => s.Position)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.coworkerId == id);
-  /*          var coworker = await _context.coworkers
-                .FirstOrDefaultAsync(m => m.coworkerId == id); */
-            if (updatedview == null)
+
+            var absenceRequest = await _context.absenceRequests
+                .FirstOrDefaultAsync(m => m.absenceId == id);
+            if (absenceRequest == null)
             {
                 return NotFound();
             }
 
-            return View(updatedview);
+            return View(absenceRequest);
         }
 
-        // GET: Coworkers/Create
+        // GET: AbsenceRequests/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Coworkers/Create
+        // POST: AbsenceRequests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("coworkerId,CoworkerName,coworkerLastname,bsn,position,supervisor,startDate,absence,vacationdays")] Coworker coworker)
+        public async Task<IActionResult> Create([Bind("absenceId,Coworker,AbsenceStart,AbsenceEnd,Note,absenceType,absenceStatus")] AbsenceRequest absenceRequest)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(coworker);
+                _context.Add(absenceRequest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(coworker);
+            return View(absenceRequest);
         }
 
-        // GET: Coworkers/Edit/5
+        // GET: AbsenceRequests/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +73,22 @@ namespace Geoprofs.Controllers
                 return NotFound();
             }
 
-            var coworker = await _context.coworkers.FindAsync(id);
-            if (coworker == null)
+            var absenceRequest = await _context.absenceRequests.FindAsync(id);
+            if (absenceRequest == null)
             {
                 return NotFound();
             }
-            return View(coworker);
+            return View(absenceRequest);
         }
 
-        // POST: Coworkers/Edit/5
+        // POST: AbsenceRequests/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("coworkerId,CoworkerName,coworkerLastname,bsn,position,supervisor,startDate,absence,vacationdays")] Coworker coworker)
+        public async Task<IActionResult> Edit(int id, [Bind("absenceId,Coworker,AbsenceStart,AbsenceEnd,Note,absenceType,absenceStatus")] AbsenceRequest absenceRequest)
         {
-            if (id != coworker.coworkerId)
+            if (id != absenceRequest.absenceId)
             {
                 return NotFound();
             }
@@ -103,12 +97,12 @@ namespace Geoprofs.Controllers
             {
                 try
                 {
-                    _context.Update(coworker);
+                    _context.Update(absenceRequest);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CoworkerExists(coworker.coworkerId))
+                    if (!AbsenceRequestExists(absenceRequest.absenceId))
                     {
                         return NotFound();
                     }
@@ -119,10 +113,10 @@ namespace Geoprofs.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(coworker);
+            return View(absenceRequest);
         }
 
-        // GET: Coworkers/Delete/5
+        // GET: AbsenceRequests/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,30 +124,30 @@ namespace Geoprofs.Controllers
                 return NotFound();
             }
 
-            var coworker = await _context.coworkers
-                .FirstOrDefaultAsync(m => m.coworkerId == id);
-            if (coworker == null)
+            var absenceRequest = await _context.absenceRequests
+                .FirstOrDefaultAsync(m => m.absenceId == id);
+            if (absenceRequest == null)
             {
                 return NotFound();
             }
 
-            return View(coworker);
+            return View(absenceRequest);
         }
 
-        // POST: Coworkers/Delete/5
+        // POST: AbsenceRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var coworker = await _context.coworkers.FindAsync(id);
-            _context.coworkers.Remove(coworker);
+            var absenceRequest = await _context.absenceRequests.FindAsync(id);
+            _context.absenceRequests.Remove(absenceRequest);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CoworkerExists(int id)
+        private bool AbsenceRequestExists(int id)
         {
-            return _context.coworkers.Any(e => e.coworkerId == id);
-        } 
+            return _context.absenceRequests.Any(e => e.absenceId == id);
+        }
     }
 }

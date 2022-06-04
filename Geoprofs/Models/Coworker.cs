@@ -1,9 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+using System.ComponentModel.DataAnnotations;
 namespace Geoprofs.Models
 {
     public class Coworker
     {
+        [Key]
         public int coworkerId { get; set; }
         public string CoworkerName { get; set; }
         public string coworkerLastname { get; set; }
@@ -14,6 +17,9 @@ namespace Geoprofs.Models
         public DateTime startDate { get; set; }
         public int absence { get; set; }
         public int vacationdays { get; set; }
+        [ForeignKey("position")]
+
+        public Position Position { get; set; }
 
     }
 }
