@@ -65,6 +65,28 @@
             @Html.DisplayFor(model => model.Position.positionName)
         </dd>
     </dl>
+    <dt class="col-sm-2">
+    @Html.DisplayNameFor(model => model.AbsenceRequest)
+</dt>
+<dd class="col-sm-10">
+    <table class="table">
+        <tr>
+            <th>Start absence</th>
+            <th>End absence</th>
+        </tr>
+        @foreach (var item in Model.AbsenceRequest)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AbsenceStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AbsenceEnd)
+                </td>
+            </tr>
+        }
+    </table>
+</dd>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |

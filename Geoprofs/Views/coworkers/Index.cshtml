@@ -20,26 +20,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.coworkerLastname)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.bsn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.position)
-            </th>
+
+
             <th>
                 @Html.DisplayNameFor(model => model.supervisor)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.startDate)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.absence)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.vacationdays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Position.positionName)
             </th>
             <th></th>
         </tr>
@@ -53,34 +41,32 @@
             <td>
                 @Html.DisplayFor(modelItem => item.coworkerLastname)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bsn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.position)
-            </td>
+
+
             <td>
                 @Html.DisplayFor(modelItem => item.supervisor)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.startDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.absence)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.vacationdays)
-            </td>
-                        <td>
-               @Html.DisplayFor(modelItem => item.Position.positionName)
 
+
+            <td>
+                    @foreach(var item2 in item.AbsenceRequest)
+                    {
+                        
+                    
+                @Html.DisplayFor(modelItem => item2.AbsenceStart)
+                <br />
+                @Html.DisplayFor(modelItem => item2.AbsenceEnd)
+
+                }
             </td>
+            <!--
             <td>
 
                 <a asp-action="Edit" asp-route-id="@item.coworkerId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.coworkerId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.coworkerId">Delete</a>
             </td>
+            -->
         </tr>
 }
     </tbody>

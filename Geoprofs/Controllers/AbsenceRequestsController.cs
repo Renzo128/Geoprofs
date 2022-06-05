@@ -22,7 +22,10 @@ namespace Geoprofs.Controllers
         // GET: AbsenceRequests
         public async Task<IActionResult> Index()
         {
-            return View(await _context.absenceRequests.ToListAsync());
+            var Data = _context.absenceRequests
+            .Include(s => s.coworker)
+            .Include(t => t.AbsenceType);
+            return View(await Data.ToListAsync());
         }
 
         // GET: AbsenceRequests/Details/5

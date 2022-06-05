@@ -14,5 +14,10 @@ namespace Geoprofs.Models
         public int absenceType { get; set; }
 
         public string absenceStatus { get; set; }
+
+        [ForeignKey("Coworker")]
+        public Coworker coworker { get; set; }
+        [ForeignKey("absenceType")]
+        public AbsenceType AbsenceType { get; set; }
     }
 }

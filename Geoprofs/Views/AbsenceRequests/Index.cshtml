@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Coworker)
+                @Html.DisplayNameFor(model => model.coworker.CoworkerName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AbsenceStart)
@@ -22,13 +22,16 @@
                 @Html.DisplayNameFor(model => model.AbsenceEnd)
             </th>
             <th>
+                Duur
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Note)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.absenceType)
+                @Html.DisplayNameFor(model => model.AbsenceType.absenceName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.absenceStatus)
+                Actie
             </th>
             <th></th>
         </tr>
@@ -37,7 +40,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Coworker)
+                @Html.DisplayFor(modelItem => item.coworker.CoworkerName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AbsenceStart)
@@ -46,18 +49,20 @@
                 @Html.DisplayFor(modelItem => item.AbsenceEnd)
             </td>
             <td>
+                1 Dag
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.absenceType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.absenceStatus)
+                @Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.absenceId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.absenceId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.absenceId">Delete</a>
+                <!--
+                 <a asp-action="Delete" asp-route-id="@item.absenceId">Delete</a>
+                 -->
             </td>
         </tr>
 }

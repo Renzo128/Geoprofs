@@ -22,10 +22,11 @@ namespace Geoprofs.Controllers
         // GET: Coworkers
         public async Task<IActionResult> Index()
         {
-            var test = _context.coworkers
-            .Include(s => s.Position);
+            var Data = _context.coworkers
+            .Include(s => s.Position)
+            .Include(a => a.AbsenceRequest);
 
-            return View(await test.ToListAsync());
+            return View(await Data.ToListAsync());
         }
 
         // GET: Coworkers/Details/5
@@ -37,6 +38,7 @@ namespace Geoprofs.Controllers
             }
             var updatedview = await _context.coworkers
             .Include(s => s.Position)
+            .Include(a => a.AbsenceRequest)
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.coworkerId == id);
   /*          var coworker = await _context.coworkers
