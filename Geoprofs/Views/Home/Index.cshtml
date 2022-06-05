@@ -1,12 +1,15 @@
-﻿@{
+﻿@model Geoprofs.Models.Login
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1>Login</h1>
-
-    <h5><input type="text" placeholder="Usename"/></h5>
-    <h5><input type="password" placeholder="Password"/></h5>
-    <h5><button type="button">Login</button></h5>
+    <h1>Login</h1>  <!--login pagina-->
+    @using(Html.BeginForm("Verify","login"))
+    {
+    <h5><input type="text" name="Username" id="Username" placeholder="Usename"/></h5>
+    <h5><input type="password" id="Password" name="Password" placeholder="Password"/></h5>
+    <h5><button type="submit">Login</button></h5>
+    }
 
 </div>

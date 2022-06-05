@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Geoprofs.Models
 {
     public class AbsenceRequest
-    {
+    {   // rows voor database zetten
         [Key]
         public int absenceId { get; set; }
         public int Coworker { get; set; }
@@ -15,7 +15,7 @@ namespace Geoprofs.Models
 
         public string absenceStatus { get; set; }
 
-        [ForeignKey("Coworker")]
+        [ForeignKey("Coworker")]    // data uit andere databases halen
         public Coworker coworker { get; set; }
         [ForeignKey("absenceType")]
         public AbsenceType AbsenceType { get; set; }

@@ -21,7 +21,7 @@ namespace Geoprofs
             {
                 var services = scope.ServiceProvider;
                 try
-                {
+                {   // database ophalen
                     var context = services.GetRequiredService<DB>();
                     DbInitializer.Initialize(context);
                 }
@@ -34,7 +34,7 @@ namespace Geoprofs
 
             host.Run();
         }
-        private static void CreateDbIfNotExists(IHost host)
+        private static void CreateDbIfNotExists(IHost host) // database aanmaken
         {
             using (var scope = host.Services.CreateScope())
             {

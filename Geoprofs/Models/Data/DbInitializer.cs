@@ -11,11 +11,11 @@ namespace Geoprofs.Models.Data
             context.Database.EnsureCreated();
 
             // Look for any students.
-            if (context.absenceTypes.Any())
+            if (context.absenceTypes.Any()) // controlleren of data al aangemaakt is
             {
                 return;   // DB has been seeded
             }
-
+                // data aanmaken
             var absenceType = new AbsenceType[]
             {
             new AbsenceType{absenceName="Sick"},

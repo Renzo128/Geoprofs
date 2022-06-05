@@ -8,7 +8,7 @@ namespace Geoprofs.Models.Data
         public DB(DbContextOptions<DB> options) : base(options)
         {
         }
-        public DbSet<Absence> absences { get; set; }
+        public DbSet<Absence> absences { get; set; }    // database maken
         public DbSet<AbsenceRequest> absenceRequests { get; set; }
         public DbSet<AbsenceType> absenceTypes { get; set; }
         public DbSet<Coworker> coworkers { get; set; }

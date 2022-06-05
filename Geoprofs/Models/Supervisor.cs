@@ -5,7 +5,7 @@ namespace Geoprofs.Models
 {
     public class Supervisor
     {
-        [Key]
+        [Key]   // rows voor database zetten
         public int supervisorId { get; set; }
         [ForeignKey("coworkerId")]
         public int Coworker { get; set; }
