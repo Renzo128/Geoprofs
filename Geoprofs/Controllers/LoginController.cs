@@ -29,6 +29,14 @@ namespace Geoprofs.Controllers
                 .Where(l => l.Username == Username && l.Password == Password);
             if (Data.Any())
             {
+                //var userData = _context.logins.FirstOrDefaultAsync(pr => pr.Password == Password && pr.Username == Username);
+                var otherData = _context.logins.Where(x => x.Password == Password && x.Username == Username).FirstOrDefault();
+
+
+                TempData["user_id"] = otherData.Coworker;
+                TempData["username"] = Username;
+                TempData["password"] = Password;
+
                 return RedirectToAction("index", "Coworkers");
             }
             else

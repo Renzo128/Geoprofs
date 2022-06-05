@@ -56,6 +56,11 @@
                 @Html.DisplayFor(modelItem => item2.AbsenceStart)
                 <br />
                 @Html.DisplayFor(modelItem => item2.AbsenceEnd)
+                @ViewBag.Password
+                @ViewBag.Username
+                @TempData["username"]
+                <br/>
+                @TempData["user_id"]
 
                 }
             </td>
