@@ -9,7 +9,41 @@
 <div>
     <h4>Coworker</h4>
     <hr />
-    <dl class="row">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Van</th>
+            <th>Tot</th>
+            <th>Reden</th>
+            <th>Status</th>
+            <th>Actie</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach(var item in Model.AbsenceRequest)
+                {
+              <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AbsenceStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AbsenceEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.absenceStatus)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
+                    </td>
+            </tr>
+                }
+        </tbody>
+    </table>
+   <!-- <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CoworkerName)
         </dt>
@@ -88,6 +122,7 @@
     </table>
 </dd>
 </div>
+-->
 <div>
     <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
     <a asp-action="Index">Back to List</a>

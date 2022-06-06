@@ -19,10 +19,15 @@
                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="Index">Verlof</a>
+                                                       <a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details"asp-route-id="@TempData.Peek("user_id")">Verlof</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
+                        @{
+
+                        TempData.Keep("user_id");
+
+                            }
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index">Verlof goedkeuren</a>
