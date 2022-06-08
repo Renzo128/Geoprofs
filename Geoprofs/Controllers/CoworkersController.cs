@@ -41,8 +41,6 @@ namespace Geoprofs.Controllers
             .Include(a => a.AbsenceRequest)
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.coworkerId == id);
-  /*          var coworker = await _context.coworkers
-                .FirstOrDefaultAsync(m => m.coworkerId == id); */
             if (updatedview == null)
             {
                 return NotFound();
