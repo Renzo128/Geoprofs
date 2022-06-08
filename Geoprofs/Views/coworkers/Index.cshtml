@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Geoprofs.Models.Coworker>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CoworkerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.coworkerLastname)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.supervisor)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.absence)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoworkerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.coworkerLastname)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.supervisor)
+            </td>
+
+
+            <td>
+                    @foreach(var item2 in item.AbsenceRequest)
+                    {
+                        
+                    
+                @Html.DisplayFor(modelItem => item2.AbsenceStart)
+                <br />
+                @Html.DisplayFor(modelItem => item2.AbsenceEnd)
+                @ViewBag.Password
+                @ViewBag.Username
+                @TempData["username"]
+                <br/>
+                @TempData["user_id"]
+
+                }
+            </td>
+            <!--
+            <td>
+
+                <a asp-action="Edit" asp-route-id="@item.coworkerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.coworkerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.coworkerId">Delete</a>
+            </td>
+            -->
+        </tr>
+}
+    </tbody>
+</table>
+
