@@ -3,13 +3,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1>Login</h1>  <!--login pagina-->
+<div>
     @using(Html.BeginForm("Verify","login"))
     {
-    <h5><input type="text" name="Username" id="Username" placeholder="Usename"/></h5>
-    <h5><input type="password" id="Password" name="Password" placeholder="Password"/></h5>
-    <h5><button type="submit">Login</button></h5>
+    <div class="login">
+        <div class="col left"></div>
+        <div class="col right">
+            <div class="form-container">
+                <h1 class="text-center">Login</h1>  <!--login pagina-->
+                <input type="text" name="Username" id="Username" placeholder="Usename"/>
+                <input type="password" id="Password" name="Password" placeholder="Password"/>
+                <p>Geen account? registreer <a class="link" href="">hier.</a></p>
+                <button type="submit">Login</button>
+            </div>
+        </div>
+    </div>
     }
 
 </div>

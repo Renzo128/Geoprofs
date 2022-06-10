@@ -9,7 +9,11 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: var(--primary);
+}
+a:hover {
+    color: var(--primary);
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -68,4 +72,117 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+.button.padding {
+    padding: 5px 10px;
+    font-size: 18px;
+}
+/* colors
+-------------------------------------------------- */
+:root {
+    --primary: #FA9F42;
+    --secondary: #931F1D;
+}
+
+/* Nav bar
+-------------------------------------------------- */
+nav.navbar {
+    background: var(--primary);
+}
+li.nav-item a, li.nav-item a:hover {
+    color: #fff !important;
+    font-size: 18px;
+}
+ul.navbar-nav {
+    justify-content: flex-end;
+}
+a.nav-link {
+    position: relative;
+    padding: 0.5rem 0 !important;
+    margin: 0 0.5rem !important;
+}
+a.nav-link::before {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 3px;
+    background: #fff;
+    position: absolute;
+    bottom: 6px;
+    transition: width 0.3s;
+}
+a.nav-link:hover::before {
+    width: 100%;
+}
+
+/* login page
+-------------------------------------------------- */
+body {
+    background-color: #ECEAEA;
+}
+.link, link:hover {
+    color: var(--primary) !important;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+}
+.col {
+    width: 50%;
+    padding: 0;
+    display: flex;
+}
+.login {
+    display: flex;
+    min-height: 70vh;
+    margin-top: 50px;
+}
+h1 {
+    color: var(--primary);
+    text-align: center;
+} 
+input {
+    border: none;
+    border-bottom: solid 3px var(--primary);
+    font-size: 22px;
+    color: var(--secondary);
+    outline: none;
+}
+input::placeholder {
+    color: var(--secondary);
+}
+button, .button {
+    border: 2px solid var(--primary);
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--primary);
+    background: none;
+    transition: 0.2s;
+}
+button:hover, .button:hover {
+    background: var(--primary);
+    color: #fff;
+}
+.col.left {
+    background-image: url("../media/Login-page-image.jpeg");
+    border-radius: 50px 0 0 50px;
+}
+.col.right {
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 0 50px 50px 0;
+}
+
+.container-table {
+    display: grid;
+    justify-items: end;
+}
+
+table {
+    margin: 20px 0;
 }
