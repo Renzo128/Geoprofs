@@ -177,12 +177,40 @@ button:hover, .button:hover {
     background: #fff;
     border-radius: 0 50px 50px 0;
 }
-
+/* Verlof page
+-------------------------------------------------- */
 .container-table {
     display: grid;
     justify-items: end;
 }
-
 table {
     margin: 20px 0;
 }
+thead tr {
+    background: var(--primary);
+    color: #fff;
+}
+tbody tr:nth-child(even) {
+    background-color: #F6F6F6;
+}
+tbody tr:nth-child(odd) {
+    background-color: #E2E1E1;
+}
+img.icon {
+    max-width: 20px;
+}
+a.del-button {
+    display: flex;
+    gap: 10px;
+    color: var(--secondary);
+    border: solid 2px;
+    padding: 5px 10px;
+    justify-content: center;
+    font-weight: 500;
+}
+@media (max-width: 576px) {
+    .reason-hider {
+        display: none;
+    }
+}
+

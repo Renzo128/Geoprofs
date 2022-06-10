@@ -14,7 +14,7 @@
         <tr>
             <th>Begin</th>
             <th>Einde</th>
-            <th>Reden</th>
+            <th class="reason-hider">Reden</th>
             <th>Status</th>
             <th>Actie</th>
         </tr>
@@ -30,14 +30,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AbsenceEnd)
                 </td>
-                <td>
+                <td class="reason-hider">
                     @Html.DisplayFor(modelItem => item.Note)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.absenceStatus)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
+                        <a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img class="icon" src="/media/trash-icon.png"/><span class="reason-hider">Intrekken</span></a>
                     </td>
             </tr>
                 }
@@ -123,7 +123,3 @@
 </dd>
 </div>
 -->
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
