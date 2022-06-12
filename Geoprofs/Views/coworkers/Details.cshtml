@@ -4,17 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Verlof aanvragen</h1>
 
-<div>
-    <h4>Coworker</h4>
+<div class="container-table">
     <hr />
-        <a asp-action="Create">Create New</a>
+        <a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
     <table class="table">
         <thead>
         <tr>
-            <th>Van</th>
-            <th>Tot</th>
+            <th>Begin</th>
+            <th>Einde</th>
             <th>Reden</th>
             <th>Status</th>
             <th>Actie</th>
