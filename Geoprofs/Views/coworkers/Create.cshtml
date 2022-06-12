@@ -1,4 +1,3 @@
-
 ﻿@model Geoprofs.Models.AbsenceRequest
 
 
@@ -58,7 +57,10 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+   <a class="nav-link text-dark" style="width:40px;" asp-area="" asp-controller="Coworkers" asp-action="Details"asp-route-id="@TempData.Peek("user_id")">Terug</a>
+@{
+TempData.Keep("user_id");
+}
 </div>
 
 @section Scripts {
