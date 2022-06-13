@@ -91,6 +91,11 @@ p {
 
 /* Nav bar
 -------------------------------------------------- */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 nav.navbar {
     background: var(--primary);
 }
@@ -118,6 +123,18 @@ a.nav-link::before {
 }
 a.nav-link:hover::before {
     width: 100%;
+}
+.notification {
+    position: absolute;
+    right: -15px;
+    top: -5px;
+    background: red;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* login page
@@ -218,8 +235,9 @@ tr:nth-child(even) {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    height: 100%;
+    height: 150px;
     background-color: #fff;
+    overflow: auto;
 }
 .single-day p.name {
     background: var(--primary);
@@ -239,4 +257,35 @@ tr:nth-child(even) {
     .container {
         max-width: 90%;
     }
+}
+/* width */
+.single-day::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+.single-day::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.single-day::-webkit-scrollbar-thumb {
+    background: #FA9F42;
+}
+
+    /* Handle on hover */
+    .single-day::-webkit-scrollbar-thumb:hover {
+        background: #FA9F42;
+    }
+p.number {
+    position: sticky;
+    left: 150px;
+    top: 1px;
+    background: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

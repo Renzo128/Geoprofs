@@ -23,7 +23,7 @@
                                                        <a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details"asp-route-id="@TempData.Peek("user_id")">Verlof</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index"><p>0</p>Verlof planning</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index"><p class="notification">0</p>Verlof planning</a>
                         @{
 
                         TempData.Keep("user_id");
@@ -41,6 +41,7 @@
             </div>
         </nav>
     </header>
+    <div class="spacer"></div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
