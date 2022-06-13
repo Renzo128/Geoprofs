@@ -215,4 +215,28 @@ tr:nth-child(even) {
 .single-day {
     border: solid 1px;
     padding: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    height: 100%;
+    background-color: #fff;
+}
+.single-day p.name {
+    background: var(--primary);
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+.last-month, .next-month {
+    border-color: var(--primary);
+}
+@media only screen and (max-width: 767px) {
+    .row.mobile-styling {
+        flex-direction: column;
+        height: auto !important;
+        margin: 0;
+    }
+    .container {
+        max-width: 90%;
+    }
 }

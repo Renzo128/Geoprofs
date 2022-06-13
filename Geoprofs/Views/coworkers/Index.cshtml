@@ -79,7 +79,7 @@
 @while (displayLoop <= MomenteleMaand){
     if(FullWeek == 1)
     {
-            @:<div class="row" style="height:150px;">
+            @:<div class="row mobile-styling" style="height:150px;">
 
     }
 
@@ -87,7 +87,7 @@
         @while(displayLastMonth != VorigeMaand){    // vorige maand
             displayLastMonth++;
 
-                @:<div class="col single-day">
+                @:<div class="col single-day last-month">
             <p class="number">
                     @displayLastMonth
                     </p>
@@ -99,11 +99,11 @@
                 int end = (int) item2.AbsenceEnd.Day;
                 int startmonth = item2.AbsenceStart.Month;
                 int endmonth = item2.AbsenceEnd.Month;
-                int NextMonthForDisplay = currentMonth - 1;
+                int LastMonthForDisplay = currentMonth - 1;
 
                 //@startmonth
 
-            if(start <= displayLastMonth  && NextMonthForDisplay == startmonth)
+            if(start <= displayLastMonth  && LastMonthForDisplay == startmonth)
             {
         <br />
         <p class="name">
@@ -157,7 +157,7 @@
         @while (FullWeek != 7) {    // volgende maan displayen
             displayLastMonth++;
 
-            @:<div class="col single-day">
+            @:<div class="col single-day next-month">
                 <p class="number">
             @displayLastMonth
             </p>
