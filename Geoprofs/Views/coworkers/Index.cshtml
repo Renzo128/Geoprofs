@@ -88,7 +88,9 @@
             displayLastMonth++;
 
                 @:<div class="col">
-                @displayLastMonth
+            <p>
+                    @displayLastMonth
+                    </p>
                     @foreach (var item in Model) {
 
         @foreach(var item2 in item.AbsenceRequest)
@@ -117,7 +119,9 @@
         }
 
     <div class="col">
-        @displayLoop
+        <p>
+            @displayLoop
+            </p>
 
 
     @foreach (var item in Model) {
@@ -154,8 +158,9 @@
             displayLastMonth++;
 
             @:<div class="col">
-
+                <p>
             @displayLastMonth
+            </p>
             @foreach (var item in Model) {
 
                 @foreach (var item2 in item.AbsenceRequest)
