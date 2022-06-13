@@ -5,76 +5,190 @@
 
 @{
     ViewData["Title"] = "Index";
+    int Jaar = DateTime.Now.Year;
+    int Januari = 31;
+    int Schrikkeljaar = Jaar % 4;
+    int Februari;
+    if(Schrikkeljaar == 0)
+    {
+        Februari = 29;
+    }
+    else
+    {
+        Februari = 28;
+    }
+    int Maart = 31;
+    int April = 30;
+    int Mei = 31;
+    int Juni = 30;
+    int Juli = 31;
+    int Augustus = 31;
+    int September = 30;
+    int Oktober = 31;
+    int November = 30;
+    int December = 31;
+
+    int[] arr = { 0,Januari, Februari, Maart, April, Mei, Juni, Juli, Augustus, September, Oktober, November, December }; 
+    int CurrentMonth = DateTime.Now.Month;
+
+    int VorigeMaand = 0;
+    int MomenteleMaand = 0;
+    int Loop = 1;
+    int volgendemaand = 0;
+    while (Loop != 13)
+    {
+        if(Loop == CurrentMonth)
+        {
+            if(Loop == 1)
+            {
+                VorigeMaand = arr[11];
+                volgendemaand = arr[Loop + 1];
+            }
+            else if(Loop == 12)
+            {
+                volgendemaand = arr[1];
+                VorigeMaand = arr[Loop - 1];
+            }
+            else
+            {
+                VorigeMaand = arr[Loop - 1];
+                volgendemaand = arr[Loop + 1];
+            }
+            MomenteleMaand = arr[Loop];
+        }
+        Loop++;
+    }
+    int currentMonth = DateTime.Now.Month;
+    int currentYear = (int)DateTime.Now.Year;
+    DateTime value = new DateTime(currentYear, currentMonth, 1);
+    int StartDayLastMonth = (int)value.DayOfWeek;
+    StartDayLastMonth = StartDayLastMonth - 1;
+
 }
 <h1>Index</h1>
-
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CoworkerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.coworkerLastname)
-            </th>
+@{
+    int displayLoop = 1;
+    int FullWeek = 1;
+    int lastmonth = 0;
+
+    int displayLastMonth = VorigeMaand - StartDayLastMonth;
+}
 
 
-            <th>
-                @Html.DisplayNameFor(model => model.supervisor)
-            </th>
+@while (displayLoop <= MomenteleMaand){
+    if(FullWeek == 1)
+    {
+            @:<div class="row" style="height:150px;">
 
-            <th>
-                @Html.DisplayNameFor(model => model.absence)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoworkerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.coworkerLastname)
-            </td>
+    }
 
 
-            <td>
-                @Html.DisplayFor(modelItem => item.supervisor)
-            </td>
+        @while(displayLastMonth != VorigeMaand){    // vorige maand
+            displayLastMonth++;
+
+                @:<div class="col">
+                @displayLastMonth
+                    @foreach (var item in Model) {
+
+        @foreach(var item2 in item.AbsenceRequest)
+        {
+                int start = item2.AbsenceStart.Day;
+                int end = (int) item2.AbsenceEnd.Day;
+                int startmonth = item2.AbsenceStart.Month;
+                int endmonth = item2.AbsenceEnd.Month;
+                int NextMonthForDisplay = currentMonth - 1;
+
+                //@startmonth
+
+            if(start <= displayLastMonth  && NextMonthForDisplay == startmonth)
+            {
+        <br />
+            @Html.DisplayFor(modelItem => item.CoworkerName)
+
+                
+            }
+
+        }
+    }
+                @:</div>
+            FullWeek++;
+        }
+
+    <div class="col">
+        @displayLoop
 
 
-            <td>
-                    @foreach(var item2 in item.AbsenceRequest)
+    @foreach (var item in Model) {
+
+        @foreach(var item2 in item.AbsenceRequest)
+        {
+            int start = item2.AbsenceStart.Day;
+            int end = (int) item2.AbsenceEnd.Day;
+            int startmonth = item2.AbsenceStart.Month;
+            int endmonth = item2.AbsenceStart.Month;
+
+
+            if(start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth)
+            {
+        <br />
+            @Html.DisplayFor(modelItem => item.CoworkerName)
+
+                
+            }
+
+        }
+    }
+    <br />
+    </div>
+
+    if(displayLoop == MomenteleMaand && FullWeek != 7)
+    {
+        
+            displayLastMonth = 0;
+        
+
+        @while (FullWeek != 7) {    // volgende maan displayen
+            displayLastMonth++;
+
+            @:<div class="col">
+
+            @displayLastMonth
+            @foreach (var item in Model) {
+
+                @foreach (var item2 in item.AbsenceRequest)
+                {
+                    int start = item2.AbsenceStart.Day;
+                    int end = (int)item2.AbsenceEnd.Day;
+                    int startmonth = item2.AbsenceStart.Month;
+                    int endmonth = item2.AbsenceEnd.Month;
+                    int NextMonthForDisplay = currentMonth + 1;
+                    if ( NextMonthForDisplay >= startmonth && NextMonthForDisplay == endmonth&& end >= displayLastMonth)
                     {
-                        
-                    
-                @Html.DisplayFor(modelItem => item2.AbsenceStart)
-                <br />
-                @Html.DisplayFor(modelItem => item2.AbsenceEnd)
-                @ViewBag.Password
-                @ViewBag.Username
-                @TempData["username"]
-                <br/>
-                @TempData["user_id"]
+                        <br />
+                        @Html.DisplayFor(modelItem => item.CoworkerName)
+
+                    }
 
                 }
-            </td>
-            <!--
-            <td>
+            }
+            @:</div>
+            FullWeek++;
+        }
+    }
 
-                <a asp-action="Edit" asp-route-id="@item.coworkerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.coworkerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.coworkerId">Delete</a>
-            </td>
-            -->
-        </tr>
+
+
+
+    @if(FullWeek == 7){
+        FullWeek = 0;
+        @:</div>
+    }
+    FullWeek++;
+
+    displayLoop++;
+
 }
-    </tbody>
-</table>
-

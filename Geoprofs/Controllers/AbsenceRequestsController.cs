@@ -63,7 +63,7 @@ namespace Geoprofs.Controllers
             {
                 _context.Add(absenceRequest);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
             }
             return View(absenceRequest);
         }
