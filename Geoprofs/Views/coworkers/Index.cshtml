@@ -87,8 +87,8 @@
         @while(displayLastMonth != VorigeMaand){    // vorige maand
             displayLastMonth++;
 
-                @:<div class="col">
-            <p>
+                @:<div class="col single-day">
+            <p class="number">
                     @displayLastMonth
                     </p>
                     @foreach (var item in Model) {
@@ -106,7 +106,7 @@
             if(start <= displayLastMonth  && NextMonthForDisplay == startmonth)
             {
         <br />
-        <p>
+        <p class="name">
             @Html.DisplayFor(modelItem => item.CoworkerName)
             </p>
                 
@@ -118,8 +118,8 @@
             FullWeek++;
         }
 
-    <div class="col">
-        <p>
+    <div class="col single-day">
+        <p class="number">
             @displayLoop
             </p>
 
@@ -136,7 +136,7 @@
 
             if(start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth)
             {
-               <p>
+               <p class="name">
 
             @Html.DisplayFor(modelItem => item.CoworkerName)
             </p>
@@ -157,8 +157,8 @@
         @while (FullWeek != 7) {    // volgende maan displayen
             displayLastMonth++;
 
-            @:<div class="col">
-                <p>
+            @:<div class="col single-day">
+                <p class="number">
             @displayLastMonth
             </p>
             @foreach (var item in Model) {
@@ -172,7 +172,7 @@
                     int NextMonthForDisplay = currentMonth + 1;
                     if ( NextMonthForDisplay >= startmonth && NextMonthForDisplay == endmonth&& end >= displayLastMonth)
                     {
-                        <p>
+                        <p class="name">
                         @Html.DisplayFor(modelItem => item.CoworkerName)
                         </p>
                     }

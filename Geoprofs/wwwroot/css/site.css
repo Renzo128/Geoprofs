@@ -74,6 +74,10 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+p {
+    margin: 0;
+}
+
 .button.padding {
     padding: 5px 10px;
     font-size: 18px;
@@ -130,7 +134,7 @@ body {
     gap: 10px;
     width: 70%;
 }
-.col {
+.column {
     width: 50%;
     padding: 0;
     display: flex;
@@ -205,4 +209,10 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {
     background-color: #F6F6F6;
+}
+/* Verlof planning page
+-------------------------------------------------- */
+.single-day {
+    border: solid 1px;
+    padding: 3px;
 }
