@@ -1,125 +1,61 @@
 ﻿@model Geoprofs.Models.Coworker
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h1>Verlof aanvragen</h1>
 
 <div class="container-table">
-    <hr />
-        <a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Begin</th>
-            <th>Einde</th>
-            <th class="reason-hider">Reden</th>
-            <th>Status</th>
-            <th>Actie</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                @foreach(var item in Model.AbsenceRequest)
-                {
-              <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AbsenceStart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AbsenceEnd)
-                </td>
-                <td class="reason-hider">
-                    @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.absenceStatus)
-                    </td>
-                    <td>
-                        <a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img class="icon" src="/media/trash-icon.png"/><span class="reason-hider">Intrekken</span></a>
-                    </td>
-            </tr>
-                }
-        </tbody>
-    </table>
-   <!-- <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoworkerName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoworkerName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.coworkerLastname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.coworkerLastname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.bsn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.bsn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.position)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.position)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supervisor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.supervisor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.startDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.startDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.absence)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.absence)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.vacationdays)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.vacationdays)
-        </dd>
-                <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Position.positionName)
-        </dt>
-                <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Position.positionName)
-        </dd>
-    </dl>
-    <dt class="col-sm-2">
-    @Html.DisplayNameFor(model => model.AbsenceRequest)
-</dt>
-<dd class="col-sm-10">
-    <table class="table">
-        <tr>
-            <th>Start absence</th>
-            <th>End absence</th>
-        </tr>
-        @foreach (var item in Model.AbsenceRequest)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AbsenceStart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AbsenceEnd)
-                </td>
-            </tr>
-        }
-    </table>
-</dd>
+	<hr />
+	<a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Begin</th>
+				<th>Einde</th>
+				<th>Reden</th>
+				<th>Status</th>
+				<th>Actie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				@foreach (var item in Model.AbsenceRequest)
+				{
+				<tr>
+					<td>
+							@Html.DisplayFor(modelItem => item.AbsenceStart)
+					</td>
+					<td>
+							@Html.DisplayFor(modelItem => item.AbsenceEnd)
+					</td>
+					<td>
+							@Html.DisplayFor(modelItem => item.Note)
+					</td>
+					<td>
+							@Html.DisplayFor(modelItem => item.absenceStatus)
+					</td>
+					<td>
+						<a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img src="/media/Mask Group 6.png"><span>Intrekken</span></a>
+					</td>
+				</tr>
+				}
+		</tbody>
+	</table>
 </div>
 -->
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+-->
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+-->
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.coworkerId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

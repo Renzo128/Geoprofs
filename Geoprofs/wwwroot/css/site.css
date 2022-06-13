@@ -74,6 +74,10 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+p {
+    margin: 0;
+}
+
 .button.padding {
     padding: 5px 10px;
     font-size: 18px;
@@ -130,7 +134,7 @@ body {
     gap: 10px;
     width: 70%;
 }
-.col {
+.column {
     width: 50%;
     padding: 0;
     display: flex;
@@ -177,40 +181,62 @@ button:hover, .button:hover {
     background: #fff;
     border-radius: 0 50px 50px 0;
 }
-/* Verlof page
--------------------------------------------------- */
+
 .container-table {
     display: grid;
     justify-items: end;
 }
+
 table {
     margin: 20px 0;
 }
 thead tr {
-    background: var(--primary);
+    background-color: var(--primary) !important;
     color: #fff;
 }
-tbody tr:nth-child(even) {
-    background-color: #F6F6F6;
+
+.del-button {
+    display: flex;
+    gap: 6px;
+    color: var(--secondary);
+    border: solid 3px;
+    padding: 3px 0;
+    justify-content: center;
 }
-tbody tr:nth-child(odd) {
+tr:nth-child(odd) {
     background-color: #E2E1E1;
 }
-img.icon {
-    max-width: 20px;
+
+tr:nth-child(even) {
+    background-color: #F6F6F6;
 }
-a.del-button {
+/* Verlof planning page
+-------------------------------------------------- */
+.single-day {
+    border: solid 1px;
+    padding: 3px;
     display: flex;
-    gap: 10px;
-    color: var(--secondary);
-    border: solid 2px;
-    padding: 5px 10px;
-    justify-content: center;
-    font-weight: 500;
+    flex-direction: column;
+    gap: 2px;
+    height: 100%;
+    background-color: #fff;
 }
-@media (max-width: 576px) {
-    .reason-hider {
-        display: none;
+.single-day p.name {
+    background: var(--primary);
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+.last-month, .next-month {
+    border-color: var(--primary);
+}
+@media only screen and (max-width: 767px) {
+    .row.mobile-styling {
+        flex-direction: column;
+        height: auto !important;
+        margin: 0;
+    }
+    .container {
+        max-width: 90%;
     }
 }
-

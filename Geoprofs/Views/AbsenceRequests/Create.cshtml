@@ -1,7 +1,7 @@
 ﻿@model Geoprofs.Models.AbsenceRequest
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
@@ -9,50 +9,52 @@
 <h4>AbsenceRequest</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Coworker" class="control-label"></label>
-                <input asp-for="Coworker" class="form-control" />
-                <span asp-validation-for="Coworker" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AbsenceStart" class="control-label"></label>
-                <input asp-for="AbsenceStart" class="form-control" />
-                <span asp-validation-for="AbsenceStart" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AbsenceEnd" class="control-label"></label>
-                <input asp-for="AbsenceEnd" class="form-control" />
-                <span asp-validation-for="AbsenceEnd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="absenceType" class="control-label"></label>
-                <input asp-for="absenceType" class="form-control" />
-                <span asp-validation-for="absenceType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="absenceStatus" class="control-label"></label>
-                <input asp-for="absenceStatus" class="form-control" />
-                <span asp-validation-for="absenceStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Coworker" class="control-label"></label>
+				<input asp-for="Coworker" class="form-control" />
+				<span asp-validation-for="Coworker" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="AbsenceStart" class="control-label"></label>
+				<input asp-for="AbsenceStart" class="form-control" />
+				<span asp-validation-for="AbsenceStart" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="AbsenceEnd" class="control-label"></label>
+				<input asp-for="AbsenceEnd" class="form-control" />
+				<span asp-validation-for="AbsenceEnd" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Note" class="control-label"></label>
+				<input asp-for="Note" class="form-control" />
+				<span asp-validation-for="Note" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="absenceType" class="control-label"></label>
+				<input asp-for="absenceType" class="form-control" />
+				<span asp-validation-for="absenceType" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="absenceStatus" class="control-label"></label>
+				<input asp-for="absenceStatus" class="form-control" />
+				<span asp-validation-for="absenceStatus" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
