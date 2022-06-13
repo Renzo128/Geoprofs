@@ -37,7 +37,7 @@
                         @Html.DisplayFor(modelItem => item.absenceStatus)
                     </td>
                     <td>
-                        <a asp-action="details" asp-route-id="@Model.coworkerId">Edit</a> |
+                        <a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img src="/media/Mask Group 6.png"><span>Intrekken</span></a>
                     </td>
             </tr>
                 }
