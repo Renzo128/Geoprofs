@@ -186,3 +186,23 @@ button:hover, .button:hover {
 table {
     margin: 20px 0;
 }
+thead tr {
+    background-color: var(--primary) !important;
+    color: #fff;
+}
+
+.del-button {
+    display: flex;
+    gap: 6px;
+    color: var(--secondary);
+    border: solid 3px;
+    padding: 3px 0;
+    justify-content: center;
+}
+tr:nth-child(odd) {
+    background-color: #E2E1E1;
+}
+
+tr:nth-child(even) {
+    background-color: #F6F6F6;
+}
