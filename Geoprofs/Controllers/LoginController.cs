@@ -24,7 +24,7 @@ namespace Geoprofs.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Verify( string Password , string Username)
+        public async Task<ActionResult> Verify(string Password, string Username)
         {   // controlleren of gebruiker de goede gebruikersnaam en wachtwoord gebruikt
             var Data = _context.logins
                 .Where(l => l.Username == Username && l.Password == Password);

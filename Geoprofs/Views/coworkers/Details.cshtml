@@ -1,46 +1,46 @@
 ﻿@model Geoprofs.Models.Coworker
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h1>Verlof aanvragen</h1>
 
 <div class="container-table">
-    <hr />
-        <a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Begin</th>
-            <th>Einde</th>
-            <th>Reden</th>
-            <th>Status</th>
-            <th>Actie</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                @foreach(var item in Model.AbsenceRequest)
-                {
-              <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AbsenceStart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AbsenceEnd)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.absenceStatus)
-                    </td>
-                    <td>
-                        <a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img src="/media/Mask Group 6.png"><span>Intrekken</span></a>
-                    </td>
-            </tr>
-                }
-        </tbody>
-    </table>
-    </div>
+	<hr />
+	<a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Begin</th>
+				<th>Einde</th>
+				<th>Reden</th>
+				<th>Status</th>
+				<th>Actie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				@foreach (var item in Model.AbsenceRequest)
+				{
+				<tr>
+					<td>
+							@Html.DisplayFor(modelItem => item.AbsenceStart)
+					</td>
+					<td>
+							@Html.DisplayFor(modelItem => item.AbsenceEnd)
+					</td>
+					<td>
+							@Html.DisplayFor(modelItem => item.Note)
+					</td>
+					<td>
+							@Html.DisplayFor(modelItem => item.absenceStatus)
+					</td>
+					<td>
+						<a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img src="/media/Mask Group 6.png"><span>Intrekken</span></a>
+					</td>
+				</tr>
+				}
+		</tbody>
+	</table>
+</div>

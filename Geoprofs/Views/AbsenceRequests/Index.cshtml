@@ -1,70 +1,71 @@
 ﻿@model IEnumerable<Geoprofs.Models.AbsenceRequest>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.coworker.CoworkerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AbsenceStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AbsenceEnd)
-            </th>
-            <th>
-                Duur
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AbsenceType.absenceName)
-            </th>
-            <th>
-                Actie
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.coworker.CoworkerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AbsenceStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AbsenceEnd)
-            </td>
-            <td>
-                1 Dag
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.absenceId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.absenceId">Details</a> |
-                <!--
-                 <a asp-action="Delete" asp-route-id="@item.absenceId">Delete</a>
-                 -->
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.coworker.CoworkerName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AbsenceStart)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AbsenceEnd)
+			</th>
+			<th>
+				Duur
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Note)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AbsenceType.absenceName)
+			</th>
+			<th>
+				Actie
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.coworker.CoworkerName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AbsenceStart)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AbsenceEnd)
+				</td>
+				<td>
+					1 Dag
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Note)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.absenceId">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.absenceId">Details</a> |
+					<!--
+					 <a asp-action="Delete" asp-route-id="@item.absenceId">Delete</a>
+					 -->
+			</td>
+			</tr>
+		}
+	</tbody>
 </table>
