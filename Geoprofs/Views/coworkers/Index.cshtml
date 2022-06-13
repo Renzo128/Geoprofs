@@ -107,8 +107,9 @@
             if(start <= displayLastMonth  && NextMonthForDisplay == startmonth)
             {
         <br />
+        <p>
             @Html.DisplayFor(modelItem => item.CoworkerName)
-
+            </p>
                 
             }
 
@@ -134,9 +135,10 @@
 
             if(start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth)
             {
-        <br />
-            @Html.DisplayFor(modelItem => item.CoworkerName)
+               <p>
 
+            @Html.DisplayFor(modelItem => item.CoworkerName)
+            </p>
                 
             }
 
@@ -168,9 +170,9 @@
                     int NextMonthForDisplay = currentMonth + 1;
                     if ( NextMonthForDisplay >= startmonth && NextMonthForDisplay == endmonth&& end >= displayLastMonth)
                     {
-                        <br />
+                        <p>
                         @Html.DisplayFor(modelItem => item.CoworkerName)
-
+                        </p>
                     }
 
                 }
