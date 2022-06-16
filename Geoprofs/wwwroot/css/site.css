@@ -87,6 +87,7 @@ p {
 :root {
     --primary: #FA9F42;
     --secondary: #931F1D;
+    --succes: #14C420;
 }
 
 /* Nav bar
@@ -338,4 +339,13 @@ td {
 }
 .pop-up.show {
     visibility: visible;    
+}
+.color-green, .color-green:hover {
+    color: var(--succes)
+}
+.color-red, .color-red:hover {
+    color: var(--secondary)
+}
+.color-green:hover, .color-red:hover {
+    text-decoration: underline;
 }
