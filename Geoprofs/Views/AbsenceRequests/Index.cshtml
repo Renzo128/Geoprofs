@@ -4,14 +4,18 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Verlof goedkeuren</h1>
+<div class="button-container">
+<a asp-action="" class="button padding">Geselecteerde afkeuren</a>
+<a asp-action="" class="button padding">Geselecteerde goedkeuren</a>
+</div>
 
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
 <table class="table">
 	<thead>
 		<tr>
+			<th>
+				Select
+			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.coworker.CoworkerName)
 			</th>
@@ -22,9 +26,6 @@
 				@Html.DisplayNameFor(model => model.AbsenceEnd)
 			</th>
 			<th>
-				Duur
-			</th>
-			<th>
 				@Html.DisplayNameFor(model => model.Note)
 			</th>
 			<th>
@@ -33,13 +34,18 @@
 			<th>
 				Actie
 			</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach (var item in Model)
 		{
 			<tr>
+				<td>
+					<label>
+						<input type="checkbox"/>
+						<span class="checkbox"></span>
+					</label>
+				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.coworker.CoworkerName)
 				</td>
@@ -50,20 +56,19 @@
 					@Html.DisplayFor(modelItem => item.AbsenceEnd)
 				</td>
 				<td>
-					1 Dag
-				</td>
-				<td>
 					@Html.DisplayFor(modelItem => item.Note)
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
 				</td>
 				<td>
-					<a asp-action="Edit" asp-route-id="@item.absenceId">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.absenceId">Details</a> |
-					<!--
-					 <a asp-action="Delete" asp-route-id="@item.absenceId">Delete</a>
-					 -->
+					<div class="options-icon" id=""><img src="/media/Mask Group 7.png"/></div> 
+					<div class="pop-up" id="">
+						<a asp-action="Edit" asp-route-id="@item.absenceId">Goedkeuren</a> 
+						<p> | </p>
+						<a asp-action="Details" asp-route-id="@item.absenceId">Afkeuren</a> 
+					</div>
+
 			</td>
 			</tr>
 		}

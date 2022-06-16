@@ -136,6 +136,9 @@ a.nav-link:hover::before {
     justify-content: center;
     align-items: center;
 }
+.spacer {
+    height: 60px;
+}
 
 /* login page
 -------------------------------------------------- */
@@ -164,6 +167,7 @@ body {
 h1 {
     color: var(--primary);
     text-align: center;
+    margin-top: 20px;
 } 
 input {
     border: none;
@@ -288,4 +292,50 @@ p.number {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+/* Verlof goedkeuren page
+-------------------------------------------------- */
+input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkbox {
+    height: 20px;
+    width: 20px;
+    background: #fff;
+    border: solid 2px var(--primary);
+    border-radius: 5px;
+    display: block;
+    transition: all 0.3s;
+}
+input[type=checkbox]:checked + .checkbox {
+    background-image: url('/media/Mask Group 9.png');
+    background-size: contain;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    margin: 30px 0;
+}
+td {
+    position: relative;
+}
+.pop-up {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: -25px;
+    background: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--primary);
+    border: solid 1px var(--primary);
+    visibility: collapse;
+}
+.pop-up.show {
+    visibility: visible;    
 }
