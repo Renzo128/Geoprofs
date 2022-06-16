@@ -341,10 +341,10 @@ td {
     visibility: visible;    
 }
 .color-green, .color-green:hover {
-    color: var(--succes)
+    color: var(--succes) !important;
 }
 .color-red, .color-red:hover {
-    color: var(--secondary)
+    color: var(--secondary) !important;
 }
 .color-green:hover, .color-red:hover {
     text-decoration: underline;

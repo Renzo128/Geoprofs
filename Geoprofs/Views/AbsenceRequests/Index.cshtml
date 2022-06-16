@@ -62,11 +62,19 @@
 					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
 				</td>
 				<td>
+					<input type="hidden" id="id_@item.absenceId" name="id_@item.absenceId"/>
+					<input type="hidden" id="id_@item.coworker" name="Coworker_@item.absenceId"/>
+					<input type="hidden" id="id_@item.AbsenceStart" name="id_@item.absenceId"/>
+					<input type="hidden" id="id_@item.AbsenceEnd" name="id_@item.absenceId"/>
+					<input type="hidden" id="id_@item.Note" name="id_@item.absenceId"/>
+					<input type="hidden" id="id_@item.absenceType" name="id_@item.absenceId"/>
+					<input type="hidden" id="id_@item.absenceStatus" name="id_@item.absenceId"/>
+
 					<div class="options-icon" onclick="ShowPopUp('@item.absenceId')"><img src="/media/Mask Group 7.png"/></div> 
 					<div class="pop-up" id="@item.absenceId">
-						<a asp-action="Edit" asp-route-id="@item.absenceId" class="color-green">Goedkeuren</a> 
+						<a  id="@item.absenceId" onclick="acceptRequest(this.id)" asp-action="edit" class="color-green">Goedkeuren</a> 
 						<p> | </p>
-						<a asp-action="Details" asp-route-id="@item.absenceId" class="color-red">Afkeuren</a> 
+						<a  id="@item.absenceId" onclick="denieRequest(this.id)" asp-action="edit" class="color-red">Afkeuren</a> 
 					</div>
 
 			</td>
@@ -77,13 +85,14 @@
 <script>
 	function acceptRequest(id){
 		event.preventDefault();
-		document.getElementById("request"+id).value = "Geaccepteerd";
+		document.getElementById("id_"+id).value = "Geaccepteerd";
+		console.log(id)
 
 	};
 	function denieRequest(id){
 		event.preventDefault();
 
-		document.getElementById("request"+id).value = "Geweigerd";
+		document.getElementById("id_"+id).value = "Geweigerd";
 
 	};
 
