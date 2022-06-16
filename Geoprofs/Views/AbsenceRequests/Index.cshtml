@@ -62,21 +62,24 @@
 					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
 				</td>
 				<td>
-					<input type="hidden" id="id_@item.absenceId" name="id_@item.absenceId"/>
-					<input type="hidden" id="id_@item.coworker" name="Coworker_@item.absenceId"/>
-					<input type="hidden" id="id_@item.AbsenceStart" name="id_@item.absenceId"/>
-					<input type="hidden" id="id_@item.AbsenceEnd" name="id_@item.absenceId"/>
-					<input type="hidden" id="id_@item.Note" name="id_@item.absenceId"/>
-					<input type="hidden" id="id_@item.absenceType" name="id_@item.absenceId"/>
-					<input type="hidden" id="id_@item.absenceStatus" name="id_@item.absenceId"/>
+					@using (Html.BeginForm("edit_Accept", "AbsenceRequests"))
+					{
+					<input type="hidden" runat="server" value="test" id=id_@item.absenceId name="id_@item.absenceId"/>
+					<input type="hidden" value="@item.coworker" id="Coworker_@item.absenceId" name="Coworker_@item.absenceId"/>
+					<input type="hidden" value="@item.AbsenceStart" id="absencestart_@item.absenceId" name="absencestart_@item.absenceId"/>
+					<input type="hidden" value="@item.AbsenceEnd" id="absenceend_@item.absenceId" name="absenceend_@item.absenceId"/>
+					<input type="hidden" value="@item.Note" id="note_@item.absenceId" name="note_@item.absenceId"/>
+					<input type="hidden" value="@item.absenceType" id="type_@item.absenceId" name="type_@item.absenceId"/>
+					<input type="hidden" value="@item.absenceStatus" id="status_@item.absenceId" name="status_@item.absenceId"/>
 
 					<div class="options-icon" onclick="ShowPopUp('@item.absenceId')"><img src="/media/Mask Group 7.png"/></div> 
 					<div class="pop-up" id="@item.absenceId">
-						<a  id="@item.absenceId" onclick="acceptRequest(this.id)" asp-action="edit" class="color-green">Goedkeuren</a> 
+						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="acceptRequest(this.id)"  class="color-green">Goedkeuren</button> 
 						<p> | </p>
-						<a  id="@item.absenceId" onclick="denieRequest(this.id)" asp-action="edit" class="color-red">Afkeuren</a> 
+						<a  id="@item.absenceId" name="sender" value="@item.absenceId" onclick="denieRequest(this.id)"  class="color-red">Afkeuren</a> 
+					
 					</div>
-
+					}
 			</td>
 			</tr>
 		}
@@ -84,13 +87,11 @@
 </table>
 <script>
 	function acceptRequest(id){
-		event.preventDefault();
 		document.getElementById("id_"+id).value = "Geaccepteerd";
 		console.log(id)
 
 	};
 	function denieRequest(id){
-		event.preventDefault();
 
 		document.getElementById("id_"+id).value = "Geweigerd";
 
