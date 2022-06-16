@@ -62,11 +62,11 @@
 					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
 				</td>
 				<td>
-					<div class="options-icon" id=""><img src="/media/Mask Group 7.png"/></div> 
-					<div class="pop-up" id="">
-						<a asp-action="Edit" asp-route-id="@item.absenceId">Goedkeuren</a> 
+					<div class="options-icon" onclick="ShowPopUp('@item.absenceId')"><img src="/media/Mask Group 7.png"/></div> 
+					<div class="pop-up" id="@item.absenceId">
+						<a asp-action="Edit" asp-route-id="@item.absenceId" class="color-green">Goedkeuren</a> 
 						<p> | </p>
-						<a asp-action="Details" asp-route-id="@item.absenceId">Afkeuren</a> 
+						<a asp-action="Details" asp-route-id="@item.absenceId" class="color-red">Afkeuren</a> 
 					</div>
 
 			</td>

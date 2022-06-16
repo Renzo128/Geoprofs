@@ -1,6 +1,6 @@
 ﻿// Jquery code
-$(document).ready(function () {
-    $(".options-icon").click(function () {
-        $(".pop-up").toggleClass("show");
-    });
-});
+/*$(document).ready(function () {
+});*/
+function ShowPopUp(element_id) {
+    $("#" + element_id).toggleClass("show");
+}
