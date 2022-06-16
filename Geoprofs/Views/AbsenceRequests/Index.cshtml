@@ -62,11 +62,12 @@
 					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
 				</td>
 				<td>
+					<input type="hidden" value="" id='@item.absenceId'/>
 					<div class="options-icon" id=""><img src="/media/Mask Group 7.png"/></div> 
 					<div class="pop-up" id="">
-						<a asp-action="Edit" asp-route-id="@item.absenceId">Goedkeuren</a> 
+						<a onclick="acceptRequest('@item.absenceId')"  asp-route-id="@item.absenceId">Goedkeuren</a> 
 						<p> | </p>
-						<a asp-action="Details" asp-route-id="@item.absenceId">Afkeuren</a> 
+						<a onclick="acceptRequest('@item.absenceId')"  asp-route-id="@item.absenceId">Afkeuren</a> 
 					</div>
 
 			</td>
@@ -74,3 +75,17 @@
 		}
 	</tbody>
 </table>
+<script>
+	function acceptRequest(id){
+		event.preventDefault();
+		document.getElementById("request"+id).value = "Geaccepteerd";
+
+	};
+	function denieRequest(id){
+		event.preventDefault();
+
+		document.getElementById("request"+id).value = "Geweigerd";
+
+	};
+
+</script>
