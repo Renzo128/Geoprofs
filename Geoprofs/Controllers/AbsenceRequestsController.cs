@@ -147,33 +147,47 @@ namespace Geoprofs.Controllers
     }
 
         // GET: AbsenceRequests/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            //string coworker = Request.Form["Coworker_" + id.ToString()];
+            int newId = Convert.ToInt32(id);
+
+
+            foreach (string key in Request.Form.Keys)
             {
-                return NotFound();
+                if (key.Contains(id))
+                {
+                    string absencerequest = Convert.ToString(Request.Form[key].ToString());
+                    var absencerequests = new AbsenceRequest() { absenceId = newId, absenceStatus = absencerequest };
+
+                    using (var context = _context)
+                    {
+                        context.absenceRequests.Attach(absencerequests);
+                        context.absenceRequests.Remove(absencerequests);
+                        context.SaveChanges();
+
+                        return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
+
+
+                    }
+                }
             }
 
-            var absenceRequest = await _context.absenceRequests
-                .FirstOrDefaultAsync(m => m.absenceId == id);
-            if (absenceRequest == null)
-            {
-                return NotFound();
-            }
 
-            return View(absenceRequest);
+
+            return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
         }
 
         // POST: AbsenceRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+   /*     public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var absenceRequest = await _context.absenceRequests.FindAsync(id);
             _context.absenceRequests.Remove(absenceRequest);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        } */
 
         private bool AbsenceRequestExists(int id)
         {

@@ -33,10 +33,12 @@ namespace Geoprofs.Controllers
                 //var userData = _context.logins.FirstOrDefaultAsync(pr => pr.Password == Password && pr.Username == Username);
                 var otherData = _context.logins.Where(x => x.Password == Password && x.Username == Username).FirstOrDefault();
 
+                var userdata = _context.coworkers.Where(x => x.coworkerId == otherData.Coworker).FirstOrDefault();
 
                 TempData["user_id"] = otherData.Coworker;
                 TempData["username"] = Username;
                 TempData["password"] = Password;
+                TempData["supervisor"] = userdata.supervisor;
 
                 return RedirectToAction("index", "Coworkers");
             }

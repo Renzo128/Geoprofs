@@ -64,7 +64,7 @@
 				<td>
 					@using (Html.BeginForm("edit_Accept", "AbsenceRequests"))
 					{
-					<input type="hidden" runat="server" value="test" id=id_@item.absenceId name="id_@item.absenceId"/>
+					<input type="hidden" runat="server" value="id_@item.absenceId" id=id_@item.absenceId name="id_@item.absenceId"/>
 					<input type="hidden" value="@item.coworker" id="Coworker_@item.absenceId" name="Coworker_@item.absenceId"/>
 					<input type="hidden" value="@item.AbsenceStart" id="absencestart_@item.absenceId" name="absencestart_@item.absenceId"/>
 					<input type="hidden" value="@item.AbsenceEnd" id="absenceend_@item.absenceId" name="absenceend_@item.absenceId"/>

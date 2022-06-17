@@ -37,7 +37,12 @@
 							@Html.DisplayFor(modelItem => item.absenceStatus)
 					</td>
 					<td>
-						<a class="del-button" asp-action="Delete" asp-route-id="@Model.coworkerId"><img src="/media/Mask Group 6.png"><span>Intrekken</span></a>
+						@using (Html.BeginForm("Delete", "AbsenceRequests")){
+					<input type="hidden" runat="server" value="id_@item.absenceId" id="id_@item.absenceId" name="id_@item.absenceId"/>
+					<input type="hidden" runat="server" value="@item.absenceId" id="id" name="id"/>
+						<button runat="server" type="submit" class="button-reset" id="@item.absenceId" name="id"><img src="/media/Mask Group 6.png"><span>Intrekken</span></button>
+
+					}
 					</td>
 				</tr>
 				}
