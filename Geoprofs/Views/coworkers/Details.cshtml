@@ -9,6 +9,24 @@
 <div class="container-table">
 	<hr />
 	<a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
+	<div class="form-shadow"></div>
+	<div class="container create-request">
+		<form style="width: 100% !important;" class="request-form">
+			<h1 class="text-center" style="margin: 0 !important;">Nieuwe aanvraag</h1>
+			<div class="name-container">
+			<input type="date" name="Username" id="Username" placeholder="dd-mm-yyyy" />
+			<input type="date" name="Username" id="Username" placeholder="dd-mm-yyyy" />
+			</div>
+			<textarea placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi blandit massa in lectus dignissim, et pellentesque tortor fringilla. Cras euismod."></textarea>
+			<select>
+				<option value="undefined">Kies een verlof type</option>
+				<option value="optie 1">type 1</option>
+				<option value="optie 2">type 2</option>
+				<option value="optie 3">type 3</option>
+			</select>
+			<button type="submit" class="button">Versturen</button>
+		</form>
+	</div>
 	<table class="table">
 		<thead>
 			<tr>

@@ -161,6 +161,8 @@ body {
     flex-direction: column;
     gap: 10px;
     width: 90%;
+    padding: 50px 0;
+}
 }
 .column {
     width: 50%;
@@ -210,6 +212,7 @@ input::placeholder {
     justify-content: center;
     background: #fff;
     border-radius: 0 50px 50px 0;
+    display: flex;
 }
 
 .container-table {
@@ -236,9 +239,46 @@ thead tr {
 tr:nth-child(odd) {
     background-color: #E2E1E1;
 }
-
 tr:nth-child(even) {
     background-color: #F6F6F6;
+}
+.container.create-request {
+    display: flex;
+    width: 80%;
+    padding: 50px;
+    border-radius: 20px;
+    background: #fff;
+    position: fixed;
+    z-index: 9999;
+}
+.request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+textarea {
+    resize: none;
+    border: solid 2px var(--primary);
+    min-height: 250px;
+    border-radius: 5px;
+    color: var(--secondary);
+    font-size: 20px;
+    outline: none;
+}
+textarea::placeholder {
+    color: var(--secondary)
+}
+.form-shadow {
+    display: block;
+    background: #404040;
+    opacity: 0.8;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    transition: opacity 0.5s;
 }
 /* Verlof planning page
 -------------------------------------------------- */
