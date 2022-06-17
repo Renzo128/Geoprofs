@@ -96,6 +96,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 999;
 }
 nav.navbar {
     background: var(--primary);
@@ -186,7 +187,7 @@ input {
 input::placeholder {
     color: var(--secondary);
 }
-button, .button {
+.button {
     border: 2px solid var(--primary);
     border-radius: 5px;
     font-size: 22px;
@@ -195,7 +196,7 @@ button, .button {
     background: none;
     transition: 0.2s;
 }
-button:hover, .button:hover {
+.button:hover {
     background: var(--primary);
     color: #fff;
 }
