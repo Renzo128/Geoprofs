@@ -4,12 +4,61 @@
 }
 
 <div class="text-center">
-	<h1>Login</h1>  <!--login pagina-->
+	<h1>Registreren</h1>  <!--Registreren pagina-->
 	@using (Html.BeginForm("Verify", "login"))
 	{
-		<h5><input type="text" name="Username" id="Username" placeholder="Usename" /></h5>
-		<h5><input type="password" id="Password" name="Password" placeholder="Password" /></h5>
-		<h5><button type="submit">Login</button></h5>
+		<div class="login">
+			<div class=" col column left"></div>
+			<div class="col column right">
+				<div class="form-container">
+			<div class="name-container">
+				<div class="form-label">
+				<label>Voornaam</label>
+			<input type="text" name="Fname-reg" id="Fname-reg" placeholder="john"/>
+			</div>
+			<div class="form-label">
+			<label>Achternaam</label>
+			<input type="text" name="Lname-reg" id="Lname-reg" placeholder="Doe"/>
+			</div>
+			</div>
+			<div class="form-label">
+			<label>BSN nummer</label>
+			<input type="text" name="bsn-reg" id="bsn-reg" placeholder="abcd12345"/>
+			</div>
+			<div class="form-label">
+			<label>Positie</label>
+			<select name="positie" id="positie">
+				<option value="undefined">Kies een optie</option>
+				<option value="optie 1">optie 1</option>
+				<option value="optie 2">optie 2</option>
+				<option value="optie 3">optie 3</option>
+				<option value="optie 4">optie 4</option>
+				<option value="optie 5">optie 5</option>
+				<option value="optie 6">optie 6</option>
+				<option value="optie 7">optie 7</option>
+			</select>
+			</div>
+			<div class="form-label">
+			<label>Superviser</label>
+			<select name="positie" id="positie">
+				<option value="undefined">Kies een superviser</option>
+				<option value="optie 1">superviser 1</option>
+				<option value="optie 2">superviser 2</option>
+				<option value="optie 3">superviser 3</option>
+			</select>
+			</div>
+			<div class="form-label">
+			<label>Gebruikersnaam</label>
+			<input type="text" name="Username-reg" id="Username-reg" placeholder="Gebruikersnaam" />
+			</div>
+			<div class="form-label">
+			<label>Achternaam</label>
+			<input type="password" name="Password-reg" id="Password-reg" placeholder="Achternaam" />
+			</div>
+			<button type="submit">Registreren</button>
+		</div>
+				</div>
+			</div>		
 	}
 
 </div>

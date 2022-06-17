@@ -153,7 +153,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 70%;
+    width: 90%;
 }
 .column {
     width: 50%;
@@ -176,6 +176,7 @@ input {
     font-size: 22px;
     color: var(--secondary);
     outline: none;
+    width: 100%;
 }
 input::placeholder {
     color: var(--secondary);
@@ -348,4 +349,18 @@ td {
 }
 .color-green:hover, .color-red:hover {
     text-decoration: underline;
+}
+/* Registreren page
+-------------------------------------------------- */
+.name-container {
+    display: flex;
+    gap: 20px;
+}
+.name-container input {
+    width: 100%;
+}
+.form-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
