@@ -74,9 +74,9 @@
 
 					<div class="options-icon" onclick="ShowPopUp('@item.absenceId')"><img src="/media/Mask Group 7.png"/></div> 
 					<div class="pop-up" id="@item.absenceId">
-						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="acceptRequest(this.id)"  class="color-green">Goedkeuren</button> 
+						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="acceptRequest(this.id)"  class="color-green button-reset">Goedkeuren</button> 
 						<p> | </p>
-						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="denieRequest(this.id)"  class="color-red">Afkeuren</button> 
+						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="denieRequest(this.id)"  class="color-red button-reset">Afkeuren</button> 
 
 					
 					</div>

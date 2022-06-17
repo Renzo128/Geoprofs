@@ -140,6 +140,11 @@ a.nav-link:hover::before {
 .spacer {
     height: 60px;
 }
+.button-reset, .button-reset:hover {
+    border: none;
+    background: none;
+    font-size: 20px;
+}
 
 /* login page
 -------------------------------------------------- */
@@ -328,6 +333,7 @@ td {
 }
 .pop-up {
     display: flex;
+    align-items: center;
     gap: 10px;
     position: absolute;
     top: -25px;
