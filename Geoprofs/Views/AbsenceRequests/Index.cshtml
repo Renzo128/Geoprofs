@@ -76,7 +76,8 @@
 					<div class="pop-up" id="@item.absenceId">
 						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="acceptRequest(this.id)"  class="color-green">Goedkeuren</button> 
 						<p> | </p>
-						<a  id="@item.absenceId" name="sender" value="@item.absenceId" onclick="denieRequest(this.id)"  class="color-red">Afkeuren</a> 
+						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="denieRequest(this.id)"  class="color-red">Afkeuren</button> 
+
 					
 					</div>
 					}
