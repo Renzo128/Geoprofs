@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Geoprofs.Models;
 using Geoprofs.Models.Data;
+using Microsoft.Extensions.Primitives;
 
 namespace Geoprofs.Controllers
 {
@@ -118,6 +119,32 @@ namespace Geoprofs.Controllers
             }
             return View(absenceRequest);
         }
+          public async Task<IActionResult> edit_Accept(string sender,string id)
+          {
+            string coworker = Request.Form["Coworker_" + id.ToString()];
+            int newId = Convert.ToInt32(id);
+            foreach(string key in Request.Form.Keys)
+            {
+                if(key.Contains(id))
+                {
+                string absencerequest =Convert.ToString(Request.Form[key].ToString());
+                    var absencerequests = new AbsenceRequest() { absenceId = newId, absenceStatus = absencerequest };
+
+                    using (var context = _context)
+                    {
+                        context.absenceRequests.Attach(absencerequests);
+                        context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
+                        context.SaveChanges();
+                        return RedirectToAction(nameof(Index));
+
+                    }
+                }
+            }
+
+
+
+              return  RedirectToAction(nameof(Index)); 
+    }
 
         // GET: AbsenceRequests/Delete/5
         public async Task<IActionResult> Delete(int? id)

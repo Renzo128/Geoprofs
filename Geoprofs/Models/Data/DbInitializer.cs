@@ -103,14 +103,14 @@ namespace Geoprofs.Models.Data
             context.SaveChanges();
 
 
-            var absenceRequest = new AbsenceRequest[]
+  /*          var absenceRequest = new AbsenceRequest[]
             {
                 new AbsenceRequest{Coworker = Coworker[1].coworkerId,AbsenceStart=DateTime.Parse("2022-06-10"),AbsenceEnd=DateTime.Parse("2022-06-12"),Note="I'd like to be free",absenceType=absenceType[0].absenceTypeId,absenceStatus="Onbekend"}
-            };
-            foreach (AbsenceRequest e in absenceRequest)
+            };*/
+/*            foreach (AbsenceRequest e in absenceRequest)
             {
                 context.absenceRequests.Add(e);
-            }
+            }*/
             context.SaveChanges();
 
 
