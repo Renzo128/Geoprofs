@@ -39,6 +39,7 @@ namespace Geoprofs.Controllers
                 TempData["username"] = Username;
                 TempData["password"] = Password;
                 TempData["supervisor"] = userdata.supervisor;
+                
 
                 return RedirectToAction("index", "Coworkers");
             }

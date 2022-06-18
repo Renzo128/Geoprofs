@@ -193,5 +193,36 @@ namespace Geoprofs.Controllers
         {
             return _context.absenceRequests.Any(e => e.absenceId == id);
         }
+
+
+        public async Task<IActionResult> PastMonth(int month, int year)
+        {
+            month--;
+
+            if(month == 0)
+            {
+                month = 12;
+                year--;
+            }
+            TempData["Month"] = month;
+            TempData["Year"] = year;
+            return RedirectToAction("index", "Coworkers");
+
+        }
+
+        public async Task<IActionResult> NextMonth(int month, int year)
+        {
+            month++;
+
+            if (month == 13)
+            {
+                month = 1;
+                year = (int) year + 1;
+            }
+            TempData["Month"] = month;
+            TempData["Year"] = year;
+            return RedirectToAction("index", "Coworkers");
+
+        }
     }
 }

@@ -29,7 +29,18 @@
     int December = 31;
 
     int[] arr = { 0,Januari, Februari, Maart, April, Mei, Juni, Juli, Augustus, September, Oktober, November, December }; 
+    int currentMonth = DateTime.Now.Month;
+    int currentYear = DateTime.Now.Year;
     int CurrentMonth = DateTime.Now.Month;
+
+    if(TempData["month"] != null && TempData["Year"] != null)
+    {
+        currentMonth =(int) TempData["month"];
+        currentYear =(int) TempData["Year"];
+        CurrentMonth = (int)TempData["month"];
+
+    
+    }
 
     int VorigeMaand = 0;
     int MomenteleMaand = 0;
@@ -58,14 +69,33 @@
         }
         Loop++;
     }
-    int currentMonth = DateTime.Now.Month;
-    int currentYear = (int)DateTime.Now.Year;
+
     DateTime value = new DateTime(currentYear, currentMonth, 1);
     int StartDayLastMonth = (int)value.DayOfWeek;
     StartDayLastMonth = StartDayLastMonth - 1;
 
+
+
 }
 <h1 style="margin-bottom: 50px;">Verlof planning</h1>
+
+@using (Html.BeginForm("PastMonth", "AbsenceRequests"))
+{
+    <input type="hidden" name="month" value="@currentMonth" id="month"/>
+    <input type="hidden" name="year" value="@currentYear" id="year"/>
+
+    <button type="submit">Vorige</button>
+}
+
+@using (Html.BeginForm("NextMonth", "AbsenceRequests"))
+{
+        <input type="hidden" name="month" value="@currentMonth" id="month"/>
+    <input type="hidden" name="year" value="@currentYear" id="year"/>
+    <button type="submit">Volgende</button>
+}
+@currentMonth
+<br/>
+@currentYear
 
 @{
     int displayLoop = 1;
@@ -91,26 +121,33 @@
             <p class="number">
                     @displayLastMonth
                     </p>
-                    @foreach (var item in Model) {
-
-        @foreach(var item2 in item.AbsenceRequest)
+        @foreach (var item in Model)
         {
+            @foreach (var item2 in item.AbsenceRequest)
+            {
+                if (item.supervisor == (int)TempData["supervisor"])
+                { 
+                    TempData.Keep("supervisor");
+
+
                 int start = item2.AbsenceStart.Day;
-                int end = (int) item2.AbsenceEnd.Day;
+                int end = (int)item2.AbsenceEnd.Day;
                 int startmonth = item2.AbsenceStart.Month;
                 int endmonth = item2.AbsenceEnd.Month;
                 int LastMonthForDisplay = currentMonth - 1;
+                int StartYear = item2.AbsenceStart.Year;
+                int endYear = item2.AbsenceEnd.Year;
 
                 //@startmonth
 
-            if(start <= displayLastMonth  && LastMonthForDisplay == startmonth)
-            {
-        <p class="name">
-            @Html.DisplayFor(modelItem => item.CoworkerName)
-            </p>
-                
-            }
+                if (currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth)
+                {
+                    <p class="name">
+                        @Html.DisplayFor(modelItem => item.CoworkerName)
+                    </p>
+                }
 
+            }
         }
     }
                 @:</div>
@@ -125,25 +162,28 @@
 
     @foreach (var item in Model) {
 
-        @foreach(var item2 in item.AbsenceRequest)
-        {
-            int start = item2.AbsenceStart.Day;
-            int end = (int) item2.AbsenceEnd.Day;
-            int startmonth = item2.AbsenceStart.Month;
-            int endmonth = item2.AbsenceStart.Month;
-
-
-            if(start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth)
+            @foreach (var item2 in item.AbsenceRequest)
             {
-               <p class="name">
+                if (item.supervisor == (int)TempData["supervisor"])
+                {
+                    TempData.Keep("supervisor");
+                    int start = item2.AbsenceStart.Day;
+                    int end = (int)item2.AbsenceEnd.Day;
+                    int startmonth = item2.AbsenceStart.Month;
+                    int endmonth = item2.AbsenceEnd.Month;
+                    int startyear = item2.AbsenceStart.Year;
 
-            @Html.DisplayFor(modelItem => item.CoworkerName)
-            </p>
-                
+
+                    if (currentYear == startyear && start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth || currentYear == startyear && startmonth < currentMonth && endmonth >= currentMonth && end >= displayLoop || currentYear == startyear && startmonth < currentMonth && endmonth > currentMonth || currentYear == startyear && startmonth == currentMonth && endmonth > currentMonth && start <= displayLoop)
+                    {
+                        <p class="name">
+
+                            @Html.DisplayFor(modelItem => item.CoworkerName)
+                        </p>
+                    }
+                }
             }
-
         }
-    }
     </div>
 
     if(displayLoop == MomenteleMaand && FullWeek != 7)
@@ -159,24 +199,34 @@
                 <p class="number">
             @displayLastMonth
             </p>
-            @foreach (var item in Model) {
-
+            @foreach (var item in Model)
+            {
                 @foreach (var item2 in item.AbsenceRequest)
                 {
-                    int start = item2.AbsenceStart.Day;
-                    int end = (int)item2.AbsenceEnd.Day;
-                    int startmonth = item2.AbsenceStart.Month;
-                    int endmonth = item2.AbsenceEnd.Month;
-                    int NextMonthForDisplay = currentMonth + 1;
-                    if ( NextMonthForDisplay >= startmonth && NextMonthForDisplay == endmonth&& end >= displayLastMonth)
+                    if (item.supervisor == (int)TempData["supervisor"])
                     {
-                        <p class="name">
-                        @Html.DisplayFor(modelItem => item.CoworkerName)
-                        </p>
-                    }
+                    TempData.Keep("supervisor");
 
+                        int start = item2.AbsenceStart.Day;
+                        int end = (int)item2.AbsenceEnd.Day;
+                        int startmonth = item2.AbsenceStart.Month;
+                        int endmonth = item2.AbsenceEnd.Month;
+                        int NextMonthForDisplay = currentMonth + 1;
+                        if (NextMonthForDisplay == 13)
+                        {
+                            NextMonthForDisplay = 1;
+                        }
+                        int endyear = item2.AbsenceEnd.Year;
+                        if (currentYear < endyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay || NextMonthForDisplay >= startmonth && NextMonthForDisplay == endmonth && end >= displayLastMonth)
+
+                        {
+                            <p class="name">
+                                @Html.DisplayFor(modelItem => item.CoworkerName)
+                            </p>
+                        }
+                    }
                 }
-            }
+        }
             @:</div>
             FullWeek++;
         }
