@@ -6,8 +6,8 @@
 
 <h1>Verlof goedkeuren</h1>
 <div class="button-container">
-<a asp-action="" class="button padding">Geselecteerde afkeuren</a>
-<a asp-action="" class="button padding">Geselecteerde goedkeuren</a>
+<a asp-action="" onclick="rejected()" class="button padding">Geselecteerde afkeuren</a>
+<a asp-action="" onclick="accept()" class="button padding">Geselecteerde goedkeuren</a>
 </div>
 
 <table class="table">
@@ -42,8 +42,8 @@
 			<tr>
 				<td>
 					<label>
-						<input type="checkbox"/>
-						<span class="checkbox"></span>
+						<input  type="checkbox"/>
+						<span runat="server"  id="temp_@item.absenceId" onclick="addToArray(this.id)" class="checkbox"></span>
 					</label>
 				</td>
 				<td>
@@ -97,5 +97,48 @@
 		document.getElementById("id_"+id).value = "Geweigerd";
 
 	};
+	var arr = [];
+
+	function addToArray(val){
+
+		const myArray = val.split("_");
+		let word = myArray[1];
+
+		if(arr.includes(word)){
+			const index = arr.indexOf(word);
+			arr.splice(index, 1);
+		}
+		else{
+		arr.push(word)
+		}
+	}
+
+	function accept(){
+		$.ajax({
+		type: "GET",
+		url: 'AbsenceRequests/success',
+		contentType: "application/json; charset=utf-8",
+		data:{"arr": arr},
+		traditional: true,
+		dataType: "json",
+		success: function(response) {},
+		error: function(response) {}
+		});
+	};
+
+		function rejected(){
+		$.ajax({
+		type: "GET",
+		url: 'AbsenceRequests/rejected',
+		contentType: "application/json; charset=utf-8",
+		data:{"arr": arr},
+		traditional: true,
+		dataType: "json",
+		success: function(response) {},
+		error: function(response) {}
+		});
+	};
+
+
 
 </script>

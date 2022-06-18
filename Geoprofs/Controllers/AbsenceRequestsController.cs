@@ -119,15 +119,15 @@ namespace Geoprofs.Controllers
             }
             return View(absenceRequest);
         }
-          public async Task<IActionResult> edit_Accept(string sender,string id)
-          {
+        public async Task<IActionResult> edit_Accept(string sender, string id)
+        {
             string coworker = Request.Form["Coworker_" + id.ToString()];
             int newId = Convert.ToInt32(id);
-            foreach(string key in Request.Form.Keys)
+            foreach (string key in Request.Form.Keys)
             {
-                if(key.Contains(id))
+                if (key.Contains(id))
                 {
-                string absencerequest =Convert.ToString(Request.Form[key].ToString());
+                    string absencerequest = Convert.ToString(Request.Form[key].ToString());
                     var absencerequests = new AbsenceRequest() { absenceId = newId, absenceStatus = absencerequest };
 
                     using (var context = _context)
@@ -143,8 +143,8 @@ namespace Geoprofs.Controllers
 
 
 
-              return  RedirectToAction(nameof(Index)); 
-    }
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: AbsenceRequests/Delete/5
         public async Task<IActionResult> Delete(string id)
@@ -181,13 +181,13 @@ namespace Geoprofs.Controllers
         // POST: AbsenceRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-   /*     public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var absenceRequest = await _context.absenceRequests.FindAsync(id);
-            _context.absenceRequests.Remove(absenceRequest);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        } */
+        /*     public async Task<IActionResult> DeleteConfirmed(int id)
+             {
+                 var absenceRequest = await _context.absenceRequests.FindAsync(id);
+                 _context.absenceRequests.Remove(absenceRequest);
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction(nameof(Index));
+             } */
 
         private bool AbsenceRequestExists(int id)
         {
@@ -199,7 +199,7 @@ namespace Geoprofs.Controllers
         {
             month--;
 
-            if(month == 0)
+            if (month == 0)
             {
                 month = 12;
                 year--;
@@ -217,11 +217,45 @@ namespace Geoprofs.Controllers
             if (month == 13)
             {
                 month = 1;
-                year = (int) year + 1;
+                year = (int)year + 1;
             }
             TempData["Month"] = month;
             TempData["Year"] = year;
             return RedirectToAction("index", "Coworkers");
+
+        }
+
+    public async Task<IActionResult> success(List<int> arr)
+        {
+            foreach (var item in arr)
+            {
+                var absencerequests = new AbsenceRequest() { absenceId = item, absenceStatus = "Geaccepteerd" };
+
+
+                    _context.absenceRequests.Attach(absencerequests);
+                    _context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
+            }
+            _context.SaveChanges();
+
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        public async Task<IActionResult> rejected(List<int> arr)
+        {
+            foreach (var item in arr)
+            {
+                var absencerequests = new AbsenceRequest() { absenceId = item, absenceStatus = "Geweigerd" };
+
+
+                _context.absenceRequests.Attach(absencerequests);
+                _context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
+            }
+            _context.SaveChanges();
+
+
+            return RedirectToAction(nameof(Index));
 
         }
     }
