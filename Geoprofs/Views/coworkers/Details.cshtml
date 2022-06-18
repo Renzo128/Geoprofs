@@ -30,6 +30,11 @@
 	</div>
 	</div>
 	-->
+
+	Verlof dagen over: @TempData.Peek("absenceDays")
+	@{
+		TempData.Keep("absenceDays");
+	}
 	<table class="table">
 		<thead>
 			<tr>

@@ -39,7 +39,21 @@ namespace Geoprofs.Controllers
                 TempData["username"] = Username;
                 TempData["password"] = Password;
                 TempData["supervisor"] = userdata.supervisor;
-                
+                TempData["role"] = userdata.position;
+
+                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+
+                TempData["Requests"] = requests;
+
+                var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+                int allVacation = userdata.vacationdays;
+                foreach(var item in users)
+                {
+                    var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                    int days = (int) hours / 24;
+                    allVacation = allVacation - days;
+                }
+                TempData["absenceDays"] = allVacation;
 
                 return RedirectToAction("index", "Coworkers");
             }

@@ -6,6 +6,16 @@
 
 <h1>Verlof goedkeuren</h1>
 <div class="button-container">
+	@{
+		int val = (int) TempData["role"];
+	}
+	@if(val == 7){
+		<a class="nav-link text-dark" asp-area="" asp-controller="Betalingsinstantie" asp-action="Index">Uren naar betalingsinstantie</a>
+	}
+	@{
+		TempData.Keep("role");
+	}
+
 <a asp-action="" onclick="rejected()" class="button padding">Geselecteerde afkeuren</a>
 <a asp-action="" onclick="accept()" class="button padding">Geselecteerde goedkeuren</a>
 </div>

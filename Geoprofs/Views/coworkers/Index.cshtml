@@ -140,10 +140,15 @@
                 int LastMonthForDisplay = currentMonth - 1;
                 int StartYear = item2.AbsenceStart.Year;
                 int endYear = item2.AbsenceEnd.Year;
+                DateTime longVacationStart = item2.AbsenceStart;
+                DateTime longVacationEnd = item2.AbsenceEnd;
+                longVacationEnd = longVacationEnd.AddMonths(-1);
+
+
 
                 //@startmonth
 
-                if (currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth)
+                if (currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth ||currentYear <= StartYear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart)
                 {
                     <p class="name">
                         @Html.DisplayFor(modelItem => item.CoworkerName)
@@ -221,8 +226,11 @@
                         {
                             NextMonthForDisplay = 1;
                         }
+                        DateTime longVacationStart = item2.AbsenceStart;
+                        DateTime longVacationEnd = item2.AbsenceEnd;
+                        longVacationEnd = longVacationEnd.AddMonths(-1);
                         int endyear = item2.AbsenceEnd.Year;
-                        if (currentYear < endyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay || NextMonthForDisplay >= startmonth && NextMonthForDisplay == endmonth && end >= displayLastMonth)
+                        if (currentYear < endyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay || NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
 
                         {
                             <p class="name">

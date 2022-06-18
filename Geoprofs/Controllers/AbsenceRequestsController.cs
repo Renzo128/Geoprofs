@@ -64,6 +64,10 @@ namespace Geoprofs.Controllers
             {
                 _context.Add(absenceRequest);
                 await _context.SaveChangesAsync();
+                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+
+                TempData["Requests"] = requests;
+
                 return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
             }
             return View(absenceRequest);
@@ -135,6 +139,9 @@ namespace Geoprofs.Controllers
                         context.absenceRequests.Attach(absencerequests);
                         context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
                         context.SaveChanges();
+                        var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+
+                        TempData["Requests"] = requests;
                         return RedirectToAction(nameof(Index));
 
                     }
@@ -165,6 +172,10 @@ namespace Geoprofs.Controllers
                         context.absenceRequests.Attach(absencerequests);
                         context.absenceRequests.Remove(absencerequests);
                         context.SaveChanges();
+
+                        var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+
+                        TempData["Requests"] = requests;
 
                         return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
 
@@ -237,6 +248,9 @@ namespace Geoprofs.Controllers
             }
             _context.SaveChanges();
 
+            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+
+            TempData["Requests"] = requests;
 
             return RedirectToAction(nameof(Index));
 
@@ -254,6 +268,9 @@ namespace Geoprofs.Controllers
             }
             _context.SaveChanges();
 
+            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+
+            TempData["Requests"] = requests;
 
             return RedirectToAction(nameof(Index));
 
