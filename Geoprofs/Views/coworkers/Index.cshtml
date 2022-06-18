@@ -39,7 +39,7 @@
         currentYear =(int) TempData["Year"];
         CurrentMonth = (int)TempData["month"];
 
-    
+
     }
 
     int VorigeMaand = 0;
@@ -72,7 +72,10 @@
 
     DateTime value = new DateTime(currentYear, currentMonth, 1);
     int StartDayLastMonth = (int)value.DayOfWeek;
+    if(StartDayLastMonth != 0)
+    {
     StartDayLastMonth = StartDayLastMonth - 1;
+    }
 
 
 
@@ -172,9 +175,11 @@
                     int startmonth = item2.AbsenceStart.Month;
                     int endmonth = item2.AbsenceEnd.Month;
                     int startyear = item2.AbsenceStart.Year;
+                    int endyear = item2.AbsenceEnd.Year;
 
 
-                    if (currentYear == startyear && start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth || currentYear == startyear && startmonth < currentMonth && endmonth >= currentMonth && end >= displayLoop || currentYear == startyear && startmonth < currentMonth && endmonth > currentMonth || currentYear == startyear && startmonth == currentMonth && endmonth > currentMonth && start <= displayLoop)
+
+                    if (currentYear >= startyear && currentYear <= endyear && start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth || currentYear == startyear && startmonth < currentMonth && endmonth >= currentMonth && end >= displayLoop || currentYear == startyear && startmonth < currentMonth && endmonth > currentMonth || currentYear == startyear && startmonth == currentMonth && endmonth > currentMonth && start <= displayLoop||currentYear >= startyear && currentYear <= endyear && endmonth >= currentMonth && end >= displayLoop && startyear < currentYear)
                     {
                         <p class="name">
 
