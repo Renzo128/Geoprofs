@@ -5,61 +5,75 @@
 
 <div class="text-center">
 	<h1>Registreren</h1>  <!--Registreren pagina-->
-	@using (Html.BeginForm("Verify", "login"))
+	@using (Html.BeginForm("RegisterUser", "Home"))
 	{
 		<div class="login">
 			<div class=" col column left"></div>
 			<div class="col column right">
 				<div class="form-container">
-			<div class="name-container">
-				<div class="form-label">
-				<label>Voornaam</label>
-			<input type="text" name="Fname-reg" id="Fname-reg" placeholder="john"/>
-			</div>
-			<div class="form-label">
-			<label>Achternaam</label>
-			<input type="text" name="Lname-reg" id="Lname-reg" placeholder="Doe"/>
-			</div>
-			</div>
-			<div class="form-label">
-			<label>BSN nummer</label>
-			<input type="text" name="bsn-reg" id="bsn-reg" placeholder="abcd12345"/>
-			</div>
-			<div class="form-label">
-			<label>Positie</label>
-			<select name="positie" id="positie">
-				<option value="undefined">Kies een optie</option>
-				<option value="optie 1">optie 1</option>
-				<option value="optie 2">optie 2</option>
-				<option value="optie 3">optie 3</option>
-				<option value="optie 4">optie 4</option>
-				<option value="optie 5">optie 5</option>
-				<option value="optie 6">optie 6</option>
-				<option value="optie 7">optie 7</option>
-			</select>
-			</div>
-			<div class="form-label">
-			<label>Superviser</label>
-			<select name="positie" id="positie">
-				<option value="undefined">Kies een superviser</option>
-				<option value="optie 1">superviser 1</option>
-				<option value="optie 2">superviser 2</option>
-				<option value="optie 3">superviser 3</option>
-			</select>
-			</div>
-			<div class="form-label">
-			<label>Gebruikersnaam</label>
-			<input type="text" name="Username-reg" id="Username-reg" placeholder="Gebruikersnaam" />
-			</div>
-			<div class="form-label">
-			<label>Achternaam</label>
-			<input type="password" name="Password-reg" id="Password-reg" placeholder="Achternaam" />
-			</div>
-			<p>Al een account? <a class="link" asp-area="" asp-controller="" asp-action="Register">klik hier.</a></p>
-			<button type="submit" class="button">Registreren</button>
-		</div>
+					<div class="name-container">
+						<div class="form-label">
+							<label>Voornaam</label>
+							<input type="text" name="Fname_reg" id="Fname_reg" placeholder="john" />
+						</div>
+						<div class="form-label">
+							<label>Achternaam</label>
+							<input type="text" name="Lname_reg" id="Lname_reg" placeholder="Doe" />
+						</div>
+					</div>
+					<div class="form-label">
+						<label>BSN nummer</label>
+						<input type="text" name="bsn_reg" id="bsn_reg" placeholder="abcd12345" />
+					</div>
+					<div class="form-label">
+						<label>Positie</label>
+						<select  id="positie_reg" name="positie_reg">
+							<option value="undefined">Kies een optie</option>
+								<option value="1">Finance</option>
+								<option value="2">Relation Management</option>
+								<option value="3">Geodesy</option>
+								<option value="4">Geo-ICT</option>
+								<option value="5">HRM</option>
+								<option value="6">ICT</option>
+								<option value="7">CEO</option>
+						</select>
+					</div>
+					<div class="form-label">
+						<label>Superviser</label>
+						<select name="Superviser_reg" id="Superviser_reg">
+							@{
+								var enumerable = TempData["sup"] as IEnumerable<Supervisor>;
+								TempData.Keep("sup");
+								var coworker = TempData["cow"] as IEnumerable<Coworker>;
+								TempData.Keep("cow");
+							}
+							<option value="undefined">Kies een superviser</option>
+							@foreach (var val in enumerable)
+							{
+								@foreach (var val2 in coworker)
+								{
+									@if (@val2.coworkerId == @val.Coworker)
+									{
+										<option value="@val.supervisorId">@val2.CoworkerName @val2.coworkerLastname</option>
+
+									}
+								}
+							}
+						</select>
+					</div>
+					<div class="form-label">
+						<label>Gebruikersnaam</label>
+						<input type="text" name="Username_reg" id="Username_reg" placeholder="Gebruikersnaam" />
+					</div>
+					<div class="form-label">
+						<label>Achternaam</label>
+						<input type="password" name="Password_reg" id="Password_reg" placeholder="wachtwoord" />
+					</div>
+					<p>Al een account? <a class="link" asp-area="" asp-controller="" asp-action="index">klik hier.</a></p>
+					<button type="submit" class="button">Registreren</button>
 				</div>
-			</div>		
+			</div>
+		</div>
 	}
 
 </div>
