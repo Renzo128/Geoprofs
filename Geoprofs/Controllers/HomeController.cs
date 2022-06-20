@@ -27,6 +27,21 @@ namespace Geoprofs.Controllers
 
         public IActionResult Index()
         {
+
+            TempData["supervisor"] = null;
+            TempData["user_id"] = null;
+            TempData["role"] = null;
+            TempData["pos"] = null;
+            TempData["sup"] = null;
+            TempData["cow"] = null;
+            TempData["username"] = null;
+            TempData["password"] = null;
+            TempData["Requests"] = null;
+            TempData["absenceDays"] = null;
+            TempData["abs"] = null;
+            TempData["Month"] = null;
+            TempData["Year"] = null;
+
             return View();
         }
 
