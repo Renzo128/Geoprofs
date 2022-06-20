@@ -8,15 +8,16 @@
 
 <div class="container-table">
 	<hr />
-	<a class="button padding" asp-action="Create">Nieuwe aanvraag +</a>
+	<a class="button padding" id="nieuwe-aanvraag">Nieuwe aanvraag +</a>
 
-	<div class="form-shadow"></div>
-	<div class="container create-request">
+	<div class="form-shadow hidden"></div>
+	<div class="container create-request hidden">
 		<div style="width: 100% !important;">
 			@using (Html.BeginForm("create", "AbsenceRequests",  
             FormMethod.Post, new { @class="request-form" }))
 			{
 				<h1 class="text-center" style="margin: 0 !important;">Nieuwe aanvraag</h1>
+				<img src="/media/Mask Group 12.png" class="img-icon"/>
 				<div class="name-container">
 					<input type="date" name="AbsenceStart" id="AbsenceStart" placeholder="dd-mm-yyyy" />
 					<input type="date" name="AbsenceEnd" id="AbsenceEnd" placeholder="dd-mm-yyyy" />
