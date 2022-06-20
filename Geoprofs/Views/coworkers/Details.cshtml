@@ -1,4 +1,6 @@
-﻿@model Geoprofs.Models.Coworker
+﻿@using Newtonsoft.Json
+
+@model Geoprofs.Models.Coworker
 
 @{
 	ViewData["Title"] = "Details";
@@ -24,10 +26,17 @@
 				</div>
 				<textarea name="Note" style="width:100%; margin-top:5px; margin-bottom:5px;" id="Note" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi blandit massa in lectus dignissim, et pellentesque tortor fringilla. Cras euismod."></textarea>
 				<select name="absenceType" id="absenceType">
+					@{
+						var absencetype = JsonConvert.DeserializeObject<List<AbsenceType>>(TempData["abs"] as string);
+								TempData.Keep("abs");
+
+					}
 					<option value="undefined">Kies een verlof type</option>
-					<option value="1">type 1</option>
-					<option value="2">type 2</option>
-					<option value="3">type 3</option>
+					@foreach(var items in absencetype)
+					{
+					<option value="@items.absenceTypeId">@items.absenceName</option>
+					}
+
 				</select>
 				<input type="hidden" name="absencestatus" id="absencestatus" value="Openstaand" />
 				<input type="hidden" name="Coworker" id="Coworker" value="@TempData.Peek("user_id")" />

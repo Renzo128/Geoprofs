@@ -32,7 +32,7 @@
 							<option value="undefined">Kies een optie</option>
 							@{
 								var positions = JsonConvert.DeserializeObject<List<Position>>(TempData["pos"] as string);
-								TempData.Keep("pos");
+								TempData.Keep("abs");
 
 							}
 							@foreach(var item in positions)

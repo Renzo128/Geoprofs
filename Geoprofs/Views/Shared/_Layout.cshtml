@@ -24,21 +24,21 @@
 							<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
 						</li>
 						<li class="nav-item">
-							@if(TempData["Requests"] != null){
-								<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index"><p class="notification">@TempData.Peek("Requests")</p>Verlof planning</a>
-							}
-							else
-							{
-								<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index"><p class="notification">0</p>Verlof planning</a>
-								
-							}
+								<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
 							@{
 								TempData.Keep("Requests");
 								TempData.Keep("user_id");
 							}
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index">Verlof goedkeuren</a>
+						@if(TempData["Requests"] != null){
+							<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">@TempData.Peek("Requests")</p>Verlof goedkeuren</a>
+														}
+							else
+							{
+							
+							<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">0</p>Verlof goedkeuren</a>
+							}
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Uitloggen</a>

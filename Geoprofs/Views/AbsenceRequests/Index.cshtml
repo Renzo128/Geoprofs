@@ -49,6 +49,11 @@
 	<tbody>
 		@foreach (var item in Model)
 		{
+
+			@if(item.absenceStatus == "Openstaand")
+			{
+				
+
 			<tr>
 				<td>
 					<label>
@@ -94,6 +99,7 @@
 			</td>
 			</tr>
 		}
+					}
 	</tbody>
 </table>
 <script>

@@ -128,7 +128,7 @@
         {
             @foreach (var item2 in item.AbsenceRequest)
             {
-                if (item.supervisor == (int)TempData["supervisor"])
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                 { 
                     TempData.Keep("supervisor");
 
@@ -172,7 +172,7 @@
 
             @foreach (var item2 in item.AbsenceRequest)
             {
-                if (item.supervisor == (int)TempData["supervisor"])
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                 {
                     TempData.Keep("supervisor");
                     int start = item2.AbsenceStart.Day;
@@ -213,7 +213,7 @@
             {
                 @foreach (var item2 in item.AbsenceRequest)
                 {
-                    if (item.supervisor == (int)TempData["supervisor"])
+                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                     {
                     TempData.Keep("supervisor");
 

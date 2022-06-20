@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Geoprofs.Models;
 using Geoprofs.Models.Data;
+using Newtonsoft.Json;
 
 namespace Geoprofs.Controllers
 {
@@ -41,6 +42,10 @@ namespace Geoprofs.Controllers
             .Include(a => a.AbsenceRequest)
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.coworkerId == id);
+
+            var absenceTypes = JsonConvert.SerializeObject(_context.absenceTypes.ToList());
+
+            TempData["abs"] = absenceTypes;
             if (updatedview == null)
             {
                 return NotFound();

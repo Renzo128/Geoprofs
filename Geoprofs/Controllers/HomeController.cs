@@ -49,12 +49,11 @@ namespace Geoprofs.Controllers
 
         public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, string bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
         {
-            int bsnconvert = Convert.ToInt32(bsn_reg);
-            Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = bsnconvert, position = positie_reg, supervisor = Superviser_reg, absence = 2,vacationdays = 25  };
+            Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = bsn_reg, position = positie_reg, supervisor = Superviser_reg, absence = 2,vacationdays = 25  };
 
             _context.Add(newCoworker);
             await _context.SaveChangesAsync();
-            var data = _context.coworkers.Where(x => x.CoworkerName == Fname_reg && x.coworkerLastname == Fname_reg).FirstOrDefault();
+            var data = _context.coworkers.Where(x => x.CoworkerName == Fname_reg && x.coworkerLastname == Lname_reg).FirstOrDefault();
             Login account = new Login() {  Coworker = data.coworkerId, Password = Password_reg, Username = Username_reg };
 
             _context.Add(account);
@@ -63,6 +62,14 @@ namespace Geoprofs.Controllers
             TempData["supervisor"] = Superviser_reg;
             TempData["user_id"] = data.coworkerId;
             TempData["role"] = data.position;
+
+            if(positie_reg >= 5)
+            {
+                Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
+                _context.Add(sup);
+                _context.SaveChanges();
+            }
+
 
             return RedirectToAction("index", "Coworkers");
 
