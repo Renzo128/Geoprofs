@@ -1,4 +1,5 @@
-﻿@model Geoprofs.Models.Login
+﻿@using Newtonsoft.Json
+@model Geoprofs.Models.Login
 @{
 	ViewData["Title"] = "Home Page";
 }
@@ -27,24 +28,27 @@
 					</div>
 					<div class="form-label">
 						<label>Positie</label>
-						<select  id="positie_reg" name="positie_reg">
+						<select id="positie_reg" name="positie_reg">
 							<option value="undefined">Kies een optie</option>
-								<option value="1">Finance</option>
-								<option value="2">Relation Management</option>
-								<option value="3">Geodesy</option>
-								<option value="4">Geo-ICT</option>
-								<option value="5">HRM</option>
-								<option value="6">ICT</option>
-								<option value="7">CEO</option>
+							@{
+								var positions = JsonConvert.DeserializeObject<List<Position>>(TempData["pos"] as string);
+								TempData.Keep("pos");
+
+							}
+							@foreach(var item in positions)
+							{
+							<option value="@item.positionId">@item.positionName</option>
+
+							}
 						</select>
 					</div>
 					<div class="form-label">
 						<label>Superviser</label>
 						<select name="Superviser_reg" id="Superviser_reg">
 							@{
-								var enumerable = TempData["sup"] as IEnumerable<Supervisor>;
+								var enumerable = JsonConvert.DeserializeObject<List<Supervisor>>(TempData["sup"] as string);
 								TempData.Keep("sup");
-								var coworker = TempData["cow"] as IEnumerable<Coworker>;
+								var coworker = JsonConvert.DeserializeObject<List<Coworker>>(TempData["cow"] as string);//as List<Coworker>;// as IEnumerable<Coworker>;
 								TempData.Keep("cow");
 							}
 							<option value="undefined">Kies een superviser</option>

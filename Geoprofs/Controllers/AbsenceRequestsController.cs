@@ -70,7 +70,8 @@ namespace Geoprofs.Controllers
 
                 return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
             }
-            return View(absenceRequest);
+            return RedirectToAction("Details", "Coworkers", new { id = TempData.Peek("user_id") });
+
         }
 
         // GET: AbsenceRequests/Edit/5

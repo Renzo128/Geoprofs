@@ -2,6 +2,7 @@
 using Geoprofs.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,12 +36,12 @@ namespace Geoprofs.Controllers
         }
         public IActionResult Register()
         {
-           var positions =  _context.positions;
-            var supervisors = _context.supervisors;
-            var Coworkers = _context.coworkers;
+           var positions =  JsonConvert.SerializeObject(_context.positions.ToList());
+            var supervisors = JsonConvert.SerializeObject(_context.supervisors.ToList());
+            var Coworkers = JsonConvert.SerializeObject(_context.coworkers.ToList());
 
 
-
+            TempData["pos"] = positions;
             TempData["sup"] = supervisors;
             TempData["cow"] = Coworkers;
             return View();
@@ -59,7 +60,9 @@ namespace Geoprofs.Controllers
             _context.Add(account);
             await _context.SaveChangesAsync();
 
-
+            TempData["supervisor"] = Superviser_reg;
+            TempData["user_id"] = data.coworkerId;
+            TempData["role"] = data.position;
 
             return RedirectToAction("index", "Coworkers");
 
