@@ -25,7 +25,7 @@ namespace Geoprofs.Controllers
         #region --verlof goedkeuren pagina
         public async Task<IActionResult> Index()
         {
-            var Data = _context.absenceRequests
+            var Data = _context.absenceRequests //verlof aanvragen ophalen
             .Include(s => s.coworker)
             .Include(t => t.AbsenceType);
             return View(await Data.ToListAsync());
@@ -37,6 +37,7 @@ namespace Geoprofs.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("absenceId,Coworker,AbsenceStart,AbsenceEnd,Note,absenceType,absenceStatus")] AbsenceRequest absenceRequest)
         {
+         //verlof aanvraag aanmaken
             if (ModelState.IsValid)
             {
                 _context.Add(absenceRequest);
@@ -48,7 +49,7 @@ namespace Geoprofs.Controllers
                 var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
                 var users = _context.absenceRequests.Where(x => x.coworker == userdata);
                 TempData.Keep("user_id");
-
+                //totaal verlof dagen
                 int allVacation = userdata.vacationdays;
                 foreach (var item in users)
                 {
@@ -72,6 +73,7 @@ namespace Geoprofs.Controllers
 
         public async Task<IActionResult> edit_Accept(string sender, string id)
         {
+            //verlof aanvraag goedkeuren/ afwijzen
             string coworker = Request.Form["Coworker_" + id.ToString()];
             int newId = Convert.ToInt32(id);
             foreach (string key in Request.Form.Keys)
@@ -87,7 +89,7 @@ namespace Geoprofs.Controllers
                         context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
                         context.SaveChanges();
                         var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
-
+                        //totaal aantal aanvragen die nog openstaand zijn ophalen
                         TempData["Requests"] = requests;
                         return RedirectToAction(nameof(Index));
 
@@ -99,6 +101,7 @@ namespace Geoprofs.Controllers
 
         public async Task<IActionResult> success(List<int> arr)
         {
+            //verlof aanvragen goedkeuren
             using (var context = _context)
             {
                 foreach (var item in arr)
@@ -112,7 +115,7 @@ namespace Geoprofs.Controllers
                 context.SaveChanges();
             }
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
-
+            //verlof aanvragen die openstaan zijn ophalen
             TempData["Requests"] = requests;
 
 
@@ -122,6 +125,8 @@ namespace Geoprofs.Controllers
 
         public async Task<IActionResult> rejected(List<int> arr)
         {
+            //verlof aanvragen afwijzen
+
             foreach (var item in arr)
             {
                 var absencerequests = new AbsenceRequest() { absenceId = item, absenceStatus = "Geweigerd" };
@@ -133,7 +138,7 @@ namespace Geoprofs.Controllers
             _context.SaveChanges();
 
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
-
+            //totaal aantal open aanvragen ophalen
             TempData["Requests"] = requests;
             return RedirectToAction(nameof(Index));
 
@@ -143,7 +148,7 @@ namespace Geoprofs.Controllers
         #region --Verlof aanvraag verwijderen
         public async Task<IActionResult> Delete(string id)
         {
-            //string coworker = Request.Form["Coworker_" + id.ToString()];
+            //verlof verwijderen
             int newId = Convert.ToInt32(id);
 
 
@@ -167,6 +172,7 @@ namespace Geoprofs.Controllers
                         var users = _context.absenceRequests.Where(x => x.coworker == userdata);
                         TempData.Keep("user_id");
 
+                        //overige verlof optellen
                         int allVacation = userdata.vacationdays;
                         foreach (var item in users)
                         {
@@ -192,6 +198,7 @@ namespace Geoprofs.Controllers
 
         public async Task<IActionResult> PastMonth(int month, int year)
         {
+            //naar vorige maand gaan
             month--;
 
             if (month == 0)
@@ -207,6 +214,7 @@ namespace Geoprofs.Controllers
 
         public async Task<IActionResult> NextMonth(int month, int year)
         {
+            //naar volgende maand gaan
             month++;
 
             if (month == 13)
@@ -224,12 +232,12 @@ namespace Geoprofs.Controllers
         #region --reload
         public async Task<IActionResult> reload()
         {
+            // pagina herladen
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
 
             TempData["Requests"] = requests;
             return RedirectToAction(nameof(Index));
 
-            return RedirectToAction(nameof(Index));
 
         }
         #endregion

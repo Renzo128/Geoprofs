@@ -38,6 +38,7 @@ namespace Geoprofs.Controllers
         #region --verlof pagina
         public async Task<IActionResult> Details(int? id)
         {
+            //verlof aanvragen ophalen
             if (id == null)
             {
                 return NotFound();
@@ -47,7 +48,7 @@ namespace Geoprofs.Controllers
             .Include(a => a.AbsenceRequest)
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.coworkerId == id);
-
+            // verlof types ophalen
             var absenceTypes = JsonConvert.SerializeObject(_context.absenceTypes.ToList());
 
             TempData["abs"] = absenceTypes;

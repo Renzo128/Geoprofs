@@ -21,8 +21,6 @@ namespace Geoprofs.Controllers
         }
         #endregion
 
-
-
         #region --login verifieren
         [HttpPost]
         public async Task<ActionResult> Verify(string Password, string Username)
@@ -31,7 +29,6 @@ namespace Geoprofs.Controllers
                 .Where(l => l.Username == Username && l.Password == Password);
             if (Data.Any())
             {
-                //var userData = _context.logins.FirstOrDefaultAsync(pr => pr.Password == Password && pr.Username == Username);
                 var otherData = _context.logins.Where(x => x.Password == Password && x.Username == Username).FirstOrDefault();
 
                 var userdata = _context.coworkers.Where(x => x.coworkerId == otherData.Coworker).FirstOrDefault();
@@ -45,7 +42,7 @@ namespace Geoprofs.Controllers
                 var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
 
                 TempData["Requests"] = requests;
-
+                // aantal verlof dagen bij elkaar optellen
                 var users = _context.absenceRequests.Where(x => x.coworker == userdata);
                 int allVacation = userdata.vacationdays;
                 foreach(var item in users)

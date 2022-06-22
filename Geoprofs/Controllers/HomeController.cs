@@ -30,6 +30,7 @@ namespace Geoprofs.Controllers
         #region --start pagina en gebruiker uitloggen
         public IActionResult Index()
         {
+            //gebruiker uitloggen
 
             TempData["supervisor"] = null;
             TempData["user_id"] = null;
@@ -44,7 +45,7 @@ namespace Geoprofs.Controllers
             TempData["abs"] = null;
             TempData["Month"] = null;
             TempData["Year"] = null;
-
+            //naar inlog pagina
             return View();
         }
         #endregion
@@ -52,6 +53,7 @@ namespace Geoprofs.Controllers
         #region --privacy pagina
         public IActionResult Privacy()
         {
+            //privay pagina
             return View();
         }
         #endregion
@@ -59,6 +61,7 @@ namespace Geoprofs.Controllers
         #region --gebruiker registeren
         public IActionResult Register()
         {
+            // dropdown waardes ophalen
            var positions =  JsonConvert.SerializeObject(_context.positions.ToList());
             var supervisors = JsonConvert.SerializeObject(_context.supervisors.ToList());
             var Coworkers = JsonConvert.SerializeObject(_context.coworkers.ToList());
@@ -72,6 +75,7 @@ namespace Geoprofs.Controllers
 
         public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, string bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
         {
+            //gebruiker registeren
             Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = bsn_reg, position = positie_reg, supervisor = Superviser_reg, absence = 2,vacationdays = 25  };
 
             _context.Add(newCoworker);
@@ -92,6 +96,8 @@ namespace Geoprofs.Controllers
                 _context.Add(sup);
                 _context.SaveChanges();
             }
+            TempData["absenceDays"] = 25;
+
 
 
             return RedirectToAction("index", "Coworkers");
