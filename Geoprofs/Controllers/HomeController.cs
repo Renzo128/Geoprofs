@@ -13,6 +13,7 @@ namespace Geoprofs.Controllers
 {
     public class HomeController : Controller
     {
+        #region --db connectie en logger
         private readonly ILogger<HomeController> _logger;
 
         private readonly DB _context;
@@ -24,7 +25,9 @@ namespace Geoprofs.Controllers
             _logger = logger;
             _context = context;
         }
+        #endregion
 
+        #region --start pagina en gebruiker uitloggen
         public IActionResult Index()
         {
 
@@ -44,11 +47,16 @@ namespace Geoprofs.Controllers
 
             return View();
         }
+        #endregion
 
+        #region --privacy pagina
         public IActionResult Privacy()
         {
             return View();
         }
+        #endregion
+
+        #region --gebruiker registeren
         public IActionResult Register()
         {
            var positions =  JsonConvert.SerializeObject(_context.positions.ToList());
@@ -91,11 +99,14 @@ namespace Geoprofs.Controllers
 
 
         }
+        #endregion
 
+        #region --error melding
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #endregion
     }
 }

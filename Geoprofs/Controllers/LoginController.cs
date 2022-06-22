@@ -11,18 +11,19 @@ namespace Geoprofs.Controllers
 {
     public class LoginController : Controller
     {
+
+        #region --Database connectie
         private readonly DB _context;
 
         public LoginController(DB context)  // database data ophalen
         {
             _context = context;
         }
+        #endregion
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+
+
+        #region --login verifieren
         [HttpPost]
         public async Task<ActionResult> Verify(string Password, string Username)
         {   // controlleren of gebruiker de goede gebruikersnaam en wachtwoord gebruikt
@@ -63,6 +64,7 @@ namespace Geoprofs.Controllers
             }
 
         }
+        #endregion
 
 
     }

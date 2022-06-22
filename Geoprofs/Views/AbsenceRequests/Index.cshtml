@@ -7,17 +7,20 @@
 <h1>Verlof goedkeuren</h1>
 <div class="button-container">
 	@{
-		int val = (int) TempData["role"];
+		int val = (int)TempData["role"];
 	}
-	@if(val == 7){
+	@if (val == 7)
+	{
 		<a class="button padding" asp-area="" asp-controller="Betalingsinstantie" asp-action="Index">Uren naar betalingsinstantie</a>
 	}
 	@{
 		TempData.Keep("role");
 	}
-
-<a asp-action="" onclick="rejected()" class="button padding">Geselecteerde afkeuren</a>
-<a asp-action="" onclick="accept()" class="button padding">Geselecteerde goedkeuren</a>
+	@using (Html.BeginForm("reload", "AbsenceRequests"))
+	{
+		<button type="submit" onclick="rejected()" class="button padding">Geselecteerde afkeuren</button>
+		<button type="submit" onclick="accept()" class="button padding">Geselecteerde goedkeuren</button>
+	}
 </div>
 
 <table class="table">
@@ -50,56 +53,56 @@
 		@foreach (var item in Model)
 		{
 
-			@if(item.absenceStatus == "Openstaand")
+			@if (item.absenceStatus == "Openstaand")
 			{
-				
 
-			<tr>
-				<td>
-					<label>
-						<input  type="checkbox"/>
-						<span runat="server"  id="temp_@item.absenceId" onclick="addToArray(this.id)" class="checkbox"></span>
-					</label>
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.coworker.CoworkerName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.AbsenceStart)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.AbsenceEnd)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Note)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
-				</td>
-				<td>
-					@using (Html.BeginForm("edit_Accept", "AbsenceRequests"))
-					{
-					<input type="hidden" runat="server" value="id_@item.absenceId" id=id_@item.absenceId name="id_@item.absenceId"/>
-					<input type="hidden" value="@item.coworker" id="Coworker_@item.absenceId" name="Coworker_@item.absenceId"/>
-					<input type="hidden" value="@item.AbsenceStart" id="absencestart_@item.absenceId" name="absencestart_@item.absenceId"/>
-					<input type="hidden" value="@item.AbsenceEnd" id="absenceend_@item.absenceId" name="absenceend_@item.absenceId"/>
-					<input type="hidden" value="@item.Note" id="note_@item.absenceId" name="note_@item.absenceId"/>
-					<input type="hidden" value="@item.absenceType" id="type_@item.absenceId" name="type_@item.absenceId"/>
-					<input type="hidden" value="@item.absenceStatus" id="status_@item.absenceId" name="status_@item.absenceId"/>
 
-					<div class="options-icon" onclick="ShowPopUp('@item.absenceId')"><img src="/media/Mask Group 7.png"/></div> 
-					<div class="pop-up" id="@item.absenceId">
-						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="acceptRequest(this.id)"  class="color-green button-reset">Goedkeuren</button> 
-						<p> | </p>
-						<button type="submit" runat="server"  id="@item.absenceId" name="id" value="@item.absenceId" onclick="denieRequest(this.id)"  class="color-red button-reset">Afkeuren</button> 
+				<tr>
+					<td>
+						<label>
+							<input type="checkbox" />
+							<span runat="server" id="temp_@item.absenceId" onclick="addToArray(this.id)" class="checkbox"></span>
+						</label>
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.coworker.CoworkerName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.AbsenceStart)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.AbsenceEnd)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Note)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
+					</td>
+					<td>
+						@using (Html.BeginForm("edit_Accept", "AbsenceRequests"))
+						{
+							<input type="hidden" runat="server" value="id_@item.absenceId" id=id_@item.absenceId name="id_@item.absenceId" />
+							<input type="hidden" value="@item.coworker" id="Coworker_@item.absenceId" name="Coworker_@item.absenceId" />
+							<input type="hidden" value="@item.AbsenceStart" id="absencestart_@item.absenceId" name="absencestart_@item.absenceId" />
+							<input type="hidden" value="@item.AbsenceEnd" id="absenceend_@item.absenceId" name="absenceend_@item.absenceId" />
+							<input type="hidden" value="@item.Note" id="note_@item.absenceId" name="note_@item.absenceId" />
+							<input type="hidden" value="@item.absenceType" id="type_@item.absenceId" name="type_@item.absenceId" />
+							<input type="hidden" value="@item.absenceStatus" id="status_@item.absenceId" name="status_@item.absenceId" />
 
-					
-					</div>
-					}
-			</td>
-			</tr>
+							<div class="options-icon" onclick="ShowPopUp('@item.absenceId')"><img src="/media/Mask Group 7.png" /></div>
+							<div class="pop-up" id="@item.absenceId">
+								<button type="submit" runat="server" id="@item.absenceId" name="id" value="@item.absenceId" onclick="acceptRequest(this.id)" class="color-green button-reset">Goedkeuren</button>
+								<p> | </p>
+								<button type="submit" runat="server" id="@item.absenceId" name="id" value="@item.absenceId" onclick="denieRequest(this.id)" class="color-red button-reset">Afkeuren</button>
+
+
+							</div>
+						}
+					</td>
+				</tr>
+			}
 		}
-					}
 	</tbody>
 </table>
 <script>

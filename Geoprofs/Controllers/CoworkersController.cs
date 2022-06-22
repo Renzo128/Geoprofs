@@ -13,14 +13,17 @@ namespace Geoprofs.Controllers
 {
     public class CoworkersController : Controller
     {
+
+        #region --database connectie
         private readonly DB _context;
 
         public CoworkersController(DB context)
         {
             _context = context;
         }
+        #endregion
 
-        // GET: Coworkers
+        #region --planning pagina
         public async Task<IActionResult> Index()
         {
             var Data = _context.coworkers
@@ -30,7 +33,9 @@ namespace Geoprofs.Controllers
             return View(await Data.ToListAsync());
         }
 
-        // GET: Coworkers/Details/5
+        #endregion
+
+        #region --verlof pagina
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -53,16 +58,15 @@ namespace Geoprofs.Controllers
 
             return View(updatedview);
         }
+        #endregion
 
-        // GET: Coworkers/Create
+        #region --not needed
+        /*
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Coworkers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("coworkerId,CoworkerName,coworkerLastname,bsn,position,supervisor,startDate,absence,vacationdays")] Coworker coworker)
@@ -160,5 +164,7 @@ namespace Geoprofs.Controllers
         {
             return _context.coworkers.Any(e => e.coworkerId == id);
         }
+        */
+        #endregion
     }
 }
