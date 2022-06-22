@@ -81,24 +81,28 @@
 
 }
 <h1 style="margin-bottom: 50px;">Verlof planning</h1>
-
+<div class="root-container">
+<div class="text-container">
+<p><strong>Maand:</strong> @currentMonth</p>
+<p><strong>Jaar:</strong> @currentYear</p>
+</div>
+<div class="button-container">
 @using (Html.BeginForm("PastMonth", "AbsenceRequests"))
 {
     <input type="hidden" name="month" value="@currentMonth" id="month"/>
     <input type="hidden" name="year" value="@currentYear" id="year"/>
 
-    <button type="submit">Vorige</button>
+    <button type="submit" class="button">Vorige</button>
 }
 
 @using (Html.BeginForm("NextMonth", "AbsenceRequests"))
 {
         <input type="hidden" name="month" value="@currentMonth" id="month"/>
     <input type="hidden" name="year" value="@currentYear" id="year"/>
-    <button type="submit">Volgende</button>
+    <button type="submit" class="button">Volgende</button>
 }
-@currentMonth
-<br/>
-@currentYear
+</div>
+</div>
 
 @{
     int displayLoop = 1;
@@ -112,7 +116,7 @@
 @while (displayLoop <= MomenteleMaand){
     if(FullWeek == 1)
     {
-            @:<div class="row mobile-styling">
+            @:<div class="row">
 
     }
 

@@ -51,7 +51,7 @@
 </div>
 
 
-	Verlof dagen over: @TempData.Peek("absenceDays")
+	<strong>Verlof dagen over:</strong> @TempData.Peek("absenceDays")
 @{
 	TempData.Keep("absenceDays");
 }
@@ -69,7 +69,7 @@
 		<tr>
 			@foreach (var item in Model.AbsenceRequest)
 			{
-			<tr>
+			<tr class="absence-request">
 				<td>
 						@Html.DisplayFor(modelItem => item.AbsenceStart)
 				</td>
@@ -87,7 +87,7 @@
 						{
 						<input type="hidden" runat="server" value="id_@item.absenceId" id="id_@item.absenceId" name="id_@item.absenceId" />
 						<input type="hidden" runat="server" value="@item.absenceId" id="id" name="id" />
-						<button runat="server" type="submit" class="button-reset" id="@item.absenceId" name="id"><img src="/media/Mask Group 6.png"><span>Intrekken</span></button>
+						<button runat="server" type="submit" class="button-reset intrekken" id="@item.absenceId" name="id"><img src="/media/Mask Group 6.png"><span>Intrekken</span></button>
 
 						}
 				</td>
