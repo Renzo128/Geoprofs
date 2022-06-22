@@ -86,7 +86,7 @@ namespace Geoprofs.Controllers
             TempData["user_id"] = data.coworkerId;
             TempData["role"] = data.position;
 
-            if(positie_reg >= 5)
+            if (positie_reg >= 5)
             {
                 Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
                 _context.Add(sup);
