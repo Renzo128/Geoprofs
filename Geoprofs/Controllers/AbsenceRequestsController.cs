@@ -25,11 +25,27 @@ namespace Geoprofs.Controllers
         #region --verlof goedkeuren pagina
         public async Task<IActionResult> Index()
         {
-            var Data = _context.absenceRequests //verlof aanvragen ophalen
-            .Include(s => s.coworker)
-            .Include(t => t.AbsenceType);
-            return View(await Data.ToListAsync());
-        }
+            TempData.Keep("role");
+            if (TempData["role"] != null)
+            {
+                if ((int)TempData["role"] > 6)
+                {
+                    var Data = _context.absenceRequests //verlof aanvragen ophalen
+                    .Include(s => s.coworker)
+                    .Include(t => t.AbsenceType);
+                    return View(await Data.ToListAsync());
+                }
+				else
+				{
+                    return RedirectToAction("index", "Home");
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("index", "Home");
+            }
+            }
         #endregion
 
         #region --verlof aanvragen
@@ -42,7 +58,9 @@ namespace Geoprofs.Controllers
             {
                 _context.Add(absenceRequest);
                 await _context.SaveChangesAsync();
-                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+                var supervisor = (int)TempData["supervisor"];
+                TempData.Keep("supervisor");
+                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
                 TempData["Requests"] = requests;
 
@@ -88,7 +106,9 @@ namespace Geoprofs.Controllers
                         context.absenceRequests.Attach(absencerequests);
                         context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
                         context.SaveChanges();
-                        var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+                        var supervisor = (int)TempData["supervisor"];
+                        TempData.Keep("supervisor");
+                        var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
                         //totaal aantal aanvragen die nog openstaand zijn ophalen
                         TempData["Requests"] = requests;
                         return RedirectToAction(nameof(Index));
@@ -114,7 +134,9 @@ namespace Geoprofs.Controllers
                 }
                 context.SaveChanges();
             }
-            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+            var supervisor = (int)TempData["supervisor"];
+            TempData.Keep("supervisor");
+            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
             //verlof aanvragen die openstaan zijn ophalen
             TempData["Requests"] = requests;
 
@@ -137,7 +159,9 @@ namespace Geoprofs.Controllers
             }
             _context.SaveChanges();
 
-            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+            var supervisor = (int)TempData["supervisor"];
+            TempData.Keep("supervisor");
+            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
             //totaal aantal open aanvragen ophalen
             TempData["Requests"] = requests;
             return RedirectToAction(nameof(Index));
@@ -165,7 +189,9 @@ namespace Geoprofs.Controllers
                         context.absenceRequests.Remove(absencerequests);
                         context.SaveChanges();
 
-                        var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+                        var supervisor = (int)TempData["supervisor"];
+                        TempData.Keep("supervisor");
+                        var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
                         TempData["Requests"] = requests;
                         var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
@@ -233,7 +259,9 @@ namespace Geoprofs.Controllers
         public async Task<IActionResult> reload()
         {
             // pagina herladen
-            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+            var supervisor = (int)TempData["supervisor"];
+            TempData.Keep("supervisor");
+            var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
             TempData["Requests"] = requests;
             return RedirectToAction(nameof(Index));

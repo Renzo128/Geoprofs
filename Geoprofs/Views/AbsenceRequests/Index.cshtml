@@ -52,9 +52,11 @@
 	<tbody>
 		@foreach (var item in Model)
 		{
+				TempData.Keep("supervisor");
 
-			@if (item.absenceStatus == "Openstaand")
+			@if (item.absenceStatus == "Openstaand" && item.coworker.supervisor == (int)TempData["supervisor"])
 			{
+				TempData.Keep("supervisor");
 
 
 				<tr>

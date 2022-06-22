@@ -38,8 +38,9 @@ namespace Geoprofs.Controllers
                 TempData["password"] = Password;
                 TempData["supervisor"] = userdata.supervisor;
                 TempData["role"] = userdata.position;
-
-                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand").Count();
+                var supervisor = (int)TempData["supervisor"];
+                TempData.Keep("supervisor");
+                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
                 TempData["Requests"] = requests;
                 // aantal verlof dagen bij elkaar optellen
@@ -62,7 +63,6 @@ namespace Geoprofs.Controllers
 
         }
         #endregion
-
 
     }
 }

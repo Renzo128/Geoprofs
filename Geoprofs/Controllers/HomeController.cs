@@ -50,14 +50,6 @@ namespace Geoprofs.Controllers
         }
         #endregion
 
-        #region --privacy pagina
-        public IActionResult Privacy()
-        {
-            //privay pagina
-            return View();
-        }
-        #endregion
-
         #region --gebruiker registeren
         public IActionResult Register()
         {

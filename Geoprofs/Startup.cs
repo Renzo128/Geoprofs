@@ -34,6 +34,8 @@ namespace Geoprofs
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
             services.AddDistributedMemoryCache();
 
             services.AddControllersWithViews();

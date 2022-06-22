@@ -20,29 +20,60 @@
 				</button>
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
-						</li>
-						<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
-							@{
-								TempData.Keep("Requests");
-								TempData.Keep("user_id");
+						@{
+							TempData.Keep("role");
+						}
+						@if (TempData["role"] != null)
+						{
+							@if ((int)TempData["role"] >= 6)
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
+									@{
+										TempData.Keep("Requests");
+										TempData.Keep("user_id");
+									}
+								</li>
+								<li class="nav-item">
+									@if (TempData["Requests"] != null)
+									{
+										<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">@TempData.Peek("Requests")</p>Verlof goedkeuren</a>
+									}
+									else
+									{
+
+										<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">0</p>Verlof goedkeuren</a>
+									}
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Uitloggen</a>
+								</li>
 							}
-						</li>
-						<li class="nav-item">
-						@if(TempData["Requests"] != null){
-							<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">@TempData.Peek("Requests")</p>Verlof goedkeuren</a>
-														}
+							else if ((int)TempData["role"] != 0)
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
+									@{
+										TempData.Keep("Requests");
+										TempData.Keep("user_id");
+									}
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Uitloggen</a>
+								</li>
+							}
 							else
 							{
-							
-							<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">0</p>Verlof goedkeuren</a>
+
 							}
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Uitloggen</a>
-						</li>
+						}
+
 					</ul>
 				</div>
 			</div>

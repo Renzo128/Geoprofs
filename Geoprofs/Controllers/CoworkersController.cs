@@ -26,11 +26,19 @@ namespace Geoprofs.Controllers
         #region --planning pagina
         public async Task<IActionResult> Index()
         {
-            var Data = _context.coworkers
-            .Include(s => s.Position)
-            .Include(a => a.AbsenceRequest);
+            TempData.Keep("role");
+            if (TempData["role"] != null)
+            {
+                var Data = _context.coworkers
+                .Include(s => s.Position)
+                .Include(a => a.AbsenceRequest);
 
-            return View(await Data.ToListAsync());
+                return View(await Data.ToListAsync());
+            }
+			else
+			{
+                return RedirectToAction("index", "Home");
+            }
         }
 
         #endregion
@@ -38,26 +46,35 @@ namespace Geoprofs.Controllers
         #region --verlof pagina
         public async Task<IActionResult> Details(int? id)
         {
-            //verlof aanvragen ophalen
-            if (id == null)
+            TempData.Keep("role");
+            if (TempData["role"] != null)
             {
-                return NotFound();
-            }
-            var updatedview = await _context.coworkers
-            .Include(s => s.Position)
-            .Include(a => a.AbsenceRequest)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.coworkerId == id);
-            // verlof types ophalen
-            var absenceTypes = JsonConvert.SerializeObject(_context.absenceTypes.ToList());
 
-            TempData["abs"] = absenceTypes;
-            if (updatedview == null)
+                //verlof aanvragen ophalen
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                var updatedview = await _context.coworkers
+                .Include(s => s.Position)
+                .Include(a => a.AbsenceRequest)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.coworkerId == id);
+                // verlof types ophalen
+                var absenceTypes = JsonConvert.SerializeObject(_context.absenceTypes.ToList());
+
+                TempData["abs"] = absenceTypes;
+                if (updatedview == null)
+                {
+                    return NotFound();
+                }
+
+                return View(updatedview);
+            }
+            else
             {
-                return NotFound();
+                return RedirectToAction("index", "Home");
             }
-
-            return View(updatedview);
         }
         #endregion
 

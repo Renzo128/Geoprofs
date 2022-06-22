@@ -132,9 +132,10 @@
         {
             @foreach (var item2 in item.AbsenceRequest)
             {
+                    TempData.Keep("supervisor");
+
                 if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                 { 
-                    TempData.Keep("supervisor");
 
 
                 int start = item2.AbsenceStart.Day;
@@ -147,10 +148,6 @@
                 DateTime longVacationStart = item2.AbsenceStart;
                 DateTime longVacationEnd = item2.AbsenceEnd;
                 longVacationEnd = longVacationEnd.AddMonths(-1);
-
-
-
-                //@startmonth
 
                 if (currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth ||currentYear <= StartYear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart)
                 {
