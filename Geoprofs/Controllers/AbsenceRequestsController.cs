@@ -71,9 +71,12 @@ namespace Geoprofs.Controllers
                 int allVacation = userdata.vacationdays;
                 foreach (var item in users)
                 {
-                    var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                    int days = (int)hours / 24;
-                    allVacation = allVacation - days;
+                    if (item.absenceStatus == "Geaccepteerd")
+                    {
+                        var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                        int days = (int)hours / 24;
+                        allVacation = allVacation - days;
+                    }
                 }
                 TempData["absenceDays"] = allVacation;
 
@@ -111,6 +114,23 @@ namespace Geoprofs.Controllers
                         var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
                         //totaal aantal aanvragen die nog openstaand zijn ophalen
                         TempData["Requests"] = requests;
+                        var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+                        var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+                        TempData.Keep("user_id");
+
+                        //overige verlof optellen
+                        int allVacation = userdata.vacationdays;
+                        foreach (var item in users)
+                        {
+                            if (item.absenceStatus == "Geaccepteerd")
+                            {
+                                var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                                int days = (int)hours / 24;
+                                allVacation = allVacation - days;
+                            }
+                        }
+                        TempData["absenceDays"] = allVacation;
+
                         return RedirectToAction(nameof(Index));
 
                     }
@@ -139,6 +159,23 @@ namespace Geoprofs.Controllers
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
             //verlof aanvragen die openstaan zijn ophalen
             TempData["Requests"] = requests;
+            var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+            var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+            TempData.Keep("user_id");
+
+            //overige verlof optellen
+            int allVacation = userdata.vacationdays;
+            foreach (var item in users)
+            {
+                if (item.absenceStatus == "Geaccepteerd")
+                {
+                    var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                    int days = (int)hours / 24;
+                    allVacation = allVacation - days;
+                }
+            }
+            TempData["absenceDays"] = allVacation;
+
 
 
             return RedirectToAction(nameof(Index));
@@ -164,6 +201,23 @@ namespace Geoprofs.Controllers
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
             //totaal aantal open aanvragen ophalen
             TempData["Requests"] = requests;
+            var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+            var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+            TempData.Keep("user_id");
+
+            //overige verlof optellen
+            int allVacation = userdata.vacationdays;
+            foreach (var item in users)
+            {
+                if (item.absenceStatus == "Geaccepteerd")
+                {
+                    var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                    int days = (int)hours / 24;
+                    allVacation = allVacation - days;
+                }
+            }
+            TempData["absenceDays"] = allVacation;
+
             return RedirectToAction(nameof(Index));
 
         }
@@ -202,9 +256,12 @@ namespace Geoprofs.Controllers
                         int allVacation = userdata.vacationdays;
                         foreach (var item in users)
                         {
-                            var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                            int days = (int)hours / 24;
-                            allVacation = allVacation - days;
+                            if (item.absenceStatus == "Geaccepteerd")
+                            {
+                                var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                                int days = (int)hours / 24;
+                                allVacation = allVacation - days;
+                            }
                         }
                         TempData["absenceDays"] = allVacation;
 

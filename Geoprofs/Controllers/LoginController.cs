@@ -48,9 +48,12 @@ namespace Geoprofs.Controllers
                 int allVacation = userdata.vacationdays;
                 foreach(var item in users)
                 {
-                    var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                    int days = (int) hours / 24;
-                    allVacation = allVacation - days;
+                    if (item.absenceStatus == "Geaccepteerd")
+                    {
+                        var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
+                        int days = (int)hours / 24;
+                        allVacation = allVacation - days;
+                    }
                 }
                 TempData["absenceDays"] = allVacation;
 

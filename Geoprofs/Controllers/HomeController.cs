@@ -65,10 +65,10 @@ namespace Geoprofs.Controllers
             return View();
         }
 
-        public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, string bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
+        public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, int bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
         {
             //gebruiker registeren
-            Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = bsn_reg, position = positie_reg, supervisor = Superviser_reg, absence = 2,vacationdays = 25  };
+            Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = (int)bsn_reg, position = positie_reg, supervisor = Superviser_reg, absence = 2,vacationdays = 25  };
 
             _context.Add(newCoworker);
             await _context.SaveChangesAsync();
