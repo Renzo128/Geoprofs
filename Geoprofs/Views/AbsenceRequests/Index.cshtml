@@ -18,11 +18,13 @@
 	}
 	@using (Html.BeginForm("reload", "AbsenceRequests"))
 	{
+		<div class="button-container" style="margin: 0;">
 		<button type="submit" onclick="rejected()" class="button padding">Geselecteerde afkeuren</button>
 		<button type="submit" onclick="accept()" class="button padding">Geselecteerde goedkeuren</button>
+		</div>
 	}
 </div>
-
+<div class="overflow-auto">
 <table class="table">
 	<thead>
 		<tr>
@@ -38,7 +40,7 @@
 			<th>
 				@Html.DisplayNameFor(model => model.AbsenceEnd)
 			</th>
-			<th>
+			<th class="note">
 				@Html.DisplayNameFor(model => model.Note)
 			</th>
 			<th>
@@ -75,7 +77,7 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.AbsenceEnd)
 					</td>
-					<td>
+					<td class="note-col	">
 						@Html.DisplayFor(modelItem => item.Note)
 					</td>
 					<td>
@@ -107,6 +109,7 @@
 		}
 	</tbody>
 </table>
+</div>
 <script>
 	function acceptRequest(id){
 		document.getElementById("id_"+id).value = "Geaccepteerd";
