@@ -72,10 +72,16 @@
 						@Html.DisplayFor(modelItem => item.coworker.CoworkerName)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.AbsenceStart)
+						@{
+							string start = item.AbsenceStart.Day +"-"+ item.AbsenceStart.Month+"-"+item.AbsenceStart.Year;
+						}
+						@start
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.AbsenceEnd)
+						@{
+							string end = item.AbsenceEnd.Day + "-" + item.AbsenceEnd.Month + "-" + item.AbsenceEnd.Year;
+						}
+						@end
 					</td>
 					<td class="note-col	">
 						@Html.DisplayFor(modelItem => item.Note)
