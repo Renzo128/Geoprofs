@@ -65,10 +65,10 @@ namespace Geoprofs.Controllers
             return View();
         }
 
-        public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, string bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
+        public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, int bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
         {
             //gebruiker registeren
-            Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = bsn_reg, position = positie_reg, supervisor = Superviser_reg, absence = 2,vacationdays = 25  };
+            Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = (int)bsn_reg, position = positie_reg, supervisor = Superviser_reg,vacationdays = 25  };
 
             _context.Add(newCoworker);
             await _context.SaveChangesAsync();
@@ -82,12 +82,23 @@ namespace Geoprofs.Controllers
             TempData["user_id"] = data.coworkerId;
             TempData["role"] = data.position;
 
-            if (positie_reg >= 5)
+            if (positie_reg >= 6)
             {
                 Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
                 _context.Add(sup);
                 _context.SaveChanges();
             }
+
+            if ((int)TempData["role"] >= 6)
+            {
+                var supervising = _context.supervisors.Where(x => x.Coworker == data.coworkerId).FirstOrDefault();
+                TempData["isSupervisor"] = supervising.supervisorId;
+                TempData["supervisor"] = supervising.supervisorId;
+
+
+            }
+
+
             TempData["absenceDays"] = 25;
 
 

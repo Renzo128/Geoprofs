@@ -69,6 +69,31 @@ namespace Geoprofs.Controllers
                     return NotFound();
                 }
 
+                var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+                var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+                TempData.Keep("user_id");
+
+                //overige verlof optellen
+                int allVacation = userdata.vacationdays;
+                foreach (var item in users)
+                {
+                    if (item.absenceStatus == "Geaccepteerd")
+                    {
+                        while (item.AbsenceEnd != item.AbsenceStart)
+                        {
+                            
+                            int weekend = (int)item.AbsenceStart.DayOfWeek;
+                            if (weekend != 6 && weekend != 0)
+                            {
+                                allVacation = allVacation - 1;
+                            }
+                            item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                        }
+                    }
+                }
+                TempData["absenceDays"] = allVacation;
+
+
                 return View(updatedview);
             }
             else

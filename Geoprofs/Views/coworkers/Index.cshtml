@@ -134,9 +134,10 @@
             {
                     TempData.Keep("supervisor");
 
-                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                if (item.supervisor == (int)TempData.Peek("supervisor") && item2.absenceStatus == "Geaccepteerd")
                 { 
 
+                    TempData.Keep("supervisor");
 
                 int start = item2.AbsenceStart.Day;
                 int end = (int)item2.AbsenceEnd.Day;
@@ -157,6 +158,8 @@
                 }
 
             }
+                    TempData.Keep("supervisor");
+
         }
     }
                 @:</div>
@@ -173,6 +176,7 @@
 
             @foreach (var item2 in item.AbsenceRequest)
             {
+                TempData.Keep("supervisor");
                 if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                 {
                     TempData.Keep("supervisor");
@@ -214,6 +218,7 @@
             {
                 @foreach (var item2 in item.AbsenceRequest)
                 {
+                    TempData.Keep("supervisor");
                     if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                     {
                     TempData.Keep("supervisor");

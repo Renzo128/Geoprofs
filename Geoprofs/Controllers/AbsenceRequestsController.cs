@@ -28,11 +28,18 @@ namespace Geoprofs.Controllers
             TempData.Keep("role");
             if (TempData["role"] != null)
             {
-                if ((int)TempData["role"] > 6)
+                if ((int)TempData["role"] >= 6)
                 {
                     var Data = _context.absenceRequests //verlof aanvragen ophalen
                     .Include(s => s.coworker)
                     .Include(t => t.AbsenceType);
+                    var supervisor = (int)TempData["isSupervisor"];
+                    TempData.Keep("isSupervisor");
+                    var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
+                    //totaal aantal open aanvragen ophalen
+                    TempData["Requests"] = requests;
+
+
                     return View(await Data.ToListAsync());
                 }
 				else
@@ -58,12 +65,14 @@ namespace Geoprofs.Controllers
             {
                 _context.Add(absenceRequest);
                 await _context.SaveChangesAsync();
-                var supervisor = (int)TempData["supervisor"];
-                TempData.Keep("supervisor");
-                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
+                if (TempData["isSupervisor"] != null)
+                {
+                    var supervisor = (int)TempData["isSupervisor"];
+                    TempData.Keep("isSupervisor");
+                    var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
-                TempData["Requests"] = requests;
-
+                    TempData["Requests"] = requests;
+                }
                 var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
                 var users = _context.absenceRequests.Where(x => x.coworker == userdata);
                 TempData.Keep("user_id");
@@ -71,9 +80,19 @@ namespace Geoprofs.Controllers
                 int allVacation = userdata.vacationdays;
                 foreach (var item in users)
                 {
-                    var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                    int days = (int)hours / 24;
-                    allVacation = allVacation - days;
+                    if (item.absenceStatus == "Geaccepteerd")
+                    {
+                        while (item.AbsenceEnd != item.AbsenceStart)
+                        {
+
+                            int weekend = (int)item.AbsenceStart.DayOfWeek;
+                            if (weekend != 6 && weekend != 0)
+                            {
+                                allVacation = allVacation - 1;
+                            }
+                            item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                        }
+                    }
                 }
                 TempData["absenceDays"] = allVacation;
 
@@ -89,7 +108,7 @@ namespace Geoprofs.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> edit_Accept(string sender, string id)
+        public async Task<IActionResult> edit_Accept(string id)// string sender
         {
             //verlof aanvraag goedkeuren/ afwijzen
             string coworker = Request.Form["Coworker_" + id.ToString()];
@@ -106,11 +125,35 @@ namespace Geoprofs.Controllers
                         context.absenceRequests.Attach(absencerequests);
                         context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
                         context.SaveChanges();
-                        var supervisor = (int)TempData["supervisor"];
-                        TempData.Keep("supervisor");
+                        var supervisor = (int)TempData["isSupervisor"];
+                        TempData.Keep("isSupervisor");
                         var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
                         //totaal aantal aanvragen die nog openstaand zijn ophalen
                         TempData["Requests"] = requests;
+                        var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+                        var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+                        TempData.Keep("user_id");
+
+                        //overige verlof optellen
+                        int allVacation = userdata.vacationdays;
+                        foreach (var item in users)
+                        {
+                            if (item.absenceStatus == "Geaccepteerd")
+                            {
+                                while (item.AbsenceEnd != item.AbsenceStart)
+                                {
+
+                                    int weekend = (int)item.AbsenceStart.DayOfWeek;
+                                    if (weekend != 6 && weekend != 0)
+                                    {
+                                        allVacation = allVacation - 1;
+                                    }
+                                    item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                                }
+                            }
+                        }
+                        TempData["absenceDays"] = allVacation;
+
                         return RedirectToAction(nameof(Index));
 
                     }
@@ -122,23 +165,47 @@ namespace Geoprofs.Controllers
         public async Task<IActionResult> success(List<int> arr)
         {
             //verlof aanvragen goedkeuren
-            using (var context = _context)
-            {
+
                 foreach (var item in arr)
                 {
                     var absencerequests = new AbsenceRequest() { absenceId = item, absenceStatus = "Geaccepteerd" };
 
 
-                    context.absenceRequests.Attach(absencerequests);
-                    context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
+                    _context.absenceRequests.Attach(absencerequests);
+                    _context.Entry(absencerequests).Property(x => x.absenceStatus).IsModified = true;
                 }
-                context.SaveChanges();
-            }
-            var supervisor = (int)TempData["supervisor"];
-            TempData.Keep("supervisor");
+                _context.SaveChanges();
+            TempData.Keep("isSupervisor");
+
+            var supervisor = (int)TempData["isSupervisor"];
+            TempData.Keep("isSupervisor");
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
             //verlof aanvragen die openstaan zijn ophalen
             TempData["Requests"] = requests;
+            var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+            var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+            TempData.Keep("user_id");
+
+            //overige verlof optellen
+            int allVacation = userdata.vacationdays;
+            foreach (var item in users)
+            {
+                if (item.absenceStatus == "Geaccepteerd")
+                {
+                    while (item.AbsenceEnd != item.AbsenceStart)
+                    {
+
+                        int weekend = (int)item.AbsenceStart.DayOfWeek;
+                        if (weekend != 6 && weekend != 0)
+                        {
+                            allVacation = allVacation - 1;
+                        }
+                        item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                    }
+                }
+            }
+            TempData["absenceDays"] = allVacation;
+
 
 
             return RedirectToAction(nameof(Index));
@@ -159,11 +226,35 @@ namespace Geoprofs.Controllers
             }
             _context.SaveChanges();
 
-            var supervisor = (int)TempData["supervisor"];
-            TempData.Keep("supervisor");
+            var supervisor = (int)TempData["isSupervisor"];
+            TempData.Keep("isSupervisor");
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
             //totaal aantal open aanvragen ophalen
             TempData["Requests"] = requests;
+            var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
+            var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+            TempData.Keep("user_id");
+
+            //overige verlof optellen
+            int allVacation = userdata.vacationdays;
+            foreach (var item in users)
+            {
+                if (item.absenceStatus == "Geaccepteerd")
+                {
+                    while (item.AbsenceEnd != item.AbsenceStart)
+                    {
+
+                        int weekend = (int)item.AbsenceStart.DayOfWeek;
+                        if (weekend != 6 && weekend != 0)
+                        {
+                            allVacation = allVacation - 1;
+                        }
+                        item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                    }
+                }
+            }
+            TempData["absenceDays"] = allVacation;
+
             return RedirectToAction(nameof(Index));
 
         }
@@ -189,8 +280,8 @@ namespace Geoprofs.Controllers
                         context.absenceRequests.Remove(absencerequests);
                         context.SaveChanges();
 
-                        var supervisor = (int)TempData["supervisor"];
-                        TempData.Keep("supervisor");
+                        var supervisor = (int)TempData["isSupervisor"];
+                        TempData.Keep("isSupervisor");
                         var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
                         TempData["Requests"] = requests;
@@ -202,9 +293,19 @@ namespace Geoprofs.Controllers
                         int allVacation = userdata.vacationdays;
                         foreach (var item in users)
                         {
-                            var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                            int days = (int)hours / 24;
-                            allVacation = allVacation - days;
+                            if (item.absenceStatus == "Geaccepteerd")
+                            {
+                                while (item.AbsenceEnd != item.AbsenceStart)
+                                {
+
+                                    int weekend = (int)item.AbsenceStart.DayOfWeek;
+                                    if (weekend != 6 && weekend != 0)
+                                    {
+                                        allVacation = allVacation - 1;
+                                    }
+                                    item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                                }
+                            }
                         }
                         TempData["absenceDays"] = allVacation;
 
@@ -234,6 +335,7 @@ namespace Geoprofs.Controllers
             }
             TempData["Month"] = month;
             TempData["Year"] = year;
+            TempData.Keep("supervisor");
             return RedirectToAction("index", "Coworkers");
 
         }
@@ -250,6 +352,8 @@ namespace Geoprofs.Controllers
             }
             TempData["Month"] = month;
             TempData["Year"] = year;
+            TempData.Keep("supervisor");
+
             return RedirectToAction("index", "Coworkers");
 
         }
@@ -259,8 +363,8 @@ namespace Geoprofs.Controllers
         public async Task<IActionResult> reload()
         {
             // pagina herladen
-            var supervisor = (int)TempData["supervisor"];
-            TempData.Keep("supervisor");
+            var supervisor = (int)TempData["isSupervisor"];
+            TempData.Keep("isSupervisor");
             var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
             TempData["Requests"] = requests;

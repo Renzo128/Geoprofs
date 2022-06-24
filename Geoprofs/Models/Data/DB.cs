@@ -8,8 +8,8 @@ namespace Geoprofs.Models.Data
         public DB(DbContextOptions<DB> options) : base(options)
         {
         }
-        public DbSet<Absence> absences { get; set; }    // database maken
-        public DbSet<AbsenceRequest> absenceRequests { get; set; }
+
+        public DbSet<AbsenceRequest> absenceRequests { get; set; } // database maken
         public DbSet<AbsenceType> absenceTypes { get; set; }
         public DbSet<Coworker> coworkers { get; set; }
         public DbSet<Login> logins { get; set; }
@@ -18,7 +18,6 @@ namespace Geoprofs.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Absence>().ToTable("Absence");
             modelBuilder.Entity<AbsenceRequest>().ToTable("AbsenceRequest");
             modelBuilder.Entity<AbsenceType>().ToTable("AbsenceType");
             modelBuilder.Entity<Coworker>().ToTable("Coworker");
