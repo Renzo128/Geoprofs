@@ -79,9 +79,16 @@ namespace Geoprofs.Controllers
                 {
                     if (item.absenceStatus == "Geaccepteerd")
                     {
-                        var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                        int days = (int)hours / 24;
-                        allVacation = allVacation - days;
+                        while (item.AbsenceEnd != item.AbsenceStart)
+                        {
+                            
+                            int weekend = (int)item.AbsenceStart.DayOfWeek;
+                            if (weekend != 6 && weekend != 0)
+                            {
+                                allVacation = allVacation - 1;
+                            }
+                            item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                        }
                     }
                 }
                 TempData["absenceDays"] = allVacation;

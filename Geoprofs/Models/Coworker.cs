@@ -17,7 +17,6 @@ namespace Geoprofs.Models
         public int position { get; set; }
         public int supervisor { get; set; }
         public DateTime startDate { get; set; }
-        public int absence { get; set; }
 
         public int vacationdays { get; set; }
         [ForeignKey("position")]

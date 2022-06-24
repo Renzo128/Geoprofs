@@ -38,11 +38,19 @@ namespace Geoprofs.Controllers
                 TempData["password"] = Password;
                 TempData["supervisor"] = userdata.supervisor;
                 TempData["role"] = userdata.position;
-                var supervisor = (int)TempData["supervisor"];
-                TempData.Keep("supervisor");
-                var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
+                if((int)TempData["role"] >= 6)
+                {
+                    var supervising = _context.supervisors.Where(x => x.Coworker == userdata.coworkerId).FirstOrDefault();
+                    TempData["isSupervisor"] = supervising.supervisorId;
+                    var supervisor = (int)TempData["isSupervisor"];
+                    TempData.Keep("isSupervisor");
+                    var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
-                TempData["Requests"] = requests;
+                    TempData["Requests"] = requests;
+
+                }
+                TempData.Keep("role");
+
                 // aantal verlof dagen bij elkaar optellen
                 var users = _context.absenceRequests.Where(x => x.coworker == userdata);
                 int allVacation = userdata.vacationdays;
@@ -50,9 +58,16 @@ namespace Geoprofs.Controllers
                 {
                     if (item.absenceStatus == "Geaccepteerd")
                     {
-                        var hours = (item.AbsenceEnd - item.AbsenceStart).TotalHours;
-                        int days = (int)hours / 24;
-                        allVacation = allVacation - days;
+                        while (item.AbsenceEnd != item.AbsenceStart)
+                        {
+
+                            int weekend = (int)item.AbsenceStart.DayOfWeek;
+                            if (weekend != 6 && weekend != 0)
+                            {
+                                allVacation = allVacation - 1;
+                            }
+                            item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                        }
                     }
                 }
                 TempData["absenceDays"] = allVacation;

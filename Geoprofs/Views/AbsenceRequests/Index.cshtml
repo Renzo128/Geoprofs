@@ -54,11 +54,11 @@
 	<tbody>
 		@foreach (var item in Model)
 		{
-				TempData.Keep("supervisor");
+				TempData.Keep("isSupervisor");
 
-			@if (item.absenceStatus == "Openstaand" && item.coworker.supervisor == (int)TempData["supervisor"])
+			@if (item.absenceStatus == "Openstaand" && item.coworker.supervisor == (int)TempData["isSupervisor"])
 			{
-				TempData.Keep("supervisor");
+				TempData.Keep("isSupervisor");
 
 
 				<tr>
@@ -151,8 +151,8 @@
 		data:{"arr": arr},
 		traditional: true,
 		dataType: "json",
-		success: function(response) {},
-		error: function(response) {}
+		success: function(response) {location.reload(); },
+		error: function(response) {location.reload();}
 		});
 	};
 
@@ -164,8 +164,8 @@
 		data:{"arr": arr},
 		traditional: true,
 		dataType: "json",
-		success: function(response) {},
-		error: function(response) {}
+		success: function(response) {location.reload();},
+		error: function(response) {location.reload();}
 		});
 	};
 
