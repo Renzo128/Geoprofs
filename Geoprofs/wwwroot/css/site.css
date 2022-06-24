@@ -459,9 +459,6 @@ td.note-col {
     display: flex;
     overflow-y: auto;
 }
-@media only and screen (max-width: 1000px) {
-    
-}
 /* Registreren page
 -------------------------------------------------- */
 .name-container {
