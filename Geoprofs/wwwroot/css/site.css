@@ -115,6 +115,8 @@ a.nav-link {
     padding: 0.5rem 0 !important;
     margin: 0 0.5rem !important;
 }
+/* menu underline animation
+-------------------------------------------------- */
 a.nav-link::before {
     content: "";
     display: block;
@@ -128,6 +130,8 @@ a.nav-link::before {
 a.nav-link:hover::before {
     width: 100%;
 }
+/* Notifactation in navbar
+-------------------------------------------------- */
 .notification {
     position: absolute;
     right: -15px;
@@ -143,6 +147,8 @@ a.nav-link:hover::before {
 .spacer {
     height: 60px;
 }
+/* button styling resetter
+-------------------------------------------------- */
 .button-reset, .button-reset:hover {
     border: none;
     background: none;
@@ -179,7 +185,9 @@ h1 {
     color: var(--primary);
     text-align: center;
     margin-top: 20px;
-} 
+}
+/* Form styling
+-------------------------------------------------- */
 input {
     border: none;
     border-bottom: solid 3px var(--primary);
@@ -231,6 +239,8 @@ a.button {
 }
 /* verlof page
 -------------------------------------------------- */
+/* tabel styling
+------------------------------------------ */
 .container-table {
     display: grid;
     justify-items: end;
@@ -258,6 +268,8 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
     background-color: #F6F6F6;
 }
+/* Pop-up styling
+-------------------------------------------------- */
 .container.create-request {
     display: flex;
     width: 50%;
@@ -288,6 +300,8 @@ textarea {
 textarea::placeholder {
     color: var(--secondary)
 }
+/* Shadow overlay styling
+-------------------------------------------------- */
 .form-shadow {
     display: block;
     background: #404040;
@@ -308,6 +322,8 @@ textarea::placeholder {
     top: 30px;
     cursor: pointer;
 }
+/* Hide pop-up & overlay 
+-------------------------------------------------- */
 .create-request.hidden, .form-shadow.hidden {
     opacity: 0;
     pointer-events: none;
@@ -323,6 +339,8 @@ textarea::placeholder {
 }
 /* Verlof planning page
 -------------------------------------------------- */
+/* Enkele dag blok styling
+--------------------------------------- */
 .single-day {
     border: solid 1px #e9e9e9;
     padding: 3px;
@@ -352,6 +370,8 @@ textarea::placeholder {
         max-width: 90%;
     }
 }
+/* custom scrollbar
+-------------------------------------------------- */
 /* width */
 .single-day::-webkit-scrollbar, .note-col::-webkit-scrollbar {
     width: 4px;
@@ -391,6 +411,8 @@ p.number {
 }
 /* Verlof goedkeuren page
 -------------------------------------------------- */
+/* Custom checkbox
+----------------------------------------- */
 input[type=checkbox] {
     position: absolute;
     opacity: 0;
@@ -411,6 +433,8 @@ input[type=checkbox]:checked + .checkbox {
     background-image: url('/media/Mask Group 9.png');
     background-size: contain;
 }
+/* button positioning
+-------------------------------------------- */
 .button-container {
     display: flex;
     justify-content: flex-end;
@@ -428,6 +452,8 @@ td {
 .absence-request td {
     width: 20%;
     }
+/* Pop-up goedkeuren/afkeuren styling
+-------------------------------------------------- */
 .pop-up {
     display: flex;
     align-items: center;
@@ -445,6 +471,8 @@ td {
 .pop-up.show {
     visibility: visible;    
 }
+/* Some text collors
+-------------------------------------------------- */
 .color-green, .color-green:hover {
     color: var(--succes) !important;
 }
@@ -461,6 +489,8 @@ td.note-col {
 }
 /* Registreren page
 -------------------------------------------------- */
+/* Form styling
+------------------------------------- */
 .name-container {
     display: flex;
     gap: 20px;
