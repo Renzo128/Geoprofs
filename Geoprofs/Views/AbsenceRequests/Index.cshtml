@@ -10,14 +10,14 @@
 		int val = (int)TempData["role"];
 	}
 	@if (val == 7)
-	{
+	{	// uren doorsturen naar betalingsinstantie
 		<a class="button padding" asp-area="" asp-controller="Betalingsinstantie" asp-action="Index">Uren naar betalingsinstantie</a>
 	}
 	@{
 		TempData.Keep("role");
 	}
 	@using (Html.BeginForm("reload", "AbsenceRequests"))
-	{
+	{	// meerdere verlof aanvragen tegelijk goedkeuren en afwijzen
 		<div class="button-container" style="margin: 0;">
 		<button type="submit" onclick="rejected()" class="button padding">Geselecteerde afkeuren</button>
 		<button type="submit" onclick="accept()" class="button padding">Geselecteerde goedkeuren</button>
@@ -27,7 +27,7 @@
 <div class="overflow-auto">
 <table class="table">
 	<thead>
-		<tr>
+		<tr><!-- table met alle verlof aanvragen die nog openstaand zijn-->
 			<th>
 				Select
 			</th>
@@ -117,19 +117,19 @@
 </table>
 </div>
 <script>
-	function acceptRequest(id){
+	function acceptRequest(id){	// meerdere aanvragen accepteren
 		document.getElementById("id_"+id).value = "Geaccepteerd";
 		console.log(id)
 
 	};
-	function denieRequest(id){
+	function denieRequest(id){// meerdere aanvragen weigeren
 
 		document.getElementById("id_"+id).value = "Geweigerd";
 
 	};
 	var arr = [];
 
-	function addToArray(val){
+	function addToArray(val){	// alle geselecteerde verlof aanvragen ophalen
 
 		const myArray = val.split("_");
 		let word = myArray[1];
@@ -143,7 +143,7 @@
 		}
 	}
 
-	function accept(){
+	function accept(){	//verlof aanvragen accepteren
 		$.ajax({
 		type: "GET",
 		url: 'AbsenceRequests/success',
@@ -156,7 +156,7 @@
 		});
 	};
 
-		function rejected(){
+		function rejected(){	// verlof aanvragen afwijzen
 		$.ajax({
 		type: "GET",
 		url: 'AbsenceRequests/rejected',

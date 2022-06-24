@@ -9,14 +9,14 @@
 <h1>Verlof aanvragen</h1>
 
 <div class="container-table">
-	<hr />
+	<hr />	<!-- modal openen-->
 	<a class="button padding" id="nieuwe-aanvraag">Nieuwe aanvraag +</a>
 
 	<div class="form-shadow hidden"></div>
 	<div class="container create-request hidden">
 		<div style="width: 100% !important;">
 			@using (Html.BeginForm("create", "AbsenceRequests",  
-            FormMethod.Post, new { @class="request-form" }))
+            FormMethod.Post, new { @class="request-form" }))	// verlof aanvraag formulier
 			{
 				<h1 class="text-center" style="margin: 0 !important;">Nieuwe aanvraag</h1>
 				<img src="/media/Mask Group 12.png" class="img-icon"/>
@@ -57,7 +57,7 @@
 }
 <div class="overflow-auto">
 <table class="table">
-	<thead>
+	<thead> <!-- table met alle verlof aanvragen-->
 		<tr>
 			<th>Begin</th>
 			<th>Einde</th>
