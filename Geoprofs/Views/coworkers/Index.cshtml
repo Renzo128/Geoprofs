@@ -177,7 +177,8 @@
             @foreach (var item2 in item.AbsenceRequest)
             {
                 TempData.Keep("supervisor");
-                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                TempData.Keep("user_id");
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd" || item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
                 {
                     TempData.Keep("supervisor");
                     int start = item2.AbsenceStart.Day; //verlof data ophalen
@@ -218,8 +219,9 @@
             {
                 @foreach (var item2 in item.AbsenceRequest)
                 {
-                    TempData.Keep("supervisor");    //verlof data van de afdeling inzien die is geaccepteerd
-                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                    TempData.Keep("supervisor");
+                    TempData.Keep("user_id");//verlof data van de afdeling inzien die is geaccepteerd
+                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd" || item.coworkerId == 76)
                     {
                     TempData.Keep("supervisor");
 
