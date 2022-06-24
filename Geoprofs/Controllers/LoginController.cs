@@ -42,6 +42,8 @@ namespace Geoprofs.Controllers
                 {
                     var supervising = _context.supervisors.Where(x => x.Coworker == userdata.coworkerId).FirstOrDefault();
                     TempData["isSupervisor"] = supervising.supervisorId;
+                    TempData["supervisor"] = supervising.supervisorId;
+
                     var supervisor = (int)TempData["isSupervisor"];
                     TempData.Keep("isSupervisor");
                     var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();

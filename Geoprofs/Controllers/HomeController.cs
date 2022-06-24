@@ -82,19 +82,23 @@ namespace Geoprofs.Controllers
             TempData["user_id"] = data.coworkerId;
             TempData["role"] = data.position;
 
-            if ((int)TempData["role"] >= 6)
-            {
-                var supervising = _context.supervisors.Where(x => x.Coworker == data.coworkerId).FirstOrDefault();
-                TempData["isSupervisor"] = supervising;
-
-            }
-
-            if (positie_reg >= 5)
+            if (positie_reg >= 6)
             {
                 Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
                 _context.Add(sup);
                 _context.SaveChanges();
             }
+
+            if ((int)TempData["role"] >= 6)
+            {
+                var supervising = _context.supervisors.Where(x => x.Coworker == data.coworkerId).FirstOrDefault();
+                TempData["isSupervisor"] = supervising.supervisorId;
+                TempData["supervisor"] = supervising.supervisorId;
+
+
+            }
+
+
             TempData["absenceDays"] = 25;
 
 
