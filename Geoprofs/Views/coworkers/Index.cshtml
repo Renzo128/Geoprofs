@@ -4,7 +4,7 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";//datum ophalen / zette
     int Jaar = DateTime.Now.Year;
     int Januari = 31;
     int Schrikkeljaar = Jaar % 4;
@@ -86,7 +86,7 @@
 <p><strong>Maand:</strong> @currentMonth</p>
 <p><strong>Jaar:</strong> @currentYear</p>
 </div>
-<div class="button-container">
+<div class="button-container">  <!-- naar vorige maand-->
 @using (Html.BeginForm("PastMonth", "AbsenceRequests"))
 {
     <input type="hidden" name="month" value="@currentMonth" id="month"/>
@@ -95,7 +95,7 @@
     <button type="submit" class="button">Vorige</button>
 }
 
-@using (Html.BeginForm("NextMonth", "AbsenceRequests"))
+@using (Html.BeginForm("NextMonth", "AbsenceRequests")) //naar volgende maand gaan
 {
         <input type="hidden" name="month" value="@currentMonth" id="month"/>
     <input type="hidden" name="year" value="@currentYear" id="year"/>
@@ -104,7 +104,7 @@
 </div>
 </div>
 
-@{
+@{  // ophalen welke dag de maand begint
     int displayLoop = 1;
     int FullWeek = 1;
     int lastmonth = 0;
@@ -122,7 +122,7 @@
 
 
         @while(displayLastMonth != VorigeMaand){    // vorige maand
-            displayLastMonth++;
+            displayLastMonth++; // alle dagen van de vorige maand die eindigt in de momentele maand displayen
 
                 @:<div class="col single-day last-month">
             <p class="number">
@@ -132,14 +132,14 @@
         {
             @foreach (var item2 in item.AbsenceRequest)
             {
-                    TempData.Keep("supervisor");
+                    TempData.Keep("supervisor");    // verlof hoort bij de afdeling en is goedgekeurd
 
                 if (item.supervisor == (int)TempData.Peek("supervisor") && item2.absenceStatus == "Geaccepteerd")
                 { 
 
                     TempData.Keep("supervisor");
 
-                int start = item2.AbsenceStart.Day;
+                int start = item2.AbsenceStart.Day; // verlof informatie ophalen
                 int end = (int)item2.AbsenceEnd.Day;
                 int startmonth = item2.AbsenceStart.Month;
                 int endmonth = item2.AbsenceEnd.Month;
@@ -152,7 +152,7 @@
 
                 if (currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth ||currentYear <= StartYear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart)
                 {
-                    <p class="name">
+                    <p class="name">    <!-- verlof dispalyen-->
                         @Html.DisplayFor(modelItem => item.CoworkerName)
                     </p>
                 }
@@ -163,7 +163,7 @@
         }
     }
                 @:</div>
-            FullWeek++;
+            FullWeek++; 
         }
 
     <div class="col single-day">
@@ -172,7 +172,7 @@
             </p>
 
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model) {  // momentele maand
 
             @foreach (var item2 in item.AbsenceRequest)
             {
@@ -180,7 +180,7 @@
                 if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                 {
                     TempData.Keep("supervisor");
-                    int start = item2.AbsenceStart.Day;
+                    int start = item2.AbsenceStart.Day; //verlof data ophalen
                     int end = (int)item2.AbsenceEnd.Day;
                     int startmonth = item2.AbsenceStart.Month;
                     int endmonth = item2.AbsenceEnd.Month;
@@ -191,7 +191,7 @@
 
                     if (currentYear >= startyear && currentYear <= endyear && start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth || currentYear == startyear && startmonth < currentMonth && endmonth >= currentMonth && end >= displayLoop || currentYear == startyear && startmonth < currentMonth && endmonth > currentMonth || currentYear == startyear && startmonth == currentMonth && endmonth > currentMonth && start <= displayLoop||currentYear >= startyear && currentYear <= endyear && endmonth >= currentMonth && end >= displayLoop && startyear < currentYear)
                     {
-                        <p class="name">
+                        <p class="name">    <!-- verlof displayen-->
 
                             @Html.DisplayFor(modelItem => item.CoworkerName)
                         </p>
@@ -207,7 +207,7 @@
             displayLastMonth = 0;
         
 
-        @while (FullWeek != 7) {    // volgende maan displayen
+        @while (FullWeek != 7) {    // volgende maand displayen
             displayLastMonth++;
 
             @:<div class="col single-day next-month">
@@ -218,7 +218,7 @@
             {
                 @foreach (var item2 in item.AbsenceRequest)
                 {
-                    TempData.Keep("supervisor");
+                    TempData.Keep("supervisor");    //verlof data van de afdeling inzien die is geaccepteerd
                     if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
                     {
                     TempData.Keep("supervisor");
@@ -238,7 +238,7 @@
                         int endyear = item2.AbsenceEnd.Year;
                         if (currentYear < endyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay || NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
 
-                        {
+                        {   <!-- verlof displayen-->
                             <p class="name">
                                 @Html.DisplayFor(modelItem => item.CoworkerName)
                             </p>

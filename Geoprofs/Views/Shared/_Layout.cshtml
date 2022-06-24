@@ -26,7 +26,7 @@
 						@if (TempData["role"] != null)
 						{
 							@if ((int)TempData["role"] >= 6)
-							{
+							{	// controlleren of gebruiker een manager is of ceo
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
 								</li>
@@ -53,7 +53,7 @@
 								</li>
 							}
 							else if ((int)TempData["role"] != 0)
-							{
+							{	// controlleren of de gebruiker is ingelogd
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
 								</li>
@@ -69,7 +69,7 @@
 								</li>
 							}
 							else
-							{
+							{	//gebruiker is niet ingelogd
 
 							}
 						}
