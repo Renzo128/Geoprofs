@@ -334,6 +334,9 @@ textarea::placeholder {
     align-items: center;
     gap: 10px;
 }
+.intrekken:hover {
+    border: solid 2px var(--secondary);
+}
 .intrekken span{
     color: var(--secondary);
 }

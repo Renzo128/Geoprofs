@@ -15,21 +15,21 @@
 					<div class="name-container">
 						<div class="form-label">
 							<label>Voornaam</label>
-							<input type="text" name="Fname_reg" id="Fname_reg" placeholder="john" />
+							<input type="text" name="Fname_reg" id="Fname_reg" placeholder="john" required/>
 						</div>
 						<div class="form-label">
 							<label>Achternaam</label>
-							<input type="text" name="Lname_reg" id="Lname_reg" placeholder="Doe" />
+							<input type="text" name="Lname_reg" id="Lname_reg" placeholder="Doe" required/>
 						</div>
 					</div>
 					<div class="form-label">
 						<label>BSN nummer</label>
-						<input type="text" name="bsn_reg" id="bsn_reg" placeholder="abcd12345" />
+						<input type="text" name="bsn_reg" id="bsn_reg" placeholder="12345678" required/>
 					</div>
 					<div class="form-label">
 						<label>Positie</label>
-						<select id="positie_reg" name="positie_reg">
-							<option value="undefined">Kies een optie</option>
+						<select id="positie_reg" name="positie_reg" required>
+							<option value="">Kies een optie</option>
 							@{
 								var positions = JsonConvert.DeserializeObject<List<Position>>(TempData["pos"] as string);
 								TempData.Keep("abs");
@@ -44,14 +44,14 @@
 					</div>
 					<div class="form-label">
 						<label>Superviser</label>
-						<select name="Superviser_reg" id="Superviser_reg">
+						<select name="Superviser_reg" id="Superviser_reg"  required>
 							@{
 								var enumerable = JsonConvert.DeserializeObject<List<Supervisor>>(TempData["sup"] as string);
 								TempData.Keep("sup");
 								var coworker = JsonConvert.DeserializeObject<List<Coworker>>(TempData["cow"] as string);//as List<Coworker>;// as IEnumerable<Coworker>;
 								TempData.Keep("cow");
 							}
-							<option value="undefined">Kies een superviser</option>
+							<option value="">Kies een superviser</option>
 							@foreach (var val in enumerable)
 							{
 								@foreach (var val2 in coworker)
@@ -67,11 +67,11 @@
 					</div>
 					<div class="form-label">
 						<label>Gebruikersnaam</label>
-						<input type="text" name="Username_reg" id="Username_reg" placeholder="Gebruikersnaam" />
+						<input type="text" name="Username_reg" id="Username_reg" placeholder="Gebruikersnaam" required/>
 					</div>
 					<div class="form-label">
 						<label>Wachtwoord</label>
-						<input type="password" name="Password_reg" id="Password_reg" placeholder="wachtwoord" />
+						<input type="password" name="Password_reg" id="Password_reg" placeholder="wachtwoord" required/>
 					</div>
 					<p>Al een account? <a class="link" asp-area="" asp-controller="" asp-action="index">klik hier.</a></p>
 					<button type="submit" class="button">Registreren</button>
