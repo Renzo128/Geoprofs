@@ -68,8 +68,7 @@ namespace Geoprofs.Controllers
         public async Task<ActionResult> RegisterUser(string Fname_reg, string Lname_reg, int bsn_reg, int positie_reg, int Superviser_reg, string Username_reg, string Password_reg)
         {
 
-            var otherData = _context.logins.Where(x => x.Password == Username_reg && x.Username == Password_reg).Count();
-            if (otherData == 0)
+            if (Superviser_reg != 0 || positie_reg >= 5)
             {
                 //gebruiker registeren
                 Coworker newCoworker = new Coworker() { CoworkerName = Fname_reg, coworkerLastname = Lname_reg, bsn = (int)bsn_reg, position = positie_reg, supervisor = Superviser_reg, vacationdays = 25 };
@@ -92,6 +91,15 @@ namespace Geoprofs.Controllers
                     _context.Add(sup);
                     _context.SaveChanges();
                 }
+                if (positie_reg >= 6)
+                {
+                    Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
+                    _context.Add(sup);
+                    var userData = _context.coworkers.Where(x => x.supervisor == data.supervisor).FirstOrDefault();
+                    userData.supervisor = sup.Coworker;
+                    _context.SaveChanges();
+
+                }
 
                 if ((int)TempData["role"] >= 6)
                 {
@@ -111,8 +119,11 @@ namespace Geoprofs.Controllers
             }
 
             return RedirectToAction("Register", "Home");
+                return RedirectToAction("index", "Coworkers");
 
 
+            }
+            return RedirectToAction("Register", "Home");
 
         }
         #endregion
