@@ -54,7 +54,7 @@ namespace Geoprofs.Controllers
         public IActionResult Register()
         {
             // dropdown waardes ophalen
-           var positions =  JsonConvert.SerializeObject(_context.positions.ToList());
+            var positions = JsonConvert.SerializeObject(_context.positions.ToList());
             var supervisors = JsonConvert.SerializeObject(_context.supervisors.ToList());
             var Coworkers = JsonConvert.SerializeObject(_context.coworkers.ToList());
 
@@ -89,12 +89,6 @@ namespace Geoprofs.Controllers
                 {
                     Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
                     _context.Add(sup);
-                    _context.SaveChanges();
-                }
-                if (positie_reg >= 6)
-                {
-                    Supervisor sup = new Supervisor() { Coworker = data.coworkerId };
-                    _context.Add(sup);
                     var userData = _context.coworkers.Where(x => x.supervisor == data.supervisor).FirstOrDefault();
                     userData.supervisor = sup.Coworker;
                     _context.SaveChanges();
@@ -115,10 +109,6 @@ namespace Geoprofs.Controllers
 
 
 
-                return RedirectToAction("index", "Coworkers");
-            }
-
-            return RedirectToAction("Register", "Home");
                 return RedirectToAction("index", "Coworkers");
 
 
