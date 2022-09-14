@@ -177,7 +177,7 @@
             @foreach (var item2 in item.AbsenceRequest)
             {
                 TempData.Keep("supervisor");
-                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd"|| (int)TempData["role"] == 6 && item2.absenceStatus == "Geaccepteerd" && item2.coworker.position < 6 || (int)TempData["role"] == 7 && item2.absenceStatus == "Geaccepteerd" )
                 {
                     TempData.Keep("supervisor");
                     int start = item2.AbsenceStart.Day; //verlof data ophalen
