@@ -44,7 +44,7 @@
 					</div>
 					<div class="form-label">
 						<label>Superviser</label>
-						<select name="Superviser_reg" id="Superviser_reg"  required>
+						<select name="Superviser_reg" id="Superviser_reg">
 							@{
 								var enumerable = JsonConvert.DeserializeObject<List<Supervisor>>(TempData["sup"] as string);
 								TempData.Keep("sup");
