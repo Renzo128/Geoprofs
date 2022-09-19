@@ -135,7 +135,7 @@
                     TempData.Keep("supervisor");    // verlof hoort bij de afdeling en is goedgekeurd
                     TempData.Keep("user_id");
 
-                if (item.supervisor == (int)TempData.Peek("supervisor") && item2.absenceStatus == "Geaccepteerd"|| item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd"|| (int)TempData["role"] == 6 && item2.absenceStatus == "Geaccepteerd" && item2.coworker.position < 6 || (int)TempData["role"] == 7 && item2.absenceStatus == "Geaccepteerd" )
                 { 
 
                     TempData.Keep("supervisor");
@@ -180,7 +180,7 @@
             {
                 TempData.Keep("supervisor");
                 TempData.Keep("user_id");
-                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd" || item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd"|| (int)TempData["role"] == 6 && item2.absenceStatus == "Geaccepteerd" && item2.coworker.position < 6 || (int)TempData["role"] == 7 && item2.absenceStatus == "Geaccepteerd" )
                 {
                     TempData.Keep("supervisor");
                     int start = item2.AbsenceStart.Day; //verlof data ophalen
@@ -223,7 +223,7 @@
                 {
                     TempData.Keep("supervisor");
                     TempData.Keep("user_id");//verlof data van de afdeling inzien die is geaccepteerd
-                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd" || item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
+                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd"|| (int)TempData["role"] == 6 && item2.absenceStatus == "Geaccepteerd" && item2.coworker.position < 6 || (int)TempData["role"] == 7 && item2.absenceStatus == "Geaccepteerd" )
                     {
                     TempData.Keep("supervisor");
 
