@@ -133,8 +133,9 @@
             @foreach (var item2 in item.AbsenceRequest)
             {
                     TempData.Keep("supervisor");    // verlof hoort bij de afdeling en is goedgekeurd
+                    TempData.Keep("user_id");
 
-                if (item.supervisor == (int)TempData.Peek("supervisor") && item2.absenceStatus == "Geaccepteerd")
+                if (item.supervisor == (int)TempData.Peek("supervisor") && item2.absenceStatus == "Geaccepteerd"|| item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
                 { 
 
                     TempData.Keep("supervisor");
@@ -146,11 +147,12 @@
                 int LastMonthForDisplay = currentMonth - 1;
                 int StartYear = item2.AbsenceStart.Year;
                 int endYear = item2.AbsenceEnd.Year;
-                DateTime longVacationStart = item2.AbsenceStart;
+                    int startyear = item2.AbsenceStart.Year;
+                    DateTime longVacationStart = item2.AbsenceStart;
                 DateTime longVacationEnd = item2.AbsenceEnd;
                 longVacationEnd = longVacationEnd.AddMonths(-1);
 
-                if (currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth ||currentYear <= StartYear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart)
+                if (currentYear <= StartYear && currentYear >= endYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth > LastMonthForDisplay || currentYear <= StartYear && currentYear >= endYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth ||currentYear <= StartYear && currentYear >= endYear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart)
                 {
                     <p class="name">    <!-- verlof dispalyen-->
                         @Html.DisplayFor(modelItem => item.CoworkerName)
@@ -177,7 +179,8 @@
             @foreach (var item2 in item.AbsenceRequest)
             {
                 TempData.Keep("supervisor");
-                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd"|| (int)TempData["role"] == 6 && item2.absenceStatus == "Geaccepteerd" && item2.coworker.position < 6 || (int)TempData["role"] == 7 && item2.absenceStatus == "Geaccepteerd" )
+                TempData.Keep("user_id");
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd" || item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
                 {
                     TempData.Keep("supervisor");
                     int start = item2.AbsenceStart.Day; //verlof data ophalen
@@ -189,7 +192,7 @@
 
 
 
-                    if (currentYear >= startyear && currentYear <= endyear && start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth || currentYear == startyear && startmonth < currentMonth && endmonth >= currentMonth && end >= displayLoop || currentYear == startyear && startmonth < currentMonth && endmonth > currentMonth || currentYear == startyear && startmonth == currentMonth && endmonth > currentMonth && start <= displayLoop||currentYear >= startyear && currentYear <= endyear && endmonth >= currentMonth && end >= displayLoop && startyear < currentYear)
+                    if (currentYear == startyear && currentYear == endyear && start <= displayLoop && end >= displayLoop && currentMonth == startmonth && currentMonth == endmonth || currentYear == startyear && startmonth < currentMonth && endmonth >= currentMonth && end >= displayLoop || currentYear == startyear && startmonth < currentMonth && endmonth > currentMonth || currentYear == startyear && startmonth == currentMonth && endmonth > currentMonth && start <= displayLoop||currentYear == startyear && currentYear == endyear && endmonth >= currentMonth && end >= displayLoop && startyear < currentYear)
                     {
                         <p class="name">    <!-- verlof displayen-->
 
@@ -218,8 +221,9 @@
             {
                 @foreach (var item2 in item.AbsenceRequest)
                 {
-                    TempData.Keep("supervisor");    //verlof data van de afdeling inzien die is geaccepteerd
-                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                    TempData.Keep("supervisor");
+                    TempData.Keep("user_id");//verlof data van de afdeling inzien die is geaccepteerd
+                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd" || item.coworkerId == (int) TempData["user_id"] && item2.absenceStatus == "Geaccepteerd")
                     {
                     TempData.Keep("supervisor");
 
@@ -236,9 +240,11 @@
                         DateTime longVacationEnd = item2.AbsenceEnd;
                         longVacationEnd = longVacationEnd.AddMonths(-1);
                         int endyear = item2.AbsenceEnd.Year;
-                        if (currentYear < endyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay || NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
+                        int startyear = item2.AbsenceStart.Year;
+                        if (currentYear <= endyear && currentYear >= startyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay ||currentYear <= endyear && currentYear >= startyear && NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && currentYear >= startyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && currentYear >= startyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
 
-                        {   <!-- verlof displayen-->
+                        {   
+<!-- verlof displayen-->
                             <p class="name">
                                 @Html.DisplayFor(modelItem => item.CoworkerName)
                             </p>

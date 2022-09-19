@@ -54,7 +54,7 @@ namespace Geoprofs.Controllers
         public IActionResult Register()
         {
             // dropdown waardes ophalen
-           var positions =  JsonConvert.SerializeObject(_context.positions.ToList());
+            var positions = JsonConvert.SerializeObject(_context.positions.ToList());
             var supervisors = JsonConvert.SerializeObject(_context.supervisors.ToList());
             var Coworkers = JsonConvert.SerializeObject(_context.coworkers.ToList());
 
