@@ -9,7 +9,11 @@
 <h1>Verlof aanvragen</h1>
 
 <div class="container-table">
-	<hr />	<!-- modal openen-->
+		<span><strong>Verlof dagen over:</strong> @TempData.Peek("absenceDays")
+@{
+	TempData.Keep("absenceDays");
+}
+</span>
 	<a class="button padding" id="nieuwe-aanvraag">Nieuwe aanvraag +</a>
 
 	<div class="form-shadow hidden"></div>
@@ -49,12 +53,6 @@
 		</div>
 	</div>
 </div>
-
-
-	<strong>Verlof dagen over:</strong> @TempData.Peek("absenceDays")
-@{
-	TempData.Keep("absenceDays");
-}
 <div class="overflow-auto">
 <table class="table">
 	<thead> <!-- table met alle verlof aanvragen-->

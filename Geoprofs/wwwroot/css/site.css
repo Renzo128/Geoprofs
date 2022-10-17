@@ -242,8 +242,9 @@ a.button {
 /* tabel styling
 ------------------------------------------ */
 .container-table {
-    display: grid;
-    justify-items: end;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 table {
@@ -352,7 +353,7 @@ textarea::placeholder {
     gap: 2px;
     height: 150px;
     background-color: #fff;
-    overflow: auto;
+    overflow-x: hidden;
 }
 .single-day p.name {
     background: var(--primary);
@@ -363,20 +364,94 @@ textarea::placeholder {
 .last-month, .next-month {
     border-color: var(--primary);
 }
-@media only screen and (max-width: 767px) {
-    .row.mobile-styling {
-        flex-direction: column;
-        height: auto !important;
-        margin: 0;
-    }
-    .container {
-        max-width: 90%;
-    }
-}
-/* custom scrollbar
+/* Team colors
 -------------------------------------------------- */
-/* width */
-.single-day::-webkit-scrollbar, .note-col::-webkit-scrollbar {
+.legenda-container {
+    padding-top: 10px;
+    gap: 20px;
+}
+.legenda {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.legenda::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+.legenda.finance::before {
+    background-color: blue;
+}
+.legenda.finance::before {
+    background-color: blue;
+}
+.legenda.relation.management::before {
+    background-color: green;
+}
+.legenda.geodesy::before {
+    background-color: yellow;
+}
+.legenda.geo-ICT::before {
+    background-color: red;
+}
+.legenda.ict::before {
+    background-color: var(--primary);
+}
+.legenda.hrm::before {
+    background-color: purple;
+}
+.legenda.ceo::before {
+    background-color: black;
+}
+
+
+.single-day p.name.Finance {
+    background-color: brown;
+}
+.single-day p.name.Relation.Management {
+    background-color: green;
+}
+.single-day p.name.Geodesy {
+    background-color: yellow;
+    color: black;
+}
+.single-day p.name.Geo-ICT {
+    background-color: red;
+}
+.single-day p.name.ICT {
+    background-color: var(--primary);
+}
+.single-day p.name.HRM {
+    background-color: purple;
+}
+.single-day p.name.CEO {
+    background-color: black;
+    color: white;
+}
+
+
+
+
+
+
+    @media only screen and (max-width: 767px) {
+        .row.mobile-styling {
+            flex-direction: column;
+            height: auto !important;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+    }
+    /* custom scrollbar
+-------------------------------------------------- */
+    /* width */
+    .single-day::-webkit-scrollbar, .note-col::-webkit-scrollbar {
     width: 4px;
     height: 10px;
 }
