@@ -33,6 +33,9 @@
     int currentYear = DateTime.Now.Year;
     int CurrentMonth = DateTime.Now.Month;
 
+    int CurrentMonth2 = DateTime.Now.Month;
+    int currentYear2 = DateTime.Now.Year;
+    int currentday = DateTime.Now.Day;
     if(TempData["month"] != null && TempData["Year"] != null)
     {
         currentMonth =(int) TempData["month"];
@@ -46,6 +49,7 @@
     int MomenteleMaand = 0;
     int Loop = 1;
     int volgendemaand = 0;
+    int MomenteleMaand2 = 0;
     while (Loop != 13)
     {
         if(Loop == CurrentMonth)
@@ -66,6 +70,7 @@
                 volgendemaand = arr[Loop + 1];
             }
             MomenteleMaand = arr[Loop];
+            MomenteleMaand2 = arr[Loop];
         }
         Loop++;
     }
@@ -76,6 +81,7 @@
     {
     StartDayLastMonth = StartDayLastMonth - 1;
     }
+
 
 
 
@@ -108,8 +114,27 @@
     int displayLoop = 1;
     int FullWeek = 1;
     int lastmonth = 0;
+    int displayLoop2 = 1;
+    int FullWeek2 = 1;
 
     int displayLastMonth = VorigeMaand - StartDayLastMonth;
+    int displayLastMonth2 = VorigeMaand - StartDayLastMonth;
+    int currentdayToday = (int)DateTime.Now.DayOfWeek;
+    int useLastMonth = 0;
+    int usedWeeks = 0;
+    while(currentdayToday != 1){
+
+    currentday = currentday - 1;
+    currentdayToday = currentdayToday - 1;
+    if(currentday == 0){
+    useLastMonth = 1;
+    }
+
+
+    }
+
+    currentday = currentday - 1;
+
 }
 
 
@@ -279,3 +304,167 @@
     <span class="legenda ceo">CEO</span>
 
 </div>
+
+@while (displayLoop2 <= MomenteleMaand2 && usedWeeks != 3){
+    if(FullWeek2 == 1)
+    {
+            @:<div class="row">
+            usedWeeks = usedWeeks + 1;
+    }
+
+
+        @while(displayLastMonth2 != VorigeMaand){    // vorige maand
+            displayLastMonth2++; // alle dagen van de vorige maand die eindigt in de momentele maand displayen
+            currentday++;
+
+                @:<div class="col single-day last-month">
+            <p class="number">
+                    @currentday
+                    </p>
+        @foreach (var item in Model)
+        {
+            @foreach (var item2 in item.AbsenceRequest)
+            {
+                    TempData.Keep("supervisor");    // verlof hoort bij de afdeling en is goedgekeurd
+                    TempData.Keep("user_id");
+
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                { 
+
+                    TempData.Keep("supervisor");
+
+                int start = item2.AbsenceStart.Day; // verlof informatie ophalen
+                int end = (int)item2.AbsenceEnd.Day;
+                int startmonth = item2.AbsenceStart.Month;
+                int endmonth = item2.AbsenceEnd.Month;
+                int LastMonthForDisplay = CurrentMonth2 - 1;
+                int StartYear = item2.AbsenceStart.Year;
+                int endYear = item2.AbsenceEnd.Year;
+                    int startyear = item2.AbsenceStart.Year;
+                    DateTime longVacationStart = item2.AbsenceStart;
+                DateTime longVacationEnd = item2.AbsenceEnd;
+                longVacationEnd = longVacationEnd.AddMonths(-1);
+
+                if (currentYear <= StartYear && currentYear >= endYear && start <= currentday && end >= currentday && endmonth > LastMonthForDisplay || currentYear <= StartYear && currentYear >= endYear && start <= displayLastMonth && LastMonthForDisplay == startmonth && endmonth == LastMonthForDisplay && end >= displayLastMonth ||currentYear <= StartYear && currentYear >= endYear && startmonth <= CurrentMonth2 && endmonth >= CurrentMonth2 && longVacationEnd > longVacationStart)
+                {
+                    <p class="name @item.Position.positionName " >    <!-- verlof dispalyen-->
+                        @Html.DisplayFor(modelItem => item.CoworkerName)
+                    </p>
+                }
+
+            }
+                    TempData.Keep("supervisor");
+
+        }
+    }
+                @:</div>
+            FullWeek2++; 
+        }
+    @if (usedWeeks != 3) {
+
+    <div class="col single-day">
+        <p class="number">
+            @currentday
+            </p>
+
+
+    @foreach (var item in Model) {  // momentele maand
+
+            @foreach (var item2 in item.AbsenceRequest)
+            {
+                TempData.Keep("supervisor");
+                TempData.Keep("user_id");
+                if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                {
+                    TempData.Keep("supervisor");
+                    int start = item2.AbsenceStart.Day; //verlof data ophalen
+                    int end = (int)item2.AbsenceEnd.Day;
+                    int startmonth = item2.AbsenceStart.Month;
+                    int endmonth = item2.AbsenceEnd.Month;
+                    int startyear = item2.AbsenceStart.Year;
+                    int endyear = item2.AbsenceEnd.Year;
+
+
+
+                    if (currentYear == startyear && currentYear == endyear && start <= displayLoop2  && CurrentMonth2 == startmonth && CurrentMonth2 == endmonth || currentYear == startyear && startmonth < CurrentMonth2 && endmonth >= CurrentMonth2 && end >= displayLoop || currentYear == startyear && startmonth < CurrentMonth2 && endmonth > CurrentMonth2 || currentYear == startyear && startmonth == CurrentMonth2 && endmonth > CurrentMonth2 && start <= displayLoop||currentYear == startyear && currentYear == endyear && endmonth >= CurrentMonth2 && end >= displayLoop && startyear < currentYear)
+                    {
+                        <p class="name @item.Position.positionName">    <!-- verlof displayen-->
+
+                            @Html.DisplayFor(modelItem => item.CoworkerName)
+                        </p>
+                    }
+                }
+            }
+        }
+    
+    </div>
+            currentday++;
+
+    }
+
+    if(displayLoop2 == MomenteleMaand2 && FullWeek2 != 7)
+    {
+        
+            displayLastMonth2 = 0;
+        
+
+        @while (FullWeek2 != 7 && usedWeeks != 3) {    // volgende maand displayen
+            displayLastMonth2++;
+            currentday++;
+
+            @:<div class="col single-day next-month">
+                <p class="number">
+            @currentday
+            </p>
+            @foreach (var item in Model)
+            {
+                @foreach (var item2 in item.AbsenceRequest)
+                {
+                    TempData.Keep("supervisor");
+                    TempData.Keep("user_id");//verlof data van de afdeling inzien die is geaccepteerd
+                    if (item.supervisor == (int)TempData["supervisor"] && item2.absenceStatus == "Geaccepteerd")
+                    {
+                    TempData.Keep("supervisor");
+
+                        int start = item2.AbsenceStart.Day;
+                        int end = (int)item2.AbsenceEnd.Day;
+                        int startmonth = item2.AbsenceStart.Month;
+                        int endmonth = item2.AbsenceEnd.Month;
+                        int NextMonthForDisplay = CurrentMonth2 + 1;
+                        if (NextMonthForDisplay == 13)
+                        {
+                            NextMonthForDisplay = 1;
+                        }
+                        DateTime longVacationStart = item2.AbsenceStart;
+                        DateTime longVacationEnd = item2.AbsenceEnd;
+                        longVacationEnd = longVacationEnd.AddMonths(-1);
+                        int endyear = item2.AbsenceEnd.Year;
+                        int startyear = item2.AbsenceStart.Year;
+                        if (currentYear <= endyear && currentYear >= startyear && end >= currentday && endmonth >= NextMonthForDisplay ||currentYear <= endyear && currentYear >= startyear && NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= currentday||currentYear <= endyear && currentYear >= startyear && startmonth <= CurrentMonth2 && endmonth >= CurrentMonth2 && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && currentYear >= startyear && startmonth == CurrentMonth2 &&  start >= currentday  && longVacationEnd > longVacationStart)
+
+                        {   
+<!-- verlof displayen-->
+                            <p class="name @item.Position.positionName">
+                                @Html.DisplayFor(modelItem => item.CoworkerName)
+                            </p>
+                        }
+                    }
+                }
+        }
+            @:</div>
+            FullWeek2++;
+        }
+    }
+
+
+
+
+    @if(FullWeek2 == 7){
+        FullWeek2 = 0;
+        @:</div>
+    }
+    FullWeek2++;
+
+    displayLoop2++;
+
+}
