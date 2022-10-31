@@ -110,12 +110,14 @@
 </div>
 </div>
 
-@{  // ophalen welke dag de maand begint
+@{
+    // ophalen welke dag de maand begint
     int displayLoop = 1;
     int FullWeek = 1;
     int lastmonth = 0;
     int displayLoop2 = 1;
     int FullWeek2 = 1;
+    int fixCounter = 0;
 
     int displayLastMonth = VorigeMaand - StartDayLastMonth;
     int displayLastMonth2 = VorigeMaand - StartDayLastMonth;
@@ -133,7 +135,7 @@
 
     }
 
-    currentday = currentday - 1;
+    currentday = currentday;
 
 }
 
@@ -295,13 +297,24 @@
 
 }
 <div class="row legenda-container">
-    <span class="legenda finance">Finance</span>
-    <span class="legenda relation management">Relation Management</span>
-    <span class="legenda geodesy">Geodesy</span>
-    <span class="legenda geo-ICT">Geo-ICT</span>
-    <span class="legenda ict">ICT</span>
-    <span class="legenda hrm">HRM</span>
-    <span class="legenda ceo">CEO</span>
+    <span class="legenda finance"><p>Finance</p>  <p>@TempData["teamAbsence1"] % </p></span>
+    <span class="legenda relation management"><p>Relation Management </p>  <p>@TempData["teamAbsence2"] %</span>
+    <span class="legenda geodesy"><p>Geodesy </p>  <p>@TempData["teamAbsence3"] %</span>
+    <span class="legenda geo-ICT"><p>Geo-ICT </p>  <p>@TempData["teamAbsence4"] %</span>
+    <span class="legenda ict"><p>ICT </p>  <p>@TempData["teamAbsence5"] %</span>
+    <span class="legenda hrm"><p>HRM </p>  <p>@TempData["teamAbsence6"] %</span>
+    <span class="legenda ceo"><p>CEO </p>  <p>@TempData["teamAbsence7"] %</span>
+            @if (TempData["teamAbsence"] != null) {
+
+        TempData.Keep("teamAbsence1");
+        TempData.Keep("teamAbsence2");
+        TempData.Keep("teamAbsence3");
+        TempData.Keep("teamAbsence4");
+        TempData.Keep("teamAbsence5");
+        TempData.Keep("teamAbsence6");
+        TempData.Keep("teamAbsence7");
+
+    }
 
 </div>
 
@@ -313,11 +326,9 @@
     }
 
 
-        @while(displayLastMonth2 != VorigeMaand){    // vorige maand
+        @while(VorigeMaand != VorigeMaand){    // vorige maand
             displayLastMonth2++; // alle dagen van de vorige maand die eindigt in de momentele maand displayen
-            currentday++;
-
-                @:<div class="col single-day last-month">
+        @:<div class="col single-day last-month">
             <p class="number">
                     @currentday
                     </p>
@@ -358,9 +369,12 @@
         }
     }
                 @:</div>
-            FullWeek2++; 
-        }
-    @if (usedWeeks != 3) {
+        FullWeek2++;
+        fixCounter++;
+    }
+    @if (usedWeeks != 3 && currentday <= MomenteleMaand2) {
+
+
 
     <div class="col single-day">
         <p class="number">
@@ -397,20 +411,36 @@
             }
         }
     
-    </div>
+        </div>
+        if (currentday != MomenteleMaand2)
+        {
             currentday++;
+        }
+
+
 
     }
 
-    if(displayLoop2 == MomenteleMaand2 && FullWeek2 != 7)
+    if(currentday == MomenteleMaand2 && FullWeek2 != 7)
     {
-        
-            displayLastMonth2 = 0;
-        
+        displayLastMonth2 = 0;
+        currentday = 0;
+
 
         @while (FullWeek2 != 7 && usedWeeks != 3) {    // volgende maand displayen
             displayLastMonth2++;
             currentday++;
+            int dayOfWeek = (int)DateTime.Now.DayOfWeek - 1;
+            if(fixCounter == dayOfWeek)
+            {
+            }
+            if(fixCounter == 6)
+            {
+                fixCounter = 0;
+            }
+    fixCounter++;
+
+
 
             @:<div class="col single-day next-month">
                 <p class="number">
@@ -460,6 +490,8 @@
 
 
     @if(FullWeek2 == 7){
+            currentday++;
+
         FullWeek2 = 0;
         @:</div>
     }
