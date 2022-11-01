@@ -28,19 +28,19 @@
 							@if ((int)TempData["role"] >= 6)
 							{	// controlleren of gebruiker een manager is of ceo
 								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
+									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("userId")">Verlof</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
 									@{
-										TempData.Keep("Requests");
-										TempData.Keep("user_id");
+										TempData.Keep("requests");
+										TempData.Keep("userId");
 									}
 								</li>
 								<li class="nav-item">
-									@if (TempData["Requests"] != null)
+									@if (TempData["requests"] != null)
 									{
-										<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">@TempData.Peek("Requests")</p>Verlof goedkeuren</a>
+										<a class="nav-link text-dark" asp-area="" asp-controller="AbsenceRequests" asp-action="index"><p class="notification">@TempData.Peek("requests")</p>Verlof goedkeuren</a>
 									}
 									else
 									{
@@ -55,13 +55,13 @@
 							else if ((int)TempData["role"] != 0)
 							{	// controlleren of de gebruiker is ingelogd
 								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("user_id")">Verlof</a>
+									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Details" asp-route-id="@TempData.Peek("userId")">Verlof</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Coworkers" asp-action="Index">Verlof planning</a>
 									@{
-										TempData.Keep("Requests");
-										TempData.Keep("user_id");
+										TempData.Keep("requests");
+										TempData.Keep("userId");
 									}
 								</li>
 								<li class="nav-item">

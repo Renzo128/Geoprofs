@@ -37,11 +37,11 @@ namespace Geoprofs.Controllers
             @TempData.Keep("role");
             if (TempData["role"] != null)
             {
-                var Data = _context.coworkers
+                var data = _context.coworkers
                 .Include(s => s.Position)
                 .Include(a => a.AbsenceRequest);
 
-                return View(await Data.ToListAsync());
+                return View(await data.ToListAsync());
             }
 			else
 			{
@@ -109,7 +109,7 @@ namespace Geoprofs.Controllers
                 {
                     return NotFound();
                 }
-                var updatedview = await _context.coworkers
+                var updatedView = await _context.coworkers
                 .Include(s => s.Position)
                 .Include(a => a.AbsenceRequest)
                 .AsNoTracking()
@@ -118,17 +118,17 @@ namespace Geoprofs.Controllers
                 var absenceTypes = JsonConvert.SerializeObject(_context.absenceTypes.ToList());
 
                 TempData["abs"] = absenceTypes;
-                if (updatedview == null)
+                if (updatedView == null)
                 {
                     return NotFound();
                 }
 
-                var userdata = _context.coworkers.Where(x => x.coworkerId == (int)TempData["user_id"]).FirstOrDefault();
-                var users = _context.absenceRequests.Where(x => x.coworker == userdata);
+                var userData = _context.coworkers.Where(x => x.coworkerId == (int)TempData["userId"]).FirstOrDefault();
+                var users = _context.absenceRequests.Where(x => x.coworker == userData);
                 TempData.Keep("user_id");
 
                 //overige verlof optellen
-                int allVacation = userdata.vacationdays;
+                int allVacation = userData.vacationdays;
                 foreach (var item in users)
                 {
                     if (item.absenceStatus == "Geaccepteerd")
@@ -148,7 +148,7 @@ namespace Geoprofs.Controllers
                 TempData["absenceDays"] = allVacation;
 
 
-                return View(updatedview);
+                return View(updatedView);
             }
             else
             {

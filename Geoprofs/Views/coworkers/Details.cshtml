@@ -43,12 +43,12 @@
 
 				</select>
 				<input type="hidden" name="absencestatus" id="absencestatus" value="Openstaand" />
-				<input type="hidden" name="Coworker" id="Coworker" value="@TempData.Peek("user_id")" />
+				<input type="hidden" name="Coworker" id="Coworker" value="@TempData.Peek("userId")" />
 
 				<button type="submit" style="margin-top:5px;" class="button">Versturen</button>
 			}
 			@{
-				TempData.Keep("user_id");
+				TempData.Keep("userId");
 			}
 		</div>
 	</div>
