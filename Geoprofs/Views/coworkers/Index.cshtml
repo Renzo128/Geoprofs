@@ -75,7 +75,7 @@
         loop++;
     }
 
-    DateTime value = new DateTime(currentYear, currentMonth, 1);
+    DateTime value = new DateTime(currentYear, CurrentMonth2, 1);
     int StartDayLastMonth = (int)value.DayOfWeek;
     if(StartDayLastMonth != 0)
     {
@@ -120,6 +120,9 @@
     int fixCounter = 0;
 
     int displayLastMonth = VorigeMaand - StartDayLastMonth;
+    if(StartDayLastMonth == 1){
+        StartDayLastMonth = 0;
+    }
     int displayLastMonth2 = VorigeMaand - StartDayLastMonth;
     int currentDayToday = (int)DateTime.Now.DayOfWeek;
     int useLastMonth = 0;
@@ -135,7 +138,7 @@
 
     }
 
-    currentDay = currentDay + 1;
+    
 
 }
 
@@ -268,7 +271,7 @@
                         longVacationEnd = longVacationEnd.AddMonths(-1);
                         int endyear = item2.AbsenceEnd.Year;
                         int startyear = item2.AbsenceStart.Year;
-                        if (currentYear <= endyear && currentYear >= startyear && end >= displayLastMonth && endmonth >= NextMonthForDisplay ||currentYear <= endyear && currentYear >= startyear && NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && currentYear >= startyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && currentYear >= startyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
+                        if (currentYear <= endyear && currentYear >= startyear && start <= displayLastMonth && end >= displayLastMonth && endmonth >= NextMonthForDisplay && startmonth <= NextMonthForDisplay ||currentYear <= endyear && currentYear >= startyear && NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && currentYear >= startyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && currentYear >= startyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
 
                         {   
 <!-- verlof displayen-->
@@ -326,7 +329,7 @@
     }
 
 
-        @while(displayLastMonth2 != VorigeMaand){    // vorige maand
+        @while(displayLastMonth2 != VorigeMaand && currentDay == 1){    // vorige maand
             displayLastMonth2++; // alle dagen van de vorige maand die eindigt in de momentele maand displayen
         @:<div class="col single-day last-month">
             <p class="number">
@@ -400,7 +403,7 @@
 
 
 
-                    if (currentYear == startyear && currentYear == endyear && start <= displayLoop2 && end >= displayLoop2  && CurrentMonth2 == startmonth && CurrentMonth2 == endmonth || currentYear == startyear && startmonth < CurrentMonth2 && endmonth >= CurrentMonth2 && end >= displayLoop || currentYear == startyear && startmonth < CurrentMonth2 && endmonth > CurrentMonth2 || currentYear == startyear && startmonth == CurrentMonth2 && endmonth > CurrentMonth2 && start <= displayLoop||currentYear == startyear && currentYear == endyear && endmonth >= CurrentMonth2 && end >= displayLoop && startyear < currentYear)
+                    if (currentYear == startyear && currentYear == endyear && start <= currentDay && end >= currentDay  && CurrentMonth2 == startmonth && CurrentMonth2 == endmonth || currentYear == startyear && startmonth < CurrentMonth2 && endmonth >= CurrentMonth2 && end >= displayLoop || currentYear == startyear && startmonth < CurrentMonth2 && endmonth > CurrentMonth2 || currentYear == startyear && startmonth == CurrentMonth2 && endmonth > CurrentMonth2 && start <= currentDay||currentYear == startyear && currentYear == endyear && endmonth >= CurrentMonth2 && end >= displayLoop && startyear < currentYear)
                     {
                         <p class="name @item.Position.positionName">    <!-- verlof displayen-->
 
@@ -490,7 +493,7 @@
 
 
     @if(fullWeek2 == 7){
-            currentDay++;
+            
 
         fullWeek2 = 0;
         @:</div>

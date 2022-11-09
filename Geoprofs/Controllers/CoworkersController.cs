@@ -54,8 +54,9 @@ namespace Geoprofs.Controllers
 
             double data = _context.coworkers.Where(x => x.position == job).Count();
             int allVacation = 0;
-            DateTime startDate = new DateTime(2022, 10, 1);
-            DateTime endDate = new DateTime(2022, 10, 31);
+            DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
 
 
 
