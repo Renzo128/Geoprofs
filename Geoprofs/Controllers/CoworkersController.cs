@@ -40,7 +40,6 @@ namespace Geoprofs.Controllers
                 var data = _context.coworkers
                 .Include(s => s.Position)
                 .Include(a => a.AbsenceRequest);
-
                 return View(await data.ToListAsync());
             }
 			else
@@ -68,17 +67,18 @@ namespace Geoprofs.Controllers
                 //overige verlof optellen
                 foreach (var item in users)
                 {
+                    var absenceStart = item.AbsenceStart;
                     if (item.absenceStatus == "Geaccepteerd")
                     {
-                        while (item.AbsenceEnd != item.AbsenceStart)
+                        while (item.AbsenceEnd != absenceStart)
                         {
 
-                            int weekend = (int)item.AbsenceStart.DayOfWeek;
+                            int weekend = (int)absenceStart.DayOfWeek;
                             if (weekend != 6 && weekend != 0)
                             {
                                 allVacation = allVacation + 1;
                             }
-                            item.AbsenceStart = item.AbsenceStart.AddDays(1);
+                            absenceStart = absenceStart.AddDays(1);
                         }
                     }
                 }
