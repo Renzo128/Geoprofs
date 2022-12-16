@@ -25,15 +25,15 @@ namespace Geoprofs.Controllers
         [HttpPost]
         public async Task<ActionResult> Verify(string Password, string Username)
         {   // controlleren of gebruiker de goede gebruikersnaam en wachtwoord gebruikt
-            var Data = _context.logins
+            var data = _context.logins
                 .Where(l => l.Username == Username && l.Password == Password);
-            if (Data.Any())
+            if (data.Any())
             {
                 var otherData = _context.logins.Where(x => x.Password == Password && x.Username == Username).FirstOrDefault();
 
                 var userdata = _context.coworkers.Where(x => x.coworkerId == otherData.Coworker).FirstOrDefault();
 
-                TempData["user_id"] = otherData.Coworker;
+                TempData["userId"] = otherData.Coworker;
                 TempData["username"] = Username;
                 TempData["password"] = Password;
                 TempData["supervisor"] = userdata.supervisor;
@@ -48,7 +48,7 @@ namespace Geoprofs.Controllers
                     TempData.Keep("isSupervisor");
                     var requests = _context.absenceRequests.Where(x => x.absenceStatus == "Openstaand" && x.coworker.supervisor == supervisor).Count();
 
-                    TempData["Requests"] = requests;
+                    TempData["requests"] = requests;
 
                 }
                 TempData.Keep("role");

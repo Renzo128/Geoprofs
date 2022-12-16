@@ -90,7 +90,7 @@
 						@Html.DisplayFor(modelItem => item.AbsenceType.absenceName)
 					</td>
 					<td>
-						@using (Html.BeginForm("edit_Accept", "AbsenceRequests"))
+						@using (Html.BeginForm("editAccept", "AbsenceRequests"))
 						{
 							<input type="hidden" runat="server" value="id_@item.absenceId" id=id_@item.absenceId name="id_@item.absenceId" />
 							<input type="hidden" value="@item.coworker" id="Coworker_@item.absenceId" name="Coworker_@item.absenceId" />

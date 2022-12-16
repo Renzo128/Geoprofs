@@ -33,7 +33,7 @@ namespace Geoprofs.Controllers
             //gebruiker uitloggen
 
             TempData["supervisor"] = null;
-            TempData["user_id"] = null;
+            TempData["userId"] = null;
             TempData["role"] = null;
             TempData["pos"] = null;
             TempData["sup"] = null;
@@ -43,8 +43,8 @@ namespace Geoprofs.Controllers
             TempData["Requests"] = null;
             TempData["absenceDays"] = null;
             TempData["abs"] = null;
-            TempData["Month"] = null;
-            TempData["Year"] = null;
+            TempData["month"] = null;
+            TempData["year"] = null;
             //naar inlog pagina
             return View();
         }
@@ -82,7 +82,7 @@ namespace Geoprofs.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["supervisor"] = Superviser_reg;
-                TempData["user_id"] = data.coworkerId;
+                TempData["userId"] = data.coworkerId;
                 TempData["role"] = data.position;
 
                 if (positie_reg >= 6)

@@ -31,7 +31,6 @@ namespace Geoprofs
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-
             host.Run();
         }
         private static void CreateDbIfNotExists(IHost host) // database aanmaken
