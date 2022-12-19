@@ -1,5 +1,6 @@
 ﻿using Geoprofs.Models;
 using Geoprofs.Models.Data;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -76,7 +77,15 @@ namespace Geoprofs.Controllers
                 _context.Add(newCoworker);
                 await _context.SaveChangesAsync();
                 var data = _context.coworkers.Where(x => x.CoworkerName == Fname_reg && x.coworkerLastname == Lname_reg).FirstOrDefault();
-                Login account = new Login() { Coworker = data.coworkerId, Password = Password_reg, Username = Username_reg };
+
+                string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+    password: Password_reg,
+    salt : System.Text.Encoding.UTF8.GetBytes("string"),
+    prf: KeyDerivationPrf.HMACSHA256,
+    iterationCount: 100000,
+    numBytesRequested: 256 / 8));
+
+                Login account = new Login() { Coworker = data.coworkerId, Password = hashed, Username = Username_reg };
 
                 _context.Add(account);
                 await _context.SaveChangesAsync();

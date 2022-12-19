@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Geoprofs.Models;
-using Geoprofs.Models.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+﻿using Geoprofs.Models.Data;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Geoprofs.Controllers
 {
@@ -25,11 +23,17 @@ namespace Geoprofs.Controllers
         [HttpPost]
         public async Task<ActionResult> Verify(string Password, string Username)
         {   // controlleren of gebruiker de goede gebruikersnaam en wachtwoord gebruikt
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: Password,
+                salt: System.Text.Encoding.UTF8.GetBytes("string"),
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
             var data = _context.logins
-                .Where(l => l.Username == Username && l.Password == Password);
+                .Where(l => l.Username == Username && l.Password == hashed);
             if (data.Any())
             {
-                var otherData = _context.logins.Where(x => x.Password == Password && x.Username == Username).FirstOrDefault();
+                var otherData = _context.logins.Where(x => x.Password == hashed && x.Username == Username).FirstOrDefault();
 
                 var userdata = _context.coworkers.Where(x => x.coworkerId == otherData.Coworker).FirstOrDefault();
 
@@ -38,7 +42,7 @@ namespace Geoprofs.Controllers
                 TempData["password"] = Password;
                 TempData["supervisor"] = userdata.supervisor;
                 TempData["role"] = userdata.position;
-                if((int)TempData["role"] >= 6)
+                if ((int)TempData["role"] >= 6)
                 {
                     var supervising = _context.supervisors.Where(x => x.Coworker == userdata.coworkerId).FirstOrDefault();
                     TempData["isSupervisor"] = supervising.supervisorId;
@@ -56,7 +60,7 @@ namespace Geoprofs.Controllers
                 // aantal verlof dagen bij elkaar optellen
                 var users = _context.absenceRequests.Where(x => x.coworker == userdata);
                 int allVacation = userdata.vacationdays;
-                foreach(var item in users)
+                foreach (var item in users)
                 {
                     if (item.absenceStatus == "Geaccepteerd")
                     {

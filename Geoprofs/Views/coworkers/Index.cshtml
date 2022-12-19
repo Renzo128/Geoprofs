@@ -430,7 +430,7 @@
     if(currentDay == MomenteleMaand2 && fullWeek2 != 7)
     {
         displayLastMonth2 = 0;
-        currentDay = 1;
+        currentDay = 0;
 
 
         @while (fullWeek2 != 7 && usedWeeks != 3) {    // volgende maand displayen
@@ -476,8 +476,7 @@
                         longVacationEnd = longVacationEnd.AddMonths(-1);
                         int endyear = item2.AbsenceEnd.Year;
                         int startyear = item2.AbsenceStart.Year;
-                        if (currentYear <= endyear && currentYear >= startyear && end >= currentDay && endmonth >= NextMonthForDisplay ||currentYear <= endyear && currentYear >= startyear && NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= currentDay||currentYear <= endyear && currentYear >= startyear && startmonth <= CurrentMonth2 && endmonth >= CurrentMonth2 && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && currentYear >= startyear && startmonth == CurrentMonth2 &&  start >= currentDay  && longVacationEnd > longVacationStart)
-
+                        if (currentYear <= endyear && currentYear >= startyear && start <= displayLastMonth && end >= displayLastMonth && endmonth >= NextMonthForDisplay && startmonth <= NextMonthForDisplay ||currentYear <= endyear && currentYear >= startyear && NextMonthForDisplay > startmonth && NextMonthForDisplay == endmonth && start >= displayLastMonth||currentYear <= endyear && currentYear >= startyear && startmonth <= CurrentMonth && endmonth >= currentMonth && longVacationEnd > longVacationStart && end <= NextMonthForDisplay||currentYear <= endyear && currentYear >= startyear && startmonth == CurrentMonth &&  start >= displayLastMonth  && longVacationEnd > longVacationStart)
                         {   
 <!-- verlof displayen-->
                             <p class="name @item.Position.positionName">
